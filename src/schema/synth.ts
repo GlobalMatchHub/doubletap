@@ -29,7 +29,20 @@ type Schema = Record<string, unknown>;
 /** Whether the tool is expected to consume existing state or create new state. */
 export type Intent = "read" | "mutate" | "create";
 
-const CREATE_RE = /(create|write|new|add|make|mkdir|put|upload|insert|store|save|post|open)/i;
+/**
+ * Short words need boundaries; long ones do not.
+ *
+ * Unanchored, "put" matches "output" and "input", so get_output was
+ * classified as a create and handed a path that does not exist yet. The call
+ * then failed with ENOENT and the tool was skipped as "the server needed
+ * something we could not provide", which is both wrong and invisible.
+ * Keys and tool names are normalised to snake_case before these run, so a
+ * boundary is an underscore or an end of string.
+ */
+const W = String.raw`(^|_)`;
+const D = String.raw`($|_)`;
+
+const CREATE_RE = new RegExp(`create|write|${W}new${D}|${W}add${D}|${W}make${D}|mkdir|${W}put${D}|upload|insert|store|${W}save${D}|${W}post${D}|${W}open${D}`, "i");
 const MUTATE_RE = /(edit|append|patch|update|modify|move|rename|copy|delete|remove|unlink|truncate|set|replace)/i;
 const READ_RE = /(read|get|list|stat|info|tree|search|find|describe|fetch|show|head|cat|query|view|resolve)/i;
 
@@ -57,15 +70,15 @@ const IDENTIFIER_RE = /(bucket|project|org|organisation|organization|workspace|a
 
 const PATH_RE = /(^|_)(paths?|files?|filepaths?|filenames?|dirs?|directory|directories|folders?|source|destination|src|dest|target)($|_)/i;
 const DIR_RE = /(dir|directory|folder)/i;
-const FRESH_RE = /(destination|dest|new_?path|new_?name|to|output|out_?path)/i;
+const FRESH_RE = new RegExp(`destination|${W}dest${D}|new_?path|new_?name|${W}to${D}|${W}output${D}|out_?path`, "i");
 const SOURCE_RE = /(source|src|from|input|old_?path)/i;
 const CONTENT_RE = /(content|body|text|data|payload|value|message)/i;
 const OLD_TEXT_RE = /^old_?(text|string|str|content|value)$/i;
 const NEW_TEXT_RE = /^new_?(text|string|str|content|value)$/i;
 const NAME_RE = /(^|_)(name|title|label|key|entity|node|topic|entity_?name)($|_)/i;
 const IDEMPOTENCY_RE = /(idempotenc|request_?id|dedupe|dedup_?key|client_?token|transaction_?id)/i;
-const QUERY_RE = /(query|search|pattern|q|term|keyword|substring)/i;
-const URL_RE = /(url|uri|endpoint|href|link)/i;
+const QUERY_RE = new RegExp(`query|search|pattern|${W}q${D}|${W}term${D}|keyword|substring`, "i");
+const URL_RE = new RegExp(`${W}url${D}|${W}uri${D}|endpoint|href|${W}link${D}`, "i");
 
 interface Resolved {
   /** The fixture file this case operates on, relative to the workspace. */
@@ -216,9 +229,11 @@ function synthValue(rawKey: string, s: Schema, ctx: SynthContext, r: Resolved, d
       return false;
     case "array": {
       const item = (s.items ?? { type: "string" }) as Schema;
-      const n = Math.max(Number(s.minItems ?? 1), 1);
-      // Array-valued path fields keep the key's meaning for their items.
-      return Array.from({ length: Math.min(n, 2) }, () => synthValue(key, item, ctx, r, depth + 1));
+      // Capped, but never below minItems: sending fewer elements than the
+      // schema demands gets the call rejected for a reason the harness
+      // invented, which then reads as the server being unreachable.
+      const n = Math.min(Math.max(Number(s.minItems ?? 1), 1), 8);
+      return Array.from({ length: n }, () => synthValue(key, item, ctx, r, depth + 1));
     }
     case "object": {
       const props = (s.properties ?? {}) as Record<string, Schema>;

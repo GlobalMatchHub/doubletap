@@ -88,6 +88,23 @@ export const idempotencyProbe: Probe = {
       }
 
       if (!hadEffect && bothSucceeded) {
+        // A third identical call separates two very different things that
+        // look alike from two calls alone.
+        //
+        // If the answer carries a timestamp, a random seed or a fresh uuid,
+        // every call differs from every other and the third differs from the
+        // second exactly as the second differed from the first. That is not a
+        // retry hazard, it is a clock.
+        //
+        // If instead the server changed mode after the first call -- "ok",
+        // then "already recorded", then "already recorded" -- the second and
+        // third agree with each other and disagree with the first. That is the
+        // dangerous one: a retrying client is told something the original
+        // caller was not, and it cannot tell that from a rejection.
+        const third = await c.session.callTool(tool.name, args, { timeoutMs: limits.callTimeoutMs });
+        const secondVsThird = canonical(r2.result ?? null) === canonical(third.result ?? null);
+        const inherentlyVariable = !resultStable && !secondVsThird;
+
         // No state to compare, but there is still a question worth asking: does
         // the same call answer the same way twice? A tool whose answer drifts
         // cannot be cached, replayed, or retried without the caller noticing a
@@ -99,17 +116,46 @@ export const idempotencyProbe: Probe = {
         // doing its job; a tool whose returned balance drifts is not, and only
         // the paths tell them apart.
         const drifted = resultStable ? [] : leafDiffPaths(r1.result ?? null, r2.result ?? null);
-        out.push({
-          probe: "answer-stability",
-          tool: tool.name,
-          status: resultStable ? "pass" : "fail",
-          code: resultStable ? "answer-reproducible" : "answer-not-reproducible",
-          claim: resultStable
-            ? "Two identical calls returned identical answers."
-            : `Two identical calls returned different answers at ${describePaths(drifted)}, so a retrying client cannot match the second answer to the first.`,
-          confidence: "observed",
-          evidence: { ...base, driftedPaths: drifted, firstResult: preview(r1), retryResult: preview(r2) },
-        });
+        const ev = {
+          ...base,
+          driftedPaths: drifted,
+          firstResult: preview(r1),
+          retryResult: preview(r2),
+          thirdResult: preview(third),
+          secondMatchesThird: secondVsThird,
+        };
+
+        if (resultStable) {
+          out.push({
+            probe: "answer-stability",
+            tool: tool.name,
+            status: "pass",
+            code: "answer-reproducible",
+            claim: "Two identical calls returned identical answers.",
+            confidence: "observed",
+            evidence: ev,
+          });
+        } else if (inherentlyVariable) {
+          out.push({
+            probe: "answer-stability",
+            tool: tool.name,
+            status: "pass",
+            code: "answer-carries-fresh-value",
+            claim: `Every call answers differently at ${describePaths(drifted)}, including a third that matched neither of the first two, so the answer carries something generated per call rather than reacting to the retry.`,
+            confidence: "observed",
+            evidence: ev,
+          });
+        } else {
+          out.push({
+            probe: "answer-stability",
+            tool: tool.name,
+            status: "fail",
+            code: "answer-not-reproducible",
+            claim: `The second call answered differently from the first at ${describePaths(drifted)} and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.`,
+            confidence: "observed",
+            evidence: ev,
+          });
+        }
       }
 
       if (!hadEffect) {

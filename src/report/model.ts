@@ -27,7 +27,7 @@ export const DOUBLING_CODES = ["retry-doubled", "unacknowledged-commit", "declar
 /** Findings where only the answer moved. Real, but a different sentence. */
 export const ANSWER_CODES = ["retry-answer-differs", "answer-not-reproducible"];
 /** Findings where a retry pushed the same write out to someone else's API. */
-export const UPSTREAM_CODES = ["upstream-write-repeated", "idempotency-key-regenerated"];
+export const UPSTREAM_CODES = ["upstream-write-repeated", "upstream-write-again", "idempotency-key-regenerated"];
 
 export function countCodes(t: TargetReport, codes: string[]): number {
   return codes.reduce((n, c) => n + (t.byCode[c] ?? 0), 0);

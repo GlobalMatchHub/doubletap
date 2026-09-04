@@ -106,7 +106,8 @@ export type VerdictCode =
   | "evidence-tampered"
   | "retry-appended-log"
   | "read-only-untested"
-  | "answer-carries-fresh-value";
+  | "answer-carries-fresh-value"
+  | "upstream-write-again";
 
 export interface VerdictRecord {
   k: "verdict";

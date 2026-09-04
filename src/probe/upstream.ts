@@ -191,7 +191,7 @@ async function runCase(
           tool: tool.name,
           status: "pass",
           code: "upstream-reads-only",
-          claim: `The retry re-sends ${describe(sample0(writes2))}, but the tool declares readOnlyHint, so the request is a query rather than a write.`,
+          claim: `The retry sent ${describe(sample0(writes2))} again, but the tool declares readOnlyHint, so the request is a query rather than a write.`,
           confidence: "observed",
           evidence: base,
         },
@@ -245,6 +245,25 @@ async function runCase(
       ];
     }
 
+    // "Re-sends" has to mean what it says. When no request in the retry
+    // matches one from the first call, nothing was re-sent, and saying so
+    // anyway was wrong for three of seven findings checked by hand: the
+    // bodies differed, so these were second, distinct writes rather than
+    // repeats. Both are worth reporting; only one is a repeat.
+    if (repeats.length === 0) {
+      return [
+        {
+          probe: "upstream-idempotency",
+          tool: tool.name,
+          status: "fail",
+          code: "upstream-write-again",
+          claim: `The retry sent a further write to ${describe(sample)} rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first.`,
+          confidence: "observed",
+          evidence: { ...base, repeatedRequests: 0, key: null, declaredReadOnly: false },
+        },
+      ];
+    }
+
     // No key, and no annotation saying the call is a read. Either reading is
     // what it does and the annotation that would say so is missing, or it is a
     // write and a retry duplicates it. Both are defects, and the claim says so
@@ -255,7 +274,7 @@ async function runCase(
         tool: tool.name,
         status: "fail",
         code: "upstream-write-repeated",
-        claim: `The retry re-sends ${describe(sample)} with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.`,
+        claim: `The retry re-sends ${describe(sample)} byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.`,
         confidence: "observed",
         evidence: { ...base, repeatedRequests: repeats.length, key: null, declaredReadOnly: false },
       },

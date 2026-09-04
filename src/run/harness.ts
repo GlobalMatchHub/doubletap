@@ -54,16 +54,17 @@ export async function openCase(
     oracle,
     sandbox,
     async snap(snapLabel: string) {
-      const s = await oracle.snapshot();
+      const s = await settledSnapshot(oracle);
       trace.write({
         k: "snap",
         label: snapLabel,
-        oracle: s.oracle,
-        digest: s.digest,
-        confidence: s.confidence,
-        entries: s.entries,
+        oracle: s.snapshot.oracle,
+        digest: s.snapshot.digest,
+        confidence: s.snapshot.confidence,
+        entries: s.snapshot.entries,
+        settleMs: s.settleMs,
       });
-      return s;
+      return s.snapshot;
     },
     upstream,
     async snapNet(snapLabel: string) {
@@ -127,6 +128,35 @@ async function connect(
     throw new Error(`target '${target.id}' did not complete initialize: ${JSON.stringify(init)}`);
   }
   return session;
+}
+
+/**
+ * Takes a snapshot only once the tree has stopped moving.
+ *
+ * A tool call returning is not the same as a tool call finishing. Servers
+ * answer and then flush: one writes its run directory hundreds of
+ * milliseconds after replying, so snapshotting the instant the call resolved
+ * saw one directory where four had been created. That asymmetry is worse than
+ * it sounds, because a sequential run gets the gaps between calls for free
+ * while a concurrent run does not, which manufactures a lost update out of
+ * nothing but impatience. It produced exactly that false finding once.
+ *
+ * Waiting a fixed amount would be a guess. Instead the tree is sampled until
+ * two consecutive reads agree, which costs a fast server almost nothing and
+ * gives a slow one the time it actually needs. How long it took is recorded
+ * on the snapshot, so a server that never settles is visible rather than
+ * silently truncated.
+ */
+async function settledSnapshot(oracle: FsOracle, quietMs = 120, maxMs = 3000) {
+  const started = Date.now();
+  let previous = await oracle.snapshot();
+  while (Date.now() - started < maxMs) {
+    await sleep(quietMs);
+    const next = await oracle.snapshot();
+    if (next.digest === previous.digest) return { snapshot: next, settleMs: Date.now() - started };
+    previous = next;
+  }
+  return { snapshot: previous, settleMs: Date.now() - started };
 }
 
 /** Where the outbound request log lives: outside the workspace, so writing to

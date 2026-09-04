@@ -58,7 +58,7 @@ export const concurrencyProbe: Probe = {
     const sequential = await runSequential(ctx, argsFor);
     if (sequential.skip) return [sequential.skip];
 
-    const concurrent = await runConcurrent(ctx, argsFor);
+    const concurrent = await runConcurrent(ctx, argsFor, sequential.elapsedMs);
 
     const base = {
       tool: tool.name,
@@ -69,6 +69,8 @@ export const concurrencyProbe: Probe = {
       concurrentSucceeded: concurrent.succeeded,
       sequentialUpstreamWrites: sequential.upstreamWrites,
       concurrentUpstreamWrites: concurrent.upstreamWrites,
+      sequentialMs: sequential.elapsedMs,
+      concurrentMs: concurrent.elapsedMs,
       serverSurvived: concurrent.serverAlive,
     };
 
@@ -94,7 +96,7 @@ export const concurrencyProbe: Probe = {
           tool: tool.name,
           status: "fail",
           code: "concurrent-calls-dropped",
-          claim: `${sequential.succeeded} of ${FANOUT} calls succeeded one at a time, but only ${concurrent.succeeded} did when they overlapped.`,
+          claim: `${sequential.succeeded} of ${FANOUT} calls succeeded one at a time, but only ${concurrent.succeeded} did when they overlapped, even given ${Math.round(Math.max(limits.callTimeoutMs, sequential.elapsedMs * 2, 20_000) / 1000)}s to answer.`,
           confidence: "observed",
           evidence: base,
         },
@@ -150,6 +152,7 @@ interface Run {
   succeeded: number;
   upstreamWrites: number;
   serverAlive: boolean;
+  elapsedMs: number;
   skip?: VerdictDraft;
 }
 
@@ -159,6 +162,7 @@ async function runSequential(
   argsFor: (ws: string, i: number) => Record<string, unknown>,
 ): Promise<Run> {
   const c: CaseHandle = await ctx.newCase(`concurrency-seq-${ctx.tool.name}`);
+  const started = Date.now();
   try {
     const before = await c.snap(`${ctx.tool.name}:seq:pre`);
     let succeeded = 0;
@@ -177,6 +181,7 @@ async function runSequential(
         diff,
         succeeded,
         upstreamWrites,
+        elapsedMs: Date.now() - started,
         serverAlive: c.session.alive,
         skip: {
           probe: "concurrency",
@@ -194,6 +199,7 @@ async function runSequential(
         diff,
         succeeded,
         upstreamWrites,
+        elapsedMs: Date.now() - started,
         serverAlive: c.session.alive,
         skip: {
           probe: "concurrency",
@@ -206,7 +212,7 @@ async function runSequential(
         },
       };
 
-    return { diff, succeeded, upstreamWrites, serverAlive: c.session.alive };
+    return { diff, succeeded, upstreamWrites, elapsedMs: Date.now() - started, serverAlive: c.session.alive };
   } finally {
     await c.dispose();
   }
@@ -216,8 +222,20 @@ async function runSequential(
 async function runConcurrent(
   ctx: ProbeContext,
   argsFor: (ws: string, i: number) => Record<string, unknown>,
+  sequentialMs: number,
 ): Promise<Run> {
   const c: CaseHandle = await ctx.newCase(`concurrency-par-${ctx.tool.name}`);
+  const started = Date.now();
+
+  // A server that queues overlapping calls rather than running them in
+  // parallel is not doing anything wrong, it is applying backpressure, and the
+  // last call in the queue legitimately waits for all the others. Holding the
+  // concurrent run to the same per-call timeout as the sequential one declares
+  // that correct behaviour a failure: an earlier version of this probe did
+  // exactly that and reported its only finding against a server that answered
+  // every call in ten seconds when given a fair budget.
+  const budget = Math.max(limits.callTimeoutMs, sequentialMs * 2, 20_000);
+
   try {
     const before = await c.snap(`${ctx.tool.name}:par:pre`);
 
@@ -226,7 +244,7 @@ async function runConcurrent(
     // a fanned-out plan actually does.
     const inflight = Array.from({ length: FANOUT }, (_, i) =>
       c.session
-        .callTool(ctx.tool.name, argsFor(c.sandbox.workspace, i), { timeoutMs: limits.callTimeoutMs })
+        .callTool(ctx.tool.name, argsFor(c.sandbox.workspace, i), { timeoutMs: budget })
         .catch(() => ({ answered: false })),
     );
     const results = await Promise.all(inflight);
@@ -236,6 +254,7 @@ async function runConcurrent(
       diff: diffSnapshots(before, after),
       succeeded: results.filter(ok).length,
       upstreamWrites: c.upstream.entries().filter(isWrite).length,
+      elapsedMs: Date.now() - started,
       serverAlive: c.session.alive,
     };
   } finally {

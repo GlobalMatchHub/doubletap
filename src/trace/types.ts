@@ -55,6 +55,8 @@ export interface SnapshotRecord {
   /** Merkle root over the observed state. */
   digest: string;
   confidence: "observed" | "derived";
+  /** How long the tree took to stop changing before this was taken. */
+  settleMs?: number;
   entries: SnapshotEntry[];
 }
 

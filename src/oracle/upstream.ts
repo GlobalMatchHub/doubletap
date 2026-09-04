@@ -19,13 +19,55 @@ export class UpstreamOracle implements Oracle {
   readonly name = "upstream";
   readonly confidence = "observed" as const;
   #logPath: string;
+  /** Everything ever observed, which the target cannot retract. */
+  #seen: NetEntry[] = [];
+  #tampered: string[] = [];
 
   constructor(logPath: string) {
     this.#logPath = logPath;
   }
 
+  /**
+   * Reads the request log, and remembers it.
+   *
+   * The interceptor runs inside the process under test, which means the code
+   * being measured can reach its log file. A server that wanted to hide what
+   * it sent could truncate the file, and one that wanted to invent traffic
+   * could append to it: both were demonstrated against this harness with a
+   * deliberately hostile test server, and the truncation worked silently.
+   *
+   * Keeping every record that has ever been read makes the file append-only
+   * from the harness's point of view. A later truncation or rewrite no longer
+   * erases the evidence, and it is recorded as tampering rather than quietly
+   * accepted. Forged *additions* remain possible and are called out in the
+   * threat model: nothing running inside a process can keep a secret from it.
+   */
   entries(): NetEntry[] {
-    return readNetLog(this.#logPath);
+    const onDisk = readNetLog(this.#logPath);
+
+    if (onDisk.length < this.#seen.length) {
+      this.#tampered.push(
+        `log shrank from ${this.#seen.length} to ${onDisk.length} records; the server truncated its own request log`,
+      );
+      return this.#seen;
+    }
+
+    for (let i = 0; i < this.#seen.length; i++) {
+      const before = this.#seen[i]!;
+      const now = onDisk[i];
+      if (!now || now.fingerprint !== before.fingerprint || now.url !== before.url) {
+        this.#tampered.push(`record ${i} changed after it was written; the server rewrote its own request log`);
+        return this.#seen;
+      }
+    }
+
+    this.#seen = onDisk;
+    return onDisk;
+  }
+
+  /** Non-empty when the log was truncated or rewritten under us. */
+  tampering(): string[] {
+    return [...this.#tampered];
   }
 
   async snapshot(): Promise<Snapshot> {

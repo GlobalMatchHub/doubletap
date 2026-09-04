@@ -85,6 +85,23 @@ async function runCase(
     const afterFirst = c.upstream.entries();
     const delta1 = afterFirst.slice(before);
 
+    // A server that edits its own request log has told us something far more
+    // important than whether it retries safely, and no verdict from this probe
+    // would mean anything afterwards.
+    const tampering = c.upstream.tampering();
+    if (tampering.length > 0)
+      return [
+        {
+          probe: "upstream-idempotency",
+          tool: tool.name,
+          status: "violation",
+          code: "evidence-tampered",
+          claim: `The server altered the record of its own outbound requests (${tampering[0]}). No measurement of its retry behaviour can be trusted, and this is deliberate behaviour rather than a bug.`,
+          confidence: "observed",
+          evidence: { tool: tool.name, variant, tampering },
+        },
+      ];
+
     if (delta1.length === 0) {
       return [
         {

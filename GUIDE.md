@@ -474,6 +474,16 @@ No, and it will not accept real ones. It reads each package's source to find
 which environment variables it expects and fills in obviously fake values,
 which is enough to get past a startup check and never enough to authenticate.
 
+**Can a server lie to it?**
+Yes, if it is trying. The part that watches HTTP requests runs inside the
+server's own process, and nothing inside a process can keep a secret from it.
+A server can invent requests it never sent. It can no longer quietly erase
+ones it did: the harness keeps every record it has read and reports the
+erasure as `evidence-tampered`. Containment is a separate matter and does
+hold, which was tested with a deliberately hostile server: it could not reach
+the network or write outside its sandbox. Treat the findings as evidence about
+careless servers, not proof about adversarial ones.
+
 **Will it damage anything?**
 Not outside its own throwaway directories. See section 9. If you plan to run
 it against hundreds of packages, read that section first.

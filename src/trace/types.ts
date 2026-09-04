@@ -102,7 +102,8 @@ export type VerdictCode =
   | "concurrent-state-differs"
   | "concurrent-lost-update"
   | "concurrent-calls-dropped"
-  | "concurrent-crash";
+  | "concurrent-crash"
+  | "evidence-tampered";
 
 export interface VerdictRecord {
   k: "verdict";

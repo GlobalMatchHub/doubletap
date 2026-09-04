@@ -74,8 +74,10 @@ if (LOG) {
     record({ via: "fetch", method, url, headers, body: clip(body), fingerprint: fp, answered: res.from, status: res.status });
     return new Response(res.body, { status: res.status, headers: res.headers });
   };
-  globalThis.fetch.__doubletap = true;
-  globalThis.__doubletapRealFetch = realFetch;
+  // Deliberately not stashing the original fetch on globalThis. Handing the
+  // code under test a documented way to undo the interception buys nothing and
+  // removes a step from anyone trying to.
+  void realFetch;
 
   // ---- http.request / https.request -------------------------------------
   for (const mod of [http, https]) {
@@ -90,7 +92,8 @@ if (LOG) {
       req.end();
       return req;
     };
-    mod.__doubletapReal = realRequest;
+    // Same reasoning as above: no handle back to the real implementation.
+    void realRequest;
   }
 }
 

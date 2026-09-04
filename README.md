@@ -217,6 +217,43 @@ Two layers now, because either alone has a hole:
 
 A short list of servers is excluded outright, each with a stated reason, in `src/target/confine.ts` and `src/target/autoconfig.ts`. Blocking the network is not only a safety measure: it is what makes the census free, and it is why 43 servers report that nothing could be run against them. That is a real limitation, stated rather than papered over.
 
+## Threat model: buggy servers, not hostile ones
+
+This distinction decides what the census means, so it is worth being exact
+about. It was tested with a deliberately hostile MCP server rather than
+reasoned about.
+
+**Containment holds.** The hostile server restored the original `fetch` and
+tried to reach the network: denied at the kernel by `sandbox-exec`
+(`ENOTFOUND`). It followed the `node_modules` symlink and tried to write
+outside its sandbox: denied (`EPERM`). Nothing it did escaped.
+
+**Measurement does not hold against a server that is trying.** The interceptor
+runs inside the process under test, and nothing running inside a process can
+keep a secret from it. The hostile server truncated its own request log, and
+it appended a request it never made. Both worked.
+
+What changed after that test:
+
+- The request log is now append-only from the harness's side. Every record
+  ever read is kept, so a later truncation cannot erase evidence and is
+  reported as `evidence-tampered`, a violation that supersedes every other
+  verdict for that server. A server hiding what it sent has said something
+  more important than whether it retries safely.
+- The interceptor no longer stashes the original `fetch` on `globalThis`.
+  Handing the code under test a documented way to undo the interception bought
+  nothing.
+
+What still does not hold, and cannot without a different design: a server can
+**invent** requests it never sent, and a request made and erased between two
+of the harness's reads is gone. Preventing that means moving interception out
+of the process, which means a real proxy and a real certificate authority.
+
+So: **these findings are evidence about servers that are careless, not proof
+about servers that are adversarial.** Every finding in the census is of the
+first kind. If you need the second, this is not yet the tool, and it says so
+rather than letting you assume otherwise.
+
 ## Determinism, and where it stops
 
 Every choice comes from one seed: argument values, tokens, probe order, cut offsets. Sandbox paths are redacted on the way into the trace and frame hashes are taken over the redacted form, so two runs of the same seed produce the same bytes.

@@ -1,6 +1,7 @@
 import type { Census, TargetReport } from "./model.ts";
 import { findings, isExercisable, totals, countCodes, DOUBLING_CODES, ANSWER_CODES, UPSTREAM_CODES } from "./model.ts";
 import type { VerdictRecord } from "../trace/types.ts";
+import { redactDeep } from "./redact.ts";
 
 /**
  * Static, dependency-free report. No emoji: status is carried by inline SVG.
@@ -12,7 +13,8 @@ import type { VerdictRecord } from "../trace/types.ts";
  * reader who wants them can grep. A page that a browser cannot open is not a
  * report.
  */
-export function renderHtml(c: Census): string {
+export function renderHtml(input: Census): string {
+  const c = redactDeep(input);
   const tot = totals(c);
   const exercisable = c.targets.filter(isExercisable).sort(byFindings);
   const inert = c.targets.filter((t) => !isExercisable(t)).sort((a, b) => a.label.localeCompare(b.label));

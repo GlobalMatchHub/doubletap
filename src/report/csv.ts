@@ -1,8 +1,10 @@
 import type { Census } from "./model.ts";
+import { redactDeep } from "./redact.ts";
 
 /** One row per verdict. For a census of dozens of servers this is the format
  *  a reader can actually sort, filter and cite from. */
-export function renderCsv(c: Census): string {
+export function renderCsv(input: Census): string {
+  const c = redactDeep(input);
   const rows: string[][] = [
     ["server", "source", "monthlyInstalls", "tool", "probe", "status", "code", "claim", "trace"],
   ];

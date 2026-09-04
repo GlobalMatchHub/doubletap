@@ -1,8 +1,11 @@
 import type { Census } from "./model.ts";
 import { findings, isExercisable, totals, countCodes, DOUBLING_CODES, ANSWER_CODES, UPSTREAM_CODES } from "./model.ts";
+import { redactDeep } from "./redact.ts";
 
 /** The table that goes in the README and on a slide. */
-export function renderMarkdown(c: Census): string {
+export function renderMarkdown(input: Census): string {
+  // Redact once, at the boundary, so no individual call site can forget.
+  const c = redactDeep(input);
   const tot = totals(c);
   const exercisable = c.targets.filter(isExercisable);
   const inert = c.targets.filter((t) => !isExercisable(t));

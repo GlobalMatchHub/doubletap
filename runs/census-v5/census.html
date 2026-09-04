@@ -1349,56 +1349,56 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">add_group_member</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/permissions/membership with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/permissions/membership with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">copy_card</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/card/10/copy with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/card/10/copy with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">copy_dashboard</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/dashboard/3/copy with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/dashboard/3/copy with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">create_action</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/action with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/action with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">create_action_public_link</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/action/6/public_link with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/action/6/public_link with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">create_alert</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/alert with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/alert with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">create_bookmark</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/bookmark/card/8 with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/bookmark/card/8 with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">create_card</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/card with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/card with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="tacticlaunch-mcp-linear" class="tgt">
@@ -1467,56 +1467,56 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">createCategoryTree</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v2/list_professions/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v2/list_professions/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createClick</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v2/users_clicks/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v2/users_clicks/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createDataType</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v2/data_types/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v2/data_types/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createEmailTemplate</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v2/email_templates/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v2/email_templates/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createForm</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v2/form/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v2/form/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createFormField</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v2/form_fields/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v2/form_fields/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createLead</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v2/leads/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v2/leads/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createLeadMatch</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v2/lead_matches/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v2/lead_matches/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="doist-todoist-mcp" class="tgt">
@@ -1526,49 +1526,49 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">add-filters</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v1/sync with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v1/sync with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">add-labels</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v1/labels with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v1/labels with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">add-projects</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v1/projects with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v1/projects with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">add-reminders</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v1/reminders with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v1/reminders with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">add-sections</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v1/sections with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v1/sections with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">add-tasks</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v1/tasks with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v1/tasks with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">analyze-project-health</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v1/projects/dt-7a970e/insights/health/analyze with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v1/projects/dt-7a970e/insights/health/analyze with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="bitbucket-mcp" class="tgt">
@@ -1578,49 +1578,49 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">addPendingPullRequestComment</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/repositories/dt-404930/dt-404930/pullrequests/dt-404930/comments with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/repositories/dt-404930/dt-404930/pullrequests/dt-404930/comments with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">addPullRequestComment</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/repositories/dt-530957/dt-530957/pullrequests/dt-530957/comments with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/repositories/dt-530957/dt-530957/pullrequests/dt-530957/comments with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">approvePullRequest</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/repositories/dt-352960/dt-352960/pullrequests/dt-352960/approve with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/repositories/dt-352960/dt-352960/pullrequests/dt-352960/approve with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createDraftPullRequest</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/repositories/dt-4007f6/dt-4007f6/pullrequests with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/repositories/dt-4007f6/dt-4007f6/pullrequests with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createPullRequest</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/repositories/dt-7f7aa5/dt-7f7aa5/pullrequests with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/repositories/dt-7f7aa5/dt-7f7aa5/pullrequests with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createPullRequestTask</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/repositories/dt-2d3bd4/dt-2d3bd4/pullrequests/dt-2d3bd4/tasks with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/repositories/dt-2d3bd4/dt-2d3bd4/pullrequests/dt-2d3bd4/tasks with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">declinePullRequest</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/repositories/dt-1e7f16/dt-1e7f16/pullrequests/dt-1e7f16/decline with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/repositories/dt-1e7f16/dt-1e7f16/pullrequests/dt-1e7f16/decline with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="hostinger-api-mcp" class="tgt">
@@ -1630,42 +1630,42 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">agency-hosting_buildWebsiteNodeJSAssetsV1</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/agency-hosting/v1/websites/dt-e93659/build-assets with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/agency-hosting/v1/websites/dt-e93659/build-assets with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">agency-hosting_changeWordPressVersionV1</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends PATCH upstream.doubletap.invalid/api/agency-hosting/v1/websites/dt-9bc7d3/wordpress/settings/version with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends PATCH &lt;upstream&gt;/api/agency-hosting/v1/websites/dt-9bc7d3/wordpress/settings/version with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">agency-hosting_createANewWebsiteV1</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/agency-hosting/v1/orders/8/websites/setups with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/agency-hosting/v1/orders/8/websites/setups with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">agency-hosting_createWebsiteCronJobV1</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/agency-hosting/v1/websites/dt-e91d84/cron-jobs with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/agency-hosting/v1/websites/dt-e91d84/cron-jobs with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">agency-hosting_createWebsiteDatabaseUserV1</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/agency-hosting/v1/websites/dt-edc33f/databases/doubletap%20edc33f%0A/users with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/agency-hosting/v1/websites/dt-edc33f/databases/doubletap%20edc33f%0A/users with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">agency-hosting_createWebsiteDatabaseV1</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/agency-hosting/v1/websites/dt-f4c138/databases with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/agency-hosting/v1/websites/dt-f4c138/databases with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="hyperbrowser-mcp" class="tgt">
@@ -1796,35 +1796,35 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">cancel_app_release_stage_execution</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/oapi/v1/appstack/apps/dt-1b5b45/releaseWorkflows/dt-1b5b45/releaseStages/dt-1b5b45/executions/dt-1b5b45:cancel with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/oapi/v1/appstack/apps/dt-1b5b45/releaseWorkflows/dt-1b5b45/releaseStages/dt-1b5b45/executions/dt-1b5b45:cancel with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">cancel_appstack_change_request</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/oapi/v1/appstack/apps/dt-5c6efb/changeRequests/dt-5c6efb:cancel with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/oapi/v1/appstack/apps/dt-5c6efb/changeRequests/dt-5c6efb:cancel with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">close_appstack_change_request</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/oapi/v1/appstack/apps/dt-895667/changeRequests/dt-895667:finish with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/oapi/v1/appstack/apps/dt-895667/changeRequests/dt-895667:finish with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">create_app_orchestration</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/oapi/v1/appstack/apps/dt-d2f444/orchestrations with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/oapi/v1/appstack/apps/dt-d2f444/orchestrations with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">create_app_tag</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/oapi/v1/appstack/appTags with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/oapi/v1/appstack/appTags with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="mcp-scraper" class="tgt">
@@ -1834,35 +1834,35 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">access-accept-share</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">access-approve-sender</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">access-decline-share</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">access-inbox-settings</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">access-invite-account</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="currents-mcp" class="tgt">
@@ -1872,28 +1872,28 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">currents-cancel-run-github-ci</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends PUT upstream.doubletap.invalid/runs/cancel-ci/github with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends PUT &lt;upstream&gt;/runs/cancel-ci/github with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">currents-create-action</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/actions with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/actions with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">currents-create-jira-issue</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/projects/dt-0e4749/jira/issues with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/projects/dt-0e4749/jira/issues with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">currents-create-webhook</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/webhooks with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/webhooks with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="delorenj-mcp-server-trello" class="tgt">
@@ -1934,28 +1934,28 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">hubspot-batch-create-associations</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/crm/v4/associations/dt-62ea3f/dt-62ea3f/batch/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/crm/v4/associations/dt-62ea3f/dt-62ea3f/batch/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">hubspot-batch-create-objects</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/crm/v3/objects/dt-496413/batch/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/crm/v3/objects/dt-496413/batch/create with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">hubspot-batch-update-objects</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/crm/v3/objects/dt-5cbe01/batch/update with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/crm/v3/objects/dt-5cbe01/batch/update with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">hubspot-create-property</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/crm/v3/properties/dt-d5de8c with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/crm/v3/properties/dt-d5de8c with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="kolbo-mcp" class="tgt">
@@ -1965,28 +1965,28 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">acquire_clean_music_track</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/music-library/clean/dt-05988c with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/music-library/clean/dt-05988c with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">activate_color_palette</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/color-palettes/dt-eb1e15/activate with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/color-palettes/dt-eb1e15/activate with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">add_media_to_folder</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/media/folders/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-kolbo-mcp-upstream-same-add_media_to_folder-hJ7JZX%2Fworkspace%2Fdt-3e5c9c-dir/items with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/media/folders/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-kolbo-mcp-upstream-same-add_media_to_folder-hJ7JZX%2Fworkspace%2Fdt-3e5c9c-dir/items with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">add_review_version</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/review/assets/dt-ee2874/versions with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/review/assets/dt-ee2874/versions with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="productbrain-mcp" class="tgt">
@@ -2120,21 +2120,21 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">createAgentWebhook</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/voice-agents/dt-9be602/webhooks with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/voice-agents/dt-9be602/webhooks with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createApiKey</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/platform/api-keys with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/platform/api-keys with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">createArtifact</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/artifacts with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/artifacts with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="felores-airtable-mcp-server" class="tgt">
@@ -2175,14 +2175,14 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">control</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v1/applications/dt-d47c19/start with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v1/applications/dt-d47c19/start with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">deploy</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/api/v1/deploy with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/api/v1/deploy with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="ask-experts-mcp" class="tgt">
@@ -2216,14 +2216,14 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">bb_patch</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends PATCH api.bitbucket.org/2.0/private/var/folders/sk/2dc6gxhx2sx95bx90x1hbg7h0000gn/T/doubletap-aashari-mcp-server-atlassian-bitbucket-upstream-same-bb_patch-P7VRIa/workspace/note.txt with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends PATCH api.bitbucket.org/2.0&lt;sandbox&gt;/workspace/note.txt with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">bb_post</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST api.bitbucket.org/2.0/private/var/folders/sk/2dc6gxhx2sx95bx90x1hbg7h0000gn/T/doubletap-aashari-mcp-server-atlassian-bitbucket-upstream-same-bb_post-TU8nwo/workspace/dt-ca8c26.txt with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST api.bitbucket.org/2.0&lt;sandbox&gt;/workspace/dt-ca8c26.txt with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="arizeai-phoenix-mcp" class="tgt">
@@ -2250,14 +2250,14 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">jira_createIssue</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invaliddoubletap-placeholder-0000000000000000/api/2/issue with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;&lt;placeholder&gt;/api/2/issue with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">jira_linkIssues</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invaliddoubletap-placeholder-0000000000000000/api/2/issueLink with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;&lt;placeholder&gt;/api/2/issueLink with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="coinbase-cds-mcp-server" class="tgt">
@@ -2284,7 +2284,7 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">copy_object_safe</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST storage.googleapis.com/storage/v1/b/private/var/folders/sk/2dc6gxhx2sx95bx90x1hbg7h0000gn/T/doubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-ZG3tDT/workspace/note.txt/o/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-ZG3tDT%2Fworkspace%2Fnote.txt/rewriteTo/b//private/var/folders/sk/2dc6gxhx2sx95bx90x1hbg7h0000gn/T/doubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-ZG3tDT/workspace/dt-2ce213.txt/o/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-ZG3tDT%2Fworkspace%2Fdt-2ce213.txt with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST storage.googleapis.com/storage/v1/b&lt;sandbox&gt;/workspace/note.txt/o/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-ZG3tDT%2Fworkspace%2Fnote.txt/rewriteTo/b/&lt;sandbox&gt;/workspace/dt-2ce213.txt/o/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-ZG3tDT%2Fworkspace%2Fdt-2ce213.txt with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
@@ -2335,14 +2335,14 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">API-create-a-comment</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/comments with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/comments with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">API-create-a-data-source</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/data_sources with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/data_sources with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="siemens-ix-mcp-react" class="tgt">
@@ -2369,14 +2369,14 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">attach_number</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/agents/dt-2e143c/numbers with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/agents/dt-2e143c/numbers with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li>
 <li class="finding fail">
     <div class="fh"><svg class="ic warn" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5l6.5 12h-13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>
       <code class="tool">create_agent</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/v1/agents with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/v1/agents with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="howtocook-mcp" class="tgt">
@@ -2430,7 +2430,7 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">growthbook_api_write</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/private/var/folders/sk/2dc6gxhx2sx95bx90x1hbg7h0000gn/T/doubletap-growthbook-mcp-upstream-same-growthbook_api_write-PeNK9m/workspace/dt-b9f57e.txt with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;&lt;sandbox&gt;/workspace/dt-b9f57e.txt with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="letoribo-mcp-graphql-enhanced" class="tgt">
@@ -2500,7 +2500,7 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">getRealtimeLocationByAnum</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid/ with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;/ with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
 <details id="comfyui-mcp" class="tgt">
@@ -2530,7 +2530,7 @@ li.finding.violation{border-left-color:var(--bad)}
       <code class="tool">nextjs_index</code>
       <span class="tag">upstream-idempotency</span><span class="tag">upstream-write-repeated</span>
     </div>
-    <p class="claim">The retry re-sends POST upstream.doubletap.invalid:3000/_next/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
+    <p class="claim">The retry re-sends POST &lt;upstream&gt;:3000/_next/mcp with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.</p>
   </li></ul>
 </details>
   </section>

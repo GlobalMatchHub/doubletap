@@ -43,6 +43,18 @@ export function intentOf(toolName: string, readOnlyHint?: boolean): Intent {
   return "create";
 }
 
+/**
+ * Names that look like a path but are not one.
+ *
+ * A field called sourceBucket or destinationProject normalises to something
+ * beginning with "source" or "destination", which is exactly what the path
+ * heuristic keys on, so it was handed a filesystem path and the resulting
+ * request read as nonsense: a bucket name several directories deep. The
+ * finding underneath was still real, but a maintainer reading a URL like that
+ * concludes the tool is confused rather than that their server is.
+ */
+const IDENTIFIER_RE = /(bucket|project|org|organisation|organization|workspace|account|tenant|repo|repository|database|dataset|table|collection|index|channel|team|board|queue|topic|namespace)/i;
+
 const PATH_RE = /(^|_)(paths?|files?|filepaths?|filenames?|dirs?|directory|directories|folders?|source|destination|src|dest|target)($|_)/i;
 const DIR_RE = /(dir|directory|folder)/i;
 const FRESH_RE = /(destination|dest|new_?path|new_?name|to|output|out_?path)/i;
@@ -168,6 +180,9 @@ function synthValue(rawKey: string, s: Schema, ctx: SynthContext, r: Resolved, d
         return body.split("\n")[0] ?? "";
       }
       if (NEW_TEXT_RE.test(key)) return `doubletap ${token}`;
+      // An identifier that merely starts with "source" or "destination" is a
+      // name, not a location.
+      if (IDENTIFIER_RE.test(key)) return `dt-${token}`;
       if (PATH_RE.test(key) || /\bpath\b/i.test(desc)) return pathFor(key, ctx, r, desc);
       if (URL_RE.test(key)) return "https://example.invalid/doubletap";
       if (CONTENT_RE.test(key)) return `doubletap ${token}\n`;
@@ -217,6 +232,7 @@ function synthValue(rawKey: string, s: Schema, ctx: SynthContext, r: Resolved, d
     default: {
       // No declared type. Fall back to the name; an untyped property is worth
       // noting but not worth failing the case over.
+      if (IDENTIFIER_RE.test(key)) return `dt-${token}`;
       if (PATH_RE.test(key)) return pathFor(key, ctx, r);
       if (CONTENT_RE.test(key)) return `doubletap ${token}\n`;
       return `dt-${token}`;

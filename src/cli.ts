@@ -52,6 +52,18 @@ if (cmd === "run") {
     `\n${res.targetLabel}\n  violations ${by("violation")}  fails ${by("fail")}  passes ${by("pass")}  skips ${by("skip")}  errors ${by("error")}`,
   );
   console.log(`  trace ${res.tracePath}  (${res.durationMs} ms)`);
+} else if (cmd === "render") {
+  // Rebuilds the human-facing reports from a census that has already run.
+  // Presentation fixes should never require re-running a census: the findings
+  // are in the JSON, and re-measuring to change a label would risk changing
+  // the result along with it.
+  const dir = process.argv[3];
+  if (!dir) throw new Error("usage: doubletap render <run directory>");
+  const census = JSON.parse(readFileSync(`${dir}/census.json`, "utf8")) as Census;
+  writeFileSync(`${dir}/census.html`, renderHtml(census));
+  writeFileSync(`${dir}/census.md`, renderMarkdown(census));
+  writeFileSync(`${dir}/census.csv`, renderCsv(census));
+  console.log(`rewrote ${dir}/census.{html,md,csv} from census.json`);
 } else if (cmd === "selftest") {
   // The harness checking itself before it reports on anybody else.
   const results = await runSelfTest();
@@ -312,7 +324,7 @@ if (cmd === "run") {
   run     --target <id> [--seed s] [--tool name] [--probe name] [--out dir]
   census  [--auto targets.auto.json] [--probes a,b] [--max-tools n] [--verify t]
   verify  --target <id> [--probe name]  same seed twice, compared line by line
-  selftest                              check the harness\u0027s own preconditions\n  discover [--limit n] [--out file]     find which installed servers start unaided
+  render   <run dir>                    rebuild reports from an existing census.json\n  selftest                              check the harness\u0027s own preconditions\n  discover [--limit n] [--out file]     find which installed servers start unaided
   screen   [--auto file] [--out file]    keep only servers with observable state
   targets
 `);

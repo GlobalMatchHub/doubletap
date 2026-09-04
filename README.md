@@ -4,6 +4,9 @@
 
 Doubletap drives someone else's MCP server through the failures that actually happen in production, then reads the server's own state to see what it did. It never calls a model, and it runs every server offline inside a `sandbox-exec` jail, so a full census costs nothing but CPU.
 
+**New to this?** [GUIDE.md](GUIDE.md) explains the problem, the tests and the
+output from scratch, and assumes nothing beyond knowing how to run a command.
+
 ```
 doubletap discover        # which published servers start with no credentials
 doubletap screen          # which of those can be judged at all

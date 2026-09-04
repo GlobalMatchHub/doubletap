@@ -309,7 +309,7 @@ every snapshot, one per line. Every verdict carries the command that replays
 it:
 
 ```bash
-node --no-warnings src/cli.ts replay runs/census-v5/filesystem-dt-census-1.dt.jsonl --tool write_file
+node --no-warnings src/cli.ts replay runs/census-v7/filesystem-dt-census-1.dt.jsonl --tool write_file
 ```
 
 Replay recomputes each snapshot's fingerprint from what was recorded instead

@@ -55,27 +55,27 @@ plausible-looking placeholder is filled in, enough to clear the guard and reach
 the code that issues the request, never enough to authenticate against anything
 real.
 
-### 94 servers, 609 tools
+### 94 servers, 599 tools
 
-Full tables in [`runs/census-v4/census.md`](runs/census-v4/census.md), one row
+Full tables in [`runs/census-v5/census.md`](runs/census-v5/census.md), one row
 per verdict in `census.csv`.
 
 **51 of 94 servers have at least one tool a retrying client cannot use safely**,
-covering 175 of 609 exercised tools: 148 findings are a retry pushing the same
-write back out to somebody's API, 34 are an answer that will not repeat, 4 are
+covering 172 of 599 exercised tools: 145 findings are a retry pushing the same
+write back out to somebody's API, 33 are an answer that will not repeat, 3 are
 a local effect applied twice, and 1 is a tool that declares itself idempotent
 and is not.
 
 | Server | Monthly installs | Exercised | Contract violation | Upstream write repeated | Answer not reproducible |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `nexus-agents` | 36,481 | 8 | 1 | 1 | 0 |
+| `@shortcut/mcp` | 65,231 | 8 | 0 | 3 | 7 |
+| `@shopify/dev-mcp` | 128,473 | 5 | 0 | 5 | 4 |
 | `@serdnaley/metabase-mcp` | 243,342 | 8 | 0 | 8 | 0 |
 | `@google-cloud/observability-mcp` | 110,871 | 8 | 0 | 0 | 8 |
-| `@shopify/dev-mcp` | 128,473 | 6 | 0 | 6 | 5 |
+| `brilliant-directories-mcp` | 26,452 | 8 | 0 | 8 | 0 |
+| `@tacticlaunch/mcp-linear` | 16,377 | 8 | 0 | 8 | 0 |
 | `hostinger-api-mcp` | 526,419 | 8 | 0 | 6 | 0 |
-| `@currents/mcp` | 154,345 | 8 | 0 | 4 | 0 |
-| `@hubspot/mcp-server` | 73,968 | 8 | 0 | 4 | 0 |
-| `@shortcut/mcp` | 65,231 | 8 | 0 | 3 | 7 |
 | ... 43 more | | | | | |
 
 The single strongest finding, reproduced independently twice:
@@ -86,16 +86,9 @@ The single strongest finding, reproduced independently twice:
 {"readOnlyHint":false,"destructiveHint":false,"idempotentHint":true,"openWorldHint":false}
 ```
 
-and two identical calls with identical arguments produce two separate run
-directories, each with its own `index.md` and `trace.jsonl`:
-
-```
-.nexus-agents/runs/delegate-5974328f/
-.nexus-agents/runs/delegate-df367cf8/
-```
-
-`idempotentHint` is the flag a gateway reads to decide whether retrying is
-safe. Nothing anywhere checks whether it is true.
+and an identical retry creates a second run directory with its own `index.md`
+and `trace.jsonl`. `idempotentHint` is the flag a gateway reads to decide
+whether retrying is safe. Nothing anywhere checks whether it is true.
 
 Others worth naming:
 
@@ -116,26 +109,49 @@ tool that declares `readOnlyHint: true` is taken at its word, so a repeated
 search-style `POST` does not count either. The finding is reserved for a write
 the tool itself does not claim is safe to repeat.
 
-### What the first run got wrong
+### Overlapping calls: a clean result
 
-An earlier pass of this census reported 9 contract violations. Eight of them
-were false, and both causes were mine.
+126 tools were run four-at-once and compared against the same four calls made
+one after another. **None of them lost work.** That is worth stating plainly
+rather than burying: on this evidence, MCP servers handle overlapping calls
+well. The likely reason is unexciting, which is that Node is single-threaded
+and most of these servers mutate their state synchronously inside one handler.
 
-The synthesized credentials are placeholder strings, and one server used the
-value it was handed as a filename, writing its log to it. That log growing by
-one line per call registered as observable state, so a truncated request frame
-that made the server log a dropped connection was reported as the server acting
-on a frame it had not finished reading. A second server's growing event log
-registered the same way under the retry probe.
+The probe is not merely failing to look. `doubletap selftest` demonstrates that
+two two-second calls take 4.0s one at a time and 2.0s together, so the calls
+genuinely overlap. Without that check a wall of passes would be
+indistinguishable from a broken probe.
 
-Both are fixed at the root rather than filtered at the end. Synthesized values
-now carry a marker, and any path containing one is excluded from the
-filesystem oracle: a finding caused by the harness's own footprint is now
-structurally impossible rather than merely unlikely. Separately, growth
-appended to files that already existed is classified apart from a file being
-created or replaced, because a server writing a log line when a connection
-drops has done nothing wrong. Rerunning took `retry-doubled` from 19 to 3 and
-`truncated-frame-acted-on` from 8 to 0.
+### What earlier runs got wrong
+
+This harness has produced more false findings than real ones, and every one of
+them came from the same root: measuring its own footprint, or measuring
+unfairly. They are listed because a report about other people's defects is
+worth nothing unless it is harder on itself than on them.
+
+| Wrong finding | Cause |
+| --- | --- |
+| 8 contract violations against `bitbucket-mcp` | It used a synthesized credential as a filename and wrote its log there. That log growing by a line per call was read as the tool changing state. |
+| 16 retry duplications | The same log files, under the retry probe. |
+| 1 concurrency failure against `@shopify/dev-mcp` | Overlapping calls were held to the same per-call timeout as sequential ones. The server queues rather than parallelises, answered all four within ten seconds, and was reported as dropping three. |
+| 1 lost update against `nexus-agents` | The snapshot raced the server's own writes. It answers and then flushes, so sampling the instant a call resolved saw one run directory where four had been created. |
+
+Each was fixed at the root rather than filtered at the end:
+
+- Synthesized credential values carry a marker, and any path containing one is
+  excluded from the filesystem oracle. A finding caused by the harness's own
+  footprint is now structurally impossible rather than merely unlikely.
+- Growth appended to a file that already existed is classified apart from a
+  file being created or replaced, because a server writing a log line when a
+  connection drops has done nothing wrong.
+- The concurrent phase gets at least twice the sequential run's own duration,
+  because queueing is backpressure, not failure.
+- Snapshots sample until two consecutive reads agree, and record how long that
+  took, so a server that never settles is visible rather than silently
+  truncated.
+
+None of the surviving findings changed when those fixes landed, which is the
+only reason to trust them.
 
 ## How it decides
 
@@ -237,7 +253,7 @@ Every run writes a `.dt.jsonl` trace: one record per line, append-only, greppabl
 Every verdict carries the command that reproduces it. Replay reads the trace back and recomputes each snapshot's merkle root from its recorded entries rather than trusting the stored digest, so an edited or truncated trace is detected instead of believed:
 
 ```
-$ doubletap replay runs/census-v4/filesystem-dt-census-1.dt.jsonl --tool write_file
+$ doubletap replay runs/census-v5/filesystem-dt-census-1.dt.jsonl --tool write_file
 ...
 336 records, 231 frames, 61/61 snapshot digests recomputed and matched
 ```

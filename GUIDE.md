@@ -284,7 +284,7 @@ every snapshot, one per line. Every verdict carries the command that replays
 it:
 
 ```bash
-node --no-warnings src/cli.ts replay runs/census-v4/filesystem-dt-census-1.dt.jsonl --tool write_file
+node --no-warnings src/cli.ts replay runs/census-v5/filesystem-dt-census-1.dt.jsonl --tool write_file
 ```
 
 Replay recomputes each snapshot's fingerprint from what was recorded instead
@@ -414,7 +414,8 @@ The fix was not to filter it out at the end. Fake values now carry a marker,
 and any path containing that marker is excluded from the measurement
 completely, so a finding caused by the harness's own footprint is impossible
 rather than unlikely. Rerunning dropped one category from 19 findings to 3 and
-another from 8 to 0.
+another from 8 to 0. Two more were found later, both the harness racing the
+server rather than the server misbehaving, and both are in the README table.
 
 That story is in the README because you should know what kind of mistakes this
 tool has made before you trust its numbers.

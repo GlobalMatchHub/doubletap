@@ -57,7 +57,11 @@ export async function runTarget(opts: RunOptions): Promise<RunResult> {
     env: { node: process.version, platform: process.platform, arch: process.arch },
     // Declared up front rather than discovered: these are ours, not the
     // server's, and hiding them would flatter the determinism claim.
-    volatile: ["$.runId", "$.startedAt", "$.repro"],
+    // settleMs is a real-time measurement of how long a server took to stop
+    // writing, so it varies between runs by definition. It is declared here
+    // rather than quietly dropped, because how long a server keeps writing
+    // after it answers is worth seeing even though it cannot be reproduced.
+    volatile: ["$.runId", "$.startedAt", "$.repro", "$.settleMs"],
   };
   trace.writeHeader(header);
 

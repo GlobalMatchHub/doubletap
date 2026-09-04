@@ -1,0 +1,21 @@
+{
+  "name": "mcp-doubletap",
+  "version": "0.1.0",
+  "description": "Conformance harness for MCP servers: proves whether a tool's side effect happens once, twice, or half.",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=22.18" },
+  "bin": { "doubletap": "./bin/doubletap.js" },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "dt": "node --no-warnings src/cli.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "@types/node": "^22.10.2"
+  }
+}

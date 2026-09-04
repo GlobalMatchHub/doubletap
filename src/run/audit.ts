@@ -43,17 +43,26 @@ export async function auditCensus(censusPath: string, sampleSize: number): Promi
   const census = JSON.parse(readFileSync(censusPath, "utf8")) as Census;
 
   // One finding per server, so a single chatty server cannot fill the sample.
-  const bySever = new Map<string, { server: string; tool: string; code: string }>();
+  // The variant is carried along: a server can deduplicate within a session
+  // and stop doing so after a reconnect, and those are two verdicts about two
+  // different situations. Comparing one against the other reports a
+  // disagreement that says nothing about either.
+  const bySever = new Map<string, { server: string; tool: string; code: string; variant: string }>();
   for (const t of census.targets)
     for (const v of t.verdicts)
       if (v.code && AUDITABLE.includes(v.code) && !bySever.has(t.label))
-        bySever.set(t.label, { server: t.label, tool: v.tool, code: v.code });
+        bySever.set(t.label, {
+          server: t.label,
+          tool: v.tool,
+          code: v.code,
+          variant: String((v.evidence as { variant?: string }).variant ?? "same session"),
+        });
 
   const sample = [...bySever.values()].slice(0, sampleSize);
   const rows: AuditRow[] = [];
 
   for (const s of sample) {
-    const row = await auditOne(s.server, s.tool, s.code);
+    const row = await auditOne(s.server, s.tool, s.code, s.variant);
     rows.push(row);
     console.log(
       `${row.agrees ? "agrees  " : "DISAGREES"}  ${row.server} :: ${row.tool}\n           published ${row.published} / observed ${row.observed}  ${row.detail}`,
@@ -62,8 +71,9 @@ export async function auditCensus(censusPath: string, sampleSize: number): Promi
   return rows;
 }
 
-async function auditOne(server: string, tool: string, published: string): Promise<AuditRow> {
-  const base = { server, tool, published };
+async function auditOne(server: string, tool: string, published: string, variant: string): Promise<AuditRow> {
+  const base = { server, tool, published: `${published} (${variant})` };
+  const reconnectBetween = variant.includes("restart");
   const p = await probePackage(DEFAULT_SERVERS_DIR, server);
   if (!p.ok) return { ...base, observed: "would not start", agrees: false, detail: p.reason ?? "" };
 
@@ -89,6 +99,9 @@ async function auditOne(server: string, tool: string, published: string): Promis
     await c.session.callTool(tool, args(), { timeoutMs: limits.callTimeoutMs });
     const first = c.upstream.entries().slice(before);
     const mark = c.upstream.entries().length;
+    // Reproduce the same situation the verdict describes, including whether
+    // the client reconnected in between.
+    if (reconnectBetween) await c.restart();
     await c.session.callTool(tool, args(), { timeoutMs: limits.callTimeoutMs });
     const second = c.upstream.entries().slice(mark);
 
@@ -109,7 +122,7 @@ async function auditOne(server: string, tool: string, published: string): Promis
     return {
       ...base,
       observed,
-      agrees: observed === published,
+      agrees: observed === published.split(" (")[0],
       detail: `writes ${w1.length}/${w2.length}, identical ${identical.length}, key ${keyed ? "yes" : "no"}`,
     };
   } catch (e) {

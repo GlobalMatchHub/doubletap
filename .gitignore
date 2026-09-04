@@ -10,7 +10,7 @@ servers/package-lock.json
 # corrected result would republish findings known to be wrong.
 runs/*
 
-!runs/census-v7/
+!runs/census-v9/
 runs/**/*.dt.jsonl
 runs/**/census.json
 runs/**/determinism/

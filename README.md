@@ -56,36 +56,41 @@ plausible-looking placeholder is filled in, enough to clear the guard and reach
 the code that issues the request, never enough to authenticate against anything
 real.
 
-### 90 servers, 586 tools
+### 90 servers, 581 tools
 
-Full tables in [`runs/census-v7/census.md`](runs/census-v7/census.md), one row
+Full tables in [`runs/census-v9/census.md`](runs/census-v9/census.md), one row
 per verdict in `census.csv`.
 
-**50 of 90 servers have at least one tool a retrying client cannot use
-safely**, covering 170 of 586 exercised tools: 144 are a retry pushing the same
-write back out to somebody's API, 34 are an answer that will not repeat, 1 is a
-local effect applied twice, and 1 is a tool that declares itself idempotent and
-is not.
+**44 of 90 servers have at least one tool a retrying client cannot use
+safely**, covering 161 of 581 exercised tools: 127 are a retry re-sending the
+same write byte for byte, 21 are a retry sending a further write the far end
+cannot recognise as a duplicate, 16 are an answer that changes after the first
+call, and 1 is a tool that declares itself idempotent and is not.
 
-| Server | Monthly installs | Exercised | Contract violation | Upstream write repeated | Answer not reproducible |
+**A sample of 22 of those findings, one per server, was independently
+re-derived** by `doubletap audit`, which drives each server directly with no
+probe involved and reaches its own conclusion. All 22 agreed. Run against the
+census that preceded the last fix, the same command disagreed with three of
+seven.
+
+| Server | Monthly installs | Exercised | Contract violation | Upstream write repeated | Answer changes after first call |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `nexus-agents` | 36,481 | 8 | 1 | 1 | 0 |
-| `@shopify/dev-mcp` | 128,473 | 6 | 0 | 6 | 5 |
+| `nexus-agents` | 36,481 | 7 | 1 | 1 | 0 |
 | `@shortcut/mcp` | 65,231 | 8 | 0 | 3 | 7 |
 | `@serdnaley/metabase-mcp` | 243,342 | 8 | 0 | 8 | 0 |
 | `@google-cloud/observability-mcp` | 110,871 | 8 | 0 | 0 | 8 |
 | `brilliant-directories-mcp` | 26,452 | 8 | 0 | 8 | 0 |
 | `@tacticlaunch/mcp-linear` | 16,377 | 8 | 0 | 8 | 0 |
 | `bitbucket-mcp` | 19,646 | 8 | 0 | 7 | 0 |
-| ... 42 more | | | | | |
+| `@doist/todoist-mcp` | 15,850 | 8 | 0 | 7 | 0 |
+| ... 36 more | | | | | |
 
 Counts are of tools, not of verdict records. Three probes report a doubled
 effect independently, so counting records printed a number roughly three times
-larger than the number of things actually wrong, next to a count of tools a
-reader could not reconcile it with.
+larger than the number of things actually wrong.
 
-The single strongest finding, reproduced independently twice and still present
-on the current release:
+The single strongest finding, reproduced independently three times and still
+present on the current release:
 
 **`nexus-agents` `delegate_to_model`** declares
 
@@ -100,19 +105,16 @@ whether retrying is safe. Nothing anywhere checks whether it is true.
 Others worth naming:
 
 - **`hostinger-api-mcp`** (526,000 monthly installs) retries `POST` to create
-  cron jobs, databases and websites with no idempotency header at all, on the
-  live connection and again after a reconnect.
-- **`@shopify/dev-mcp` `feedback`** answers `ok`, then answers `Feedback
-  already recorded for this session` to the identical second call: in-memory
-  state with no file to see it in, caught only because the retry's answer moved.
+  cron jobs, databases and websites with no idempotency header at all.
+- **`@shopify/dev-mcp` `feedback`** deduplicates a retry within one session and
+  stops doing so after a reconnect, because the memory it deduplicates from
+  does not survive the restart. That is the exact case the probe exists for.
 
-`PUT` and `DELETE` are excluded from the repeated-write count: HTTP defines
-both as idempotent, so a server resending one has not done anything wrong. A
-tool that declares `readOnlyHint: true` is taken at its word, so a repeated
-search-style `POST` does not count either. Tracing headers such as
-`x-request-id` are not counted as idempotency keys: no API deduplicates on
-one, and crediting them passed a server that re-sent a charge with a stable
-trace id.
+`PUT` and `DELETE` are excluded: HTTP defines both as idempotent. A tool
+declaring `readOnlyHint: true` is taken at its word. Tracing headers such as
+`x-request-id` are not counted as idempotency keys, and an answer that carries
+a timestamp or a uuid minted per call is not counted as unreproducible, which
+is established by a third identical call rather than by guessing from the text.
 
 ### Overlapping calls: a clean result
 
@@ -289,13 +291,13 @@ That claim is checked rather than asserted:
 
 ```
 $ doubletap verify --target filesystem
-records            508 vs 508
+records            528 vs 528
 verdicts equal     true
-unexplained drift  5 of 508 records
+unexplained drift  6 of 528 records
 learned volatile paths: $.msg.result.content[*].text, $.evidence.firstCall.preview, ...
 ```
 
-The five remaining records are `get_file_info` returning the file's creation time. That is the server's clock, not ours, and it is *learned* by running the same seed twice and diffing leaf paths, then reported, rather than masked away in advance.
+The six remaining records are `get_file_info` returning the file's creation time. That is the server's clock, not ours, and it is *learned* by running the same seed twice and diffing leaf paths, then reported, rather than masked away in advance.
 
 Two limits are stated rather than hidden:
 
@@ -317,9 +319,9 @@ Every run writes a `.dt.jsonl` trace: one record per line, append-only, greppabl
 Every verdict carries the command that reproduces it. Replay reads the trace back and recomputes each snapshot's merkle root from its recorded entries rather than trusting the stored digest, so an edited or truncated trace is detected instead of believed:
 
 ```
-$ doubletap replay runs/census-v7/filesystem-dt-census-1.dt.jsonl --tool write_file
+$ doubletap replay runs/census-v9/filesystem-dt-census-1.dt.jsonl --tool write_file
 ...
-419 records, 294 frames, 76/76 snapshot digests recomputed and matched
+429 records, 304 frames, 76/76 snapshot digests recomputed and matched
 ```
 
 ## Install and run

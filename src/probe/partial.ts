@@ -1,6 +1,7 @@
 import { limits } from "../run/limits.ts";
 import { synthArgs } from "../schema/synth.ts";
 import { synthContext } from "./args.ts";
+import { Rng } from "../det/rng.ts";
 import { canonical } from "../trace/writer.ts";
 import { diffSnapshots, isEmptyDiff, isAppendOnlyGrowth, summariseDiff, type StateDiff } from "../oracle/types.ts";
 import type { Probe, ProbeContext, VerdictDraft } from "./types.ts";
@@ -57,8 +58,19 @@ export const partialFailureProbe: Probe = {
     // One token shared by every case, so all of them ask for exactly the same
     // thing and their state diffs can be compared directly.
     const token = rng.token(6);
+/**
+ * A stable argument stream.
+ *
+ * These builders are called once per call, and forking the enclosing Rng
+ * advances it, so every call drew fresh numbers: a retry that was supposed to
+ * be identical sent a different orderId. Any tool with a numeric field was
+ * therefore never actually retried, and the difference in the request body
+ * that followed was the harness's, not the server's. Seeding from a fixed
+ * string instead makes repeated calls genuinely repeat.
+ */
+    const argSeed = `${ctx.seed}:${tool.name}:${token}:args`;
     const mkArgs = (workspace: string) =>
-      synthArgs(tool.inputSchema, synthContext(ctx, workspace, rng.fork("args"), token), {
+      synthArgs(tool.inputSchema, synthContext(ctx, workspace, new Rng(argSeed), token), {
         readOnlyHint: false,
       });
 
@@ -116,8 +128,9 @@ export const killWindowProbe: Probe = {
     const { tool } = ctx;
     const rng = ctx.rng.fork(`kill:${tool.name}`);
     const token = rng.token(6);
+    const argSeed = `${ctx.seed}:${tool.name}:${token}:args`;
     const mkArgs = (workspace: string) =>
-      synthArgs(tool.inputSchema, synthContext(ctx, workspace, rng.fork("args"), token), { readOnlyHint: false });
+      synthArgs(tool.inputSchema, synthContext(ctx, workspace, new Rng(argSeed), token), { readOnlyHint: false });
 
     const ref = await ctx.newCase(`kill-ref-${tool.name}`);
     let cleanDiff: StateDiff;
@@ -139,7 +152,7 @@ export const killWindowProbe: Probe = {
     // Second pass, aimed at a file that already holds data. Same ladder, but
     // now a torn write is destroyed user content rather than a stray empty file.
     const overwriteArgs = (workspace: string) =>
-      synthArgs(tool.inputSchema, synthContext(ctx, workspace, rng.fork("args-overwrite"), token), {
+      synthArgs(tool.inputSchema, synthContext(ctx, workspace, new Rng(`${argSeed}:overwrite`), token), {
         readOnlyHint: false,
         forceAnchorPaths: true,
       });

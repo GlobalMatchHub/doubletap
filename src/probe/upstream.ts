@@ -1,6 +1,7 @@
 import { limits } from "../run/limits.ts";
 import { synthArgs } from "../schema/synth.ts";
 import { synthContext } from "./args.ts";
+import { Rng } from "../det/rng.ts";
 import { isWrite, repeatIsUnsafe, idempotencyKeyOf, describe, type NetEntry } from "../net/log.ts";
 import type { Probe, ProbeContext, VerdictDraft, CaseHandle } from "./types.ts";
 
@@ -37,8 +38,19 @@ export const upstreamProbe: Probe = {
   async run(ctx): Promise<VerdictDraft[]> {
     const rng = ctx.rng.fork(`upstream:${ctx.tool.name}`);
     const token = rng.token(6);
+/**
+ * A stable argument stream.
+ *
+ * These builders are called once per call, and forking the enclosing Rng
+ * advances it, so every call drew fresh numbers: a retry that was supposed to
+ * be identical sent a different orderId. Any tool with a numeric field was
+ * therefore never actually retried, and the difference in the request body
+ * that followed was the harness's, not the server's. Seeding from a fixed
+ * string instead makes repeated calls genuinely repeat.
+ */
+    const argSeed = `${ctx.seed}:${ctx.tool.name}:${token}:args`;
     const mkArgs = (ws: string) =>
-      synthArgs(ctx.tool.inputSchema, synthContext(ctx, ws, rng.fork("args"), token), {
+      synthArgs(ctx.tool.inputSchema, synthContext(ctx, ws, new Rng(argSeed), token), {
         readOnlyHint: ctx.tool.annotations?.readOnlyHint === true,
       });
 

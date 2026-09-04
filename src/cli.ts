@@ -40,8 +40,22 @@ if (cmd === "run") {
   const probes = probeName ? ALL_PROBES.filter((p) => p.name === probeName) : ALL_PROBES;
   if (probes.length === 0) throw new Error("unknown probe: " + probeName);
 
+  // --package points at any installed npm package and works out how to start
+  // it, so a reproduction can be handed to someone who has never registered a
+  // target. Without it the only runnable commands were the three that ship
+  // here, which is not much use to a maintainer checking a claim about their
+  // own package.
+  const pkg = arg("package");
+  const target = pkg
+    ? await (async () => {
+        const probed = await probePackage(DEFAULT_SERVERS_DIR, pkg);
+        if (!probed.ok) throw new Error(`could not start ${pkg}: ${probed.reason}`);
+        return toTargetConfig(probed, DEFAULT_SERVERS_DIR);
+      })()
+    : findTarget(targetId);
+
   const res = await runTarget({
-    target: findTarget(targetId),
+    target,
     probes,
     seed,
     outDir,
@@ -335,7 +349,7 @@ if (cmd === "run") {
   console.log(`doubletap <command>
 
   replay  <trace> [--probe p] [--tool t]  read a trace back and check it
-  run     --target <id> [--seed s] [--tool name] [--probe name] [--out dir]
+  run     --target <id> | --package <npm name>  [--tool name] [--probe name]
   census  [--auto targets.auto.json] [--probes a,b] [--max-tools n] [--verify t]
   verify  --target <id> [--probe name]  same seed twice, compared line by line
   audit    [--census dir] [--sample n]   re-check published findings independently\n  demo     [--fast]                      run the fixture with a known answer and check it\n  render   <run dir>                    rebuild reports from an existing census.json\n  selftest                              check the harness\u0027s own preconditions\n  discover [--limit n] [--out file]     find which installed servers start unaided

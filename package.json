@@ -13,8 +13,8 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "dt": "node --no-warnings src/cli.ts",
-    "setup": "npm install --prefix servers --ignore-scripts --no-audit --no-fund @modelcontextprotocol/server-filesystem @modelcontextprotocol/server-memory @modelcontextprotocol/server-everything",
-    "setup:census": "npm install --prefix servers --ignore-scripts --no-audit --no-fund --legacy-peer-deps"
+    "setup": "npm install --prefix servers --ignore-scripts --no-audit --no-fund",
+    "setup:census": "node scripts/install.mjs"
   },
   "dependencies": {
     "ajv": "^8.17.1",

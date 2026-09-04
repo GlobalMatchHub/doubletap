@@ -159,9 +159,11 @@ npm run setup     # the three reference servers it is tested against
 ```
 
 `npm run setup` fetches three small MCP servers published by the people who
-designed the protocol. They are not bundled: they are somebody else's
-packages, and pinning copies of them into this repository would be both rude
-and stale within a month.
+designed the protocol. They are not bundled into this repository: they are
+somebody else's packages, and vendoring copies would be both rude and stale
+within a month. The several hundred packages the published census used are a
+separate, deliberate step (`npm run setup:census`), because downloading those
+should never be something `npm install` does to you by surprise.
 
 ### Check the harness itself first
 

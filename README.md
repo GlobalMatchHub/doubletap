@@ -266,7 +266,8 @@ Node 22.18 or newer, macOS for the confinement. TypeScript sources run directly 
 npm install       # the harness
 npm run setup     # three reference servers, enough to try it
 
-node scripts/discover.mjs && node scripts/enrich.mjs 500 && node scripts/install.mjs
+node scripts/discover.mjs && node scripts/enrich.mjs 500
+npm run setup:census   # several hundred packages, with install scripts disabled
 
 node --no-warnings src/cli.ts selftest
 node --no-warnings src/cli.ts discover --concurrency 6

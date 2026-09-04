@@ -28,6 +28,13 @@ export interface TargetConfig {
   /** Tools that would leave the sandbox or hang the run. */
   excludeTools?: string[];
   notes?: string;
+  /**
+   * A fixture that ships with this repository rather than a published server.
+   *
+   * Its defects were planted on purpose, so counting them in a census of other
+   * people's packages would be reporting our own answer back to ourselves.
+   */
+  fixture_only?: boolean;
 }
 
 const SERVERS = join(process.cwd(), "servers", "node_modules", "@modelcontextprotocol");
@@ -45,6 +52,7 @@ export const TARGETS: TargetConfig[] = [
     fixture: { "note.txt": "hello\n" },
     oracle: "fs",
     notes: "a fixture with a known answer, used by `doubletap demo`",
+    fixture_only: true,
   },
   {
     id: "filesystem",

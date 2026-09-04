@@ -56,30 +56,36 @@ plausible-looking placeholder is filled in, enough to clear the guard and reach
 the code that issues the request, never enough to authenticate against anything
 real.
 
-### 94 servers, 599 tools
+### 90 servers, 586 tools
 
-Full tables in [`runs/census-v5/census.md`](runs/census-v5/census.md), one row
+Full tables in [`runs/census-v7/census.md`](runs/census-v7/census.md), one row
 per verdict in `census.csv`.
 
-**51 of 94 servers have at least one tool a retrying client cannot use safely**,
-covering 172 of 599 exercised tools: 145 findings are a retry pushing the same
-write back out to somebody's API, 33 are an answer that will not repeat, 3 are
-a local effect applied twice, and 1 is a tool that declares itself idempotent
-and is not.
+**50 of 90 servers have at least one tool a retrying client cannot use
+safely**, covering 170 of 586 exercised tools: 144 are a retry pushing the same
+write back out to somebody's API, 34 are an answer that will not repeat, 1 is a
+local effect applied twice, and 1 is a tool that declares itself idempotent and
+is not.
 
 | Server | Monthly installs | Exercised | Contract violation | Upstream write repeated | Answer not reproducible |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `nexus-agents` | 36,481 | 8 | 1 | 1 | 0 |
+| `@shopify/dev-mcp` | 128,473 | 6 | 0 | 6 | 5 |
 | `@shortcut/mcp` | 65,231 | 8 | 0 | 3 | 7 |
-| `@shopify/dev-mcp` | 128,473 | 5 | 0 | 5 | 4 |
 | `@serdnaley/metabase-mcp` | 243,342 | 8 | 0 | 8 | 0 |
 | `@google-cloud/observability-mcp` | 110,871 | 8 | 0 | 0 | 8 |
 | `brilliant-directories-mcp` | 26,452 | 8 | 0 | 8 | 0 |
 | `@tacticlaunch/mcp-linear` | 16,377 | 8 | 0 | 8 | 0 |
-| `hostinger-api-mcp` | 526,419 | 8 | 0 | 6 | 0 |
-| ... 43 more | | | | | |
+| `bitbucket-mcp` | 19,646 | 8 | 0 | 7 | 0 |
+| ... 42 more | | | | | |
 
-The single strongest finding, reproduced independently twice:
+Counts are of tools, not of verdict records. Three probes report a doubled
+effect independently, so counting records printed a number roughly three times
+larger than the number of things actually wrong, next to a count of tools a
+reader could not reconcile it with.
+
+The single strongest finding, reproduced independently twice and still present
+on the current release:
 
 **`nexus-agents` `delegate_to_model`** declares
 
@@ -99,16 +105,14 @@ Others worth naming:
 - **`@shopify/dev-mcp` `feedback`** answers `ok`, then answers `Feedback
   already recorded for this session` to the identical second call: in-memory
   state with no file to see it in, caught only because the retry's answer moved.
-- **`@shopify/dev-mcp` `learn_shopify_api`** mints a fresh conversation id per
-  call and states that every other tool errors without the right one, so a
-  retry after a lost response leaves the client holding an id the server has
-  moved on from.
 
 `PUT` and `DELETE` are excluded from the repeated-write count: HTTP defines
 both as idempotent, so a server resending one has not done anything wrong. A
 tool that declares `readOnlyHint: true` is taken at its word, so a repeated
-search-style `POST` does not count either. The finding is reserved for a write
-the tool itself does not claim is safe to repeat.
+search-style `POST` does not count either. Tracing headers such as
+`x-request-id` are not counted as idempotency keys: no API deduplicates on
+one, and crediting them passed a server that re-sent a charge with a stable
+trace id.
 
 ### Overlapping calls: a clean result
 
@@ -125,10 +129,10 @@ indistinguishable from a broken probe.
 
 ### What earlier runs got wrong
 
-This harness has produced more false findings than real ones, and every one of
-them came from the same root: measuring its own footprint, or measuring
-unfairly. They are listed because a report about other people's defects is
-worth nothing unless it is harder on itself than on them.
+This harness has produced more false findings than real ones. Every one came
+from the same root: it measured its own footprint, or it measured unfairly.
+They are listed because a report about other people's defects is worth nothing
+unless it is harder on itself than on them.
 
 | Wrong finding | Cause |
 | --- | --- |
@@ -136,23 +140,18 @@ worth nothing unless it is harder on itself than on them.
 | 16 retry duplications | The same log files, under the retry probe. |
 | 1 concurrency failure against `@shopify/dev-mcp` | Overlapping calls were held to the same per-call timeout as sequential ones. The server queues rather than parallelises, answered all four within ten seconds, and was reported as dropping three. |
 | 1 lost update against `nexus-agents` | The snapshot raced the server's own writes. It answers and then flushes, so sampling the instant a call resolved saw one run directory where four had been created. |
+| **119 servers credited with deduplicating a retry** | Restoring the interceptor before every spawn, a security fix, also truncated the request log, because installing the interceptor and starting the log empty were one function. The harness saw the log shrink, the tamper detector fired on its own action, and the retry appeared to have sent nothing. Checking one by hand: Notion re-sends `POST /v1/comments` after a reconnect, the opposite of what was published. |
 
-Each was fixed at the root rather than filtered at the end:
+The last one is the instructive one. It was introduced *by* a fix, it was
+caught by a number moving the wrong way rather than by any test, and it
+inverted the result rather than merely adding noise.
 
-- Synthesized credential values carry a marker, and any path containing one is
-  excluded from the filesystem oracle. A finding caused by the harness's own
-  footprint is now structurally impossible rather than merely unlikely.
-- Growth appended to a file that already existed is classified apart from a
-  file being created or replaced, because a server writing a log line when a
-  connection drops has done nothing wrong.
-- The concurrent phase gets at least twice the sequential run's own duration,
-  because queueing is backpressure, not failure.
-- Snapshots sample until two consecutive reads agree, and record how long that
-  took, so a server that never settles is visible rather than silently
-  truncated.
-
-None of the surviving findings changed when those fixes landed, which is the
-only reason to trust them.
+Each was fixed at the root rather than filtered at the end: synthesized values
+carry a marker and any path containing one is invisible to the oracle;
+append-only growth is classified apart from a file being created or replaced;
+the concurrent phase gets at least twice the sequential run's own duration;
+snapshots sample until two consecutive reads agree; and installing the
+interceptor no longer touches the log.
 
 ## How it decides
 
@@ -263,9 +262,9 @@ That claim is checked rather than asserted:
 
 ```
 $ doubletap verify --target filesystem
-records            528 vs 528
+records            508 vs 508
 verdicts equal     true
-unexplained drift  5 of 528 records
+unexplained drift  5 of 508 records
 learned volatile paths: $.msg.result.content[*].text, $.evidence.firstCall.preview, ...
 ```
 
@@ -291,9 +290,9 @@ Every run writes a `.dt.jsonl` trace: one record per line, append-only, greppabl
 Every verdict carries the command that reproduces it. Replay reads the trace back and recomputes each snapshot's merkle root from its recorded entries rather than trusting the stored digest, so an edited or truncated trace is detected instead of believed:
 
 ```
-$ doubletap replay runs/census-v5/filesystem-dt-census-1.dt.jsonl --tool write_file
+$ doubletap replay runs/census-v7/filesystem-dt-census-1.dt.jsonl --tool write_file
 ...
-434 records, 309 frames, 73/73 snapshot digests recomputed and matched
+419 records, 294 frames, 76/76 snapshot digests recomputed and matched
 ```
 
 ## Install and run

@@ -167,7 +167,9 @@ if (cmd === "run") {
   });
   mkdirSync(outDir, { recursive: true });
 
-  const curated = arg("no-curated") === undefined ? TARGETS : [];
+  // Fixtures are excluded: their defects were planted here, and counting them
+  // would be this repository grading its own homework.
+  const curated = (arg("no-curated") === undefined ? TARGETS : []).filter((t) => !t.fixture_only);
   const screenPath = arg("screened");
   const keepIds = screenPath
     ? new Set((JSON.parse(readFileSync(screenPath, "utf8")) as ScreenResult[]).filter((r) => r.keep).map((r) => r.id))

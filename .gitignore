@@ -11,7 +11,6 @@ servers/package-lock.json
 runs/*
 
 !runs/census-v7/
-!runs/census-conc/
 runs/**/*.dt.jsonl
 runs/**/census.json
 runs/**/determinism/

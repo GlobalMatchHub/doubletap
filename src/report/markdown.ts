@@ -1,5 +1,5 @@
 import type { Census } from "./model.ts";
-import { findings, isExercisable, totals, countCodes, DOUBLING_CODES, ANSWER_CODES, UPSTREAM_CODES } from "./model.ts";
+import { findings, isExercisable, totals, toolsWithCodes, DOUBLING_CODES, ANSWER_CODES, UPSTREAM_CODES } from "./model.ts";
 import { redactDeep } from "./redact.ts";
 
 /** The table that goes in the README and on a slide. */
@@ -15,7 +15,7 @@ export function renderMarkdown(input: Census): string {
     .sort((a, b) => rank(a) - rank(b) || a.label.localeCompare(b.label))
     .map(
       (t) =>
-        `| ${t.label} | ${t.monthlyDownloads == null ? "" : t.monthlyDownloads.toLocaleString("en-US")} | ${t.toolCount} | ${t.exercisedCount} | ${t.counts.violation} | ${countCodes(t, UPSTREAM_CODES)} | ${countCodes(t, DOUBLING_CODES)} | ${countCodes(t, ANSWER_CODES)} | ${t.counts.pass} |`,
+        `| ${t.label} | ${t.monthlyDownloads == null ? "" : t.monthlyDownloads.toLocaleString("en-US")} | ${t.toolCount} | ${t.exercisedCount} | ${t.counts.violation} | ${toolsWithCodes(t, UPSTREAM_CODES)} | ${toolsWithCodes(t, DOUBLING_CODES)} | ${toolsWithCodes(t, ANSWER_CODES)} | ${t.counts.pass} |`,
     );
 
   const out: string[] = [

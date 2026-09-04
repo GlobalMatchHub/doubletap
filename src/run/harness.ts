@@ -107,6 +107,10 @@ async function connect(
   trace: TraceWriter,
   clock: VirtualClock,
 ): Promise<McpSession> {
+  // Restored before every spawn, not only the first. Cheap, and it means a
+  // missing or damaged interceptor cannot silently produce a case with no
+  // request log at all.
+  installInterceptor(sandbox);
   // Every target runs confined: no network, no writes outside the sandbox, no
   // executing anything but node.
   const c = confine(target.cmd(sandbox), sandbox);
@@ -170,7 +174,10 @@ export function netLogPath(sandbox: Sandbox): string {
  * so the repository's path never reaches the target's environment or a trace.
  */
 function installInterceptor(sandbox: Sandbox): string {
-  const dest = join(sandbox.root, "interceptor.mjs");
+  // control/, not root: the target must not be able to rewrite the code that
+  // watches it. NODE_OPTIONS re-reads this file on every restart, so a single
+  // overwrite during the first case would have been enough.
+  const dest = join(sandbox.control, "interceptor.mjs");
   copyFileSync(new URL("../net/interceptor.mjs", import.meta.url), dest);
   writeFileSync(netLogPath(sandbox), "");
   return dest;
@@ -179,7 +186,7 @@ function installInterceptor(sandbox: Sandbox): string {
 function interceptorEnv(sandbox: Sandbox, target: TargetConfig): Record<string, string> {
   return {
     // Loaded before the server's own code, so no request escapes unseen.
-    NODE_OPTIONS: `--import ${join(sandbox.root, "interceptor.mjs")}`,
+    NODE_OPTIONS: `--import ${join(sandbox.control, "interceptor.mjs")}`,
     DOUBLETAP_NET_LOG: netLogPath(sandbox),
     DOUBLETAP_NET_MODE: target.netMode ?? "synth",
     ...(target.cassette ? { DOUBLETAP_NET_CASSETTE: target.cassette } : {}),

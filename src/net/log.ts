@@ -58,12 +58,27 @@ const IDEMPOTENCY_HEADERS = [
   "idempotency-key",
   "x-idempotency-key",
   "idempotency_key",
-  "x-request-id",
   "x-client-token",
   "client-token",
-  "x-transaction-id",
-  "x-correlation-id",
 ];
+
+/**
+ * Headers that identify a request without deduplicating it.
+ *
+ * These used to be counted as idempotency keys, which meant a server that
+ * re-sent a charge with a stable x-request-id was passed as safe. No API
+ * deduplicates on a tracing header. Crediting one is worse than finding
+ * nothing, because it grades a genuine double-charge clean.
+ */
+const TRACING_HEADERS = ["x-request-id", "x-correlation-id", "x-transaction-id", "traceparent"];
+
+export function tracingHeaderOf(e: NetEntry): { header: string; value: string } | null {
+  for (const h of TRACING_HEADERS) {
+    const v = e.headers[h];
+    if (typeof v === "string" && v.length > 0) return { header: h, value: v };
+  }
+  return null;
+}
 
 export function idempotencyKeyOf(e: NetEntry): { header: string; value: string } | null {
   for (const h of IDEMPOTENCY_HEADERS) {

@@ -37,7 +37,7 @@ export const concurrencyProbe: Probe = {
     if (!ctx.tool.inputSchema)
       return { claim: "The tool declares no inputSchema, so no call can be synthesised.", code: "no-schema" as const };
     if (ctx.tool.annotations?.readOnlyHint === true)
-      return { claim: "The tool declares readOnlyHint, so overlapping calls have nothing to corrupt.", code: "read-only-confirmed" as const };
+      return { claim: "The tool declares readOnlyHint, so overlapping calls have nothing to corrupt.", code: "read-only-untested" as const };
     return null;
   },
 

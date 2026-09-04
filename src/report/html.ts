@@ -1,5 +1,5 @@
 import type { Census, TargetReport } from "./model.ts";
-import { findings, isExercisable, totals, countCodes, DOUBLING_CODES, ANSWER_CODES, UPSTREAM_CODES } from "./model.ts";
+import { findings, isExercisable, totals, toolsWithCodes, DOUBLING_CODES, ANSWER_CODES, UPSTREAM_CODES } from "./model.ts";
 import type { VerdictRecord } from "../trace/types.ts";
 import { redactDeep } from "./redact.ts";
 
@@ -93,9 +93,9 @@ function summaryRow(t: TargetReport): string {
     <td class="n">${t.toolCount}</td>
     <td class="n">${t.exercisedCount}</td>
     <td class="n ${t.counts.violation ? "bad" : "dim"}">${t.counts.violation}</td>
-    <td class="n ${countCodes(t, UPSTREAM_CODES) ? "warn" : "dim"}">${countCodes(t, UPSTREAM_CODES)}</td>
-    <td class="n ${countCodes(t, DOUBLING_CODES) ? "warn" : "dim"}">${countCodes(t, DOUBLING_CODES)}</td>
-    <td class="n ${countCodes(t, ANSWER_CODES) ? "warn" : "dim"}">${countCodes(t, ANSWER_CODES)}</td>
+    <td class="n ${toolsWithCodes(t, UPSTREAM_CODES) ? "warn" : "dim"}">${toolsWithCodes(t, UPSTREAM_CODES)}</td>
+    <td class="n ${toolsWithCodes(t, DOUBLING_CODES) ? "warn" : "dim"}">${toolsWithCodes(t, DOUBLING_CODES)}</td>
+    <td class="n ${toolsWithCodes(t, ANSWER_CODES) ? "warn" : "dim"}">${toolsWithCodes(t, ANSWER_CODES)}</td>
     <td class="n ok">${t.counts.pass}</td>
   </tr>`;
 }

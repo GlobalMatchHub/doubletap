@@ -148,13 +148,29 @@ async function runCase(
     }
 
     if (writes2.length === 0) {
+      // Sending nothing because the retry was deduplicated and sending
+      // nothing because the retry never ran look identical from here. Only
+      // the first deserves a pass; treating the second as one would grade a
+      // real doubling defect clean on the strength of a timeout.
+      if (!ok(retry))
+        return [
+          {
+            probe: "upstream-idempotency",
+            tool: tool.name,
+            status: "skip",
+            code: "call-failed",
+            claim: "The retry itself did not succeed, so the absence of a second upstream write says nothing about deduplication.",
+            confidence: "observed",
+            evidence: base,
+          },
+        ];
       return [
         {
           probe: "upstream-idempotency",
           tool: tool.name,
           status: "pass",
           code: "upstream-write-suppressed",
-          claim: `The first call wrote upstream (${writes1.map(describe).slice(0, 2).join(", ")}) and the retry sent no write at all, so the server deduplicated it.`,
+          claim: `The first call wrote upstream (${writes1.map(describe).slice(0, 2).join(", ")}) and the retry succeeded without sending a write at all, so the server deduplicated it.`,
           confidence: "observed",
           evidence: base,
         },

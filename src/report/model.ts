@@ -33,6 +33,21 @@ export function countCodes(t: TargetReport, codes: string[]): number {
   return codes.reduce((n, c) => n + (t.byCode[c] ?? 0), 0);
 }
 
+/**
+ * Distinct tools with a finding in one of these categories.
+ *
+ * Counting verdict records instead inflated the headline: three probes report
+ * a doubled effect independently, so a single non-idempotent tool contributed
+ * three to a total that was then printed next to a count of tools. A reader
+ * could not reconcile the two numbers, and the larger one was not a count of
+ * anything real.
+ */
+export function toolsWithCodes(t: TargetReport, codes: string[]): number {
+  const tools = new Set<string>();
+  for (const v of t.verdicts) if (v.code && codes.includes(v.code)) tools.add(v.tool);
+  return tools.size;
+}
+
 export interface Census {
   generatedAt: string;
   seed: string;
@@ -56,7 +71,15 @@ export function emptyCounts(): Record<VerdictStatus, number> {
  * be the single easiest way to make this census worthless, so it is counted
  * separately and excluded from the headline denominator.
  */
-const NOT_EXERCISED: VerdictCode[] = ["call-failed", "no-schema"];
+const NOT_EXERCISED: VerdictCode[] = [
+  "call-failed",
+  "no-schema",
+  // Declined before any call was made. Distinct from read-only-confirmed,
+  // which is emitted only after a call ran and left the state alone: the two
+  // shared a code, so a server whose every tool was declined without being
+  // called still entered the headline denominator as tested.
+  "read-only-untested",
+];
 
 export function toolsExercised(verdicts: VerdictRecord[]): Set<string> {
   const byTool = new Map<string, VerdictRecord[]>();
@@ -67,7 +90,9 @@ export function toolsExercised(verdicts: VerdictRecord[]): Set<string> {
   }
   const out = new Set<string>();
   for (const [tool, vs] of byTool) {
-    if (vs.some((v) => !v.code || !NOT_EXERCISED.includes(v.code))) out.add(tool);
+    // A verdict with no code at all is an internal error, not evidence that
+    // anything ran, so it cannot count as exercised either.
+    if (vs.some((v) => v.code && !NOT_EXERCISED.includes(v.code))) out.add(tool);
   }
   return out;
 }
@@ -125,11 +150,11 @@ export function totals(c: Census): CensusTotals {
     if (bad.size > 0) serversWithFindings++;
     violations += t.counts.violation;
     fails += t.counts.fail;
-    const d = countCodes(t, DOUBLING_CODES);
+    const d = toolsWithCodes(t, DOUBLING_CODES);
     doubling += d;
     if (d > 0) serversDoubling++;
-    answerDrift += countCodes(t, ANSWER_CODES);
-    const u = countCodes(t, UPSTREAM_CODES);
+    answerDrift += toolsWithCodes(t, ANSWER_CODES);
+    const u = toolsWithCodes(t, UPSTREAM_CODES);
     upstreamRepeats += u;
     if (u > 0) serversUpstream++;
   }

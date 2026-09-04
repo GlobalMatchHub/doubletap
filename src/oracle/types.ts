@@ -50,3 +50,16 @@ export function summariseDiff(d: StateDiff, limit = 6): string {
   if (total > bits.length) bits.push(`and ${total - bits.length} more`);
   return bits.join(", ") || "no change";
 }
+
+/**
+ * True when nothing was created or removed and every changed file only got
+ * bigger: the signature of appending, not of applying an effect.
+ *
+ * A server that records one audit line per call moves the state on every
+ * retry, which reads as the effect landing twice unless this is separated out.
+ */
+export function isAppendOnlyGrowth(d: StateDiff): boolean {
+  if (d.added.length > 0 || d.removed.length > 0) return false;
+  if (d.changed.length === 0) return false;
+  return d.changed.every((c) => (c.nowSz ?? 0) > (c.wasSz ?? 0));
+}

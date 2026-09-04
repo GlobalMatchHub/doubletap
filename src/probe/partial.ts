@@ -2,7 +2,7 @@ import { limits } from "../run/limits.ts";
 import { synthArgs } from "../schema/synth.ts";
 import { synthContext } from "./args.ts";
 import { canonical } from "../trace/writer.ts";
-import { diffSnapshots, isEmptyDiff, summariseDiff, type StateDiff } from "../oracle/types.ts";
+import { diffSnapshots, isEmptyDiff, isAppendOnlyGrowth, summariseDiff, type StateDiff } from "../oracle/types.ts";
 import type { Probe, ProbeContext, VerdictDraft } from "./types.ts";
 import type { VerdictCode } from "../trace/types.ts";
 
@@ -47,7 +47,7 @@ export const partialFailureProbe: Probe = {
     if (!ctx.tool.inputSchema)
       return { claim: "The tool declares no inputSchema, so no call can be synthesised.", code: "no-schema" as const };
     if (ctx.tool.annotations?.readOnlyHint === true)
-      return { claim: "The tool declares readOnlyHint, so there is no effect to leave half done.", code: "read-only-confirmed" as const };
+      return { claim: "The tool declares readOnlyHint, so there is no effect to leave half done.", code: "read-only-untested" as const };
     return null;
   },
 
@@ -108,7 +108,7 @@ export const killWindowProbe: Probe = {
     if (!ctx.tool.inputSchema)
       return { claim: "The tool declares no inputSchema, so no call can be synthesised.", code: "no-schema" as const };
     if (ctx.tool.annotations?.readOnlyHint === true)
-      return { claim: "The tool declares readOnlyHint, so there is no effect to interrupt.", code: "read-only-confirmed" as const };
+      return { claim: "The tool declares readOnlyHint, so there is no effect to interrupt.", code: "read-only-untested" as const };
     return null;
   },
 
@@ -183,11 +183,19 @@ async function lostAck(
     // The answer is discarded and the transport is torn down, which is what
     // the client would have to do if it never received one.
     await c.restart();
+    // Snapshot the reconnect itself before retrying. Starting a server is not
+    // free: plenty of them append a line to a session log or rewrite a state
+    // file on boot, and measuring the retry from before the restart charged
+    // the tool for all of it. A genuinely idempotent server was reported as
+    // applying its effect twice on the strength of one log line the harness
+    // caused by reconnecting.
+    const sRestart = await c.snap(`${tool.name}:lost-ack:after-reconnect`);
     const retry = await c.session.callTool(tool.name, mkArgs(c.sandbox.workspace), { timeoutMs: limits.callTimeoutMs });
     const s2 = await c.snap(`${tool.name}:lost-ack:after-retry`);
 
     const d1 = diffSnapshots(s0, s1);
-    const d2 = diffSnapshots(s1, s2);
+    const d2 = diffSnapshots(sRestart, s2);
+    const reconnectCost = diffSnapshots(s1, sRestart);
     const evidence = {
       tool: tool.name,
       variant: "lost-ack",
@@ -196,7 +204,8 @@ async function lostAck(
       retrySucceeded: ok(retry),
       firstDiff: d1,
       retryDiff: d2,
-      digests: { pre: s0.digest, afterFirst: s1.digest, afterRetry: s2.digest },
+      reconnectDiff: reconnectCost,
+      digests: { pre: s0.digest, afterFirst: s1.digest, afterReconnect: sRestart.digest, afterRetry: s2.digest },
     };
 
     if (isEmptyDiff(d1)) return [skipVerdict(tool.name, "The first call changed nothing under this case, so the retry proves nothing.")];
@@ -205,11 +214,13 @@ async function lostAck(
       {
         probe: "partial-failure",
         tool: tool.name,
-        status: isEmptyDiff(d2) ? "pass" : "fail",
-        code: isEmptyDiff(d2) ? "retry-converged" : "retry-doubled",
+        status: isEmptyDiff(d2) || isAppendOnlyGrowth(d2) ? "pass" : "fail",
+        code: isEmptyDiff(d2) ? "retry-converged" : isAppendOnlyGrowth(d2) ? "retry-appended-log" : "retry-doubled",
         claim: isEmptyDiff(d2)
           ? "After a lost acknowledgement and a reconnect, an identical retry converged on the same state."
-          : `After a lost acknowledgement and a reconnect, an identical retry applied the effect a second time (${summariseDiff(d2)}).`,
+          : isAppendOnlyGrowth(d2)
+            ? `After a lost acknowledgement and a reconnect, an identical retry only appended to ${summariseDiff(d2)}, which is the shape of a log rather than a repeated effect.`
+            : `After a lost acknowledgement and a reconnect, an identical retry applied the effect a second time (${summariseDiff(d2)}).`,
         confidence: "observed",
         evidence,
       },
@@ -244,7 +255,8 @@ async function killWindow(
         fault: { killAfter: true, killAfterMs: delayMs },
       });
       await c.awaitExit(2000);
-      await c.restart();
+      // Before reconnecting, for the same reason as the other two cases: a
+      // restart writes, and what it writes is not what the kill left behind.
       const s1 = await c.snap(`${tool.name}:kill${delayMs}:after`);
       const interruptedDiff = diffSnapshots(s0, s1);
       const applied = classify(interruptedDiff, cleanDiff);
@@ -253,10 +265,14 @@ async function killWindow(
 
       if (applied === "none") continue;
 
-      // First delay that left something. Retry from here.
+      // First delay that left something. The server is dead, so reconnect,
+      // then measure the retry from after that reconnect rather than from
+      // before it.
+      await c.restart();
+      const sRestart = await c.snap(`${tool.name}:kill${delayMs}:after-reconnect`);
       const retry = await c.session.callTool(tool.name, mkArgs(c.sandbox.workspace), { timeoutMs: limits.callTimeoutMs });
       const s2 = await c.snap(`${tool.name}:kill${delayMs}:after-retry`);
-      const retryDiff = diffSnapshots(s1, s2);
+      const retryDiff = diffSnapshots(sRestart, s2);
       const evidence = {
         tool: tool.name,
         variant: `kill@${delayMs}ms`,
@@ -277,9 +293,9 @@ async function killWindow(
           {
             probe: "kill-window",
             tool: tool.name,
-            status: "fail",
+            status: "pass",
             code: "residue-left",
-            claim: `Killed ${delayMs}ms after delivery against ${targetKind}, the tool left ${interruptedDiff.added.map((e) => e.p).join(", ")} behind without touching its target, so an interrupted call litters the user's directory with files a completed call never produces.`,
+            claim: `Killed ${delayMs}ms after delivery against ${targetKind}, the tool left its target untouched and only ${interruptedDiff.added.map((e) => e.p).join(", ")} behind. That is what writing to a temporary file and renaming it looks like when interrupted, so the leftover is the price of the target never being seen half written.`,
             confidence: "observed",
             evidence,
           },
@@ -361,7 +377,9 @@ async function truncated(
       fault: { cutAfterBytes: half, closeAfter: true },
     });
     await c.awaitExit(2000);
-    await c.restart();
+    // Snapshot before reconnecting. The filesystem does not need a live
+    // server to be read, and restarting first would have charged the half
+    // frame for whatever the next boot wrote.
     const s1 = await c.snap(`${tool.name}:truncate:after`);
     const d = diffSnapshots(s0, s1);
     const evidence = {
@@ -444,16 +462,6 @@ function tornClaim(delayMs: number, targetKind: string, interrupted: StateDiff, 
 
 /** sha256("") truncated the way the fs oracle truncates. */
 const EMPTY_HASH = "e3b0c44298fc1c14";
-
-/**
- * True when nothing was created or removed and every changed file only got
- * bigger: the signature of appending, not of applying an effect.
- */
-function isAppendOnlyGrowth(d: StateDiff): boolean {
-  if (d.added.length > 0 || d.removed.length > 0) return false;
-  if (d.changed.length === 0) return false;
-  return d.changed.every((c) => (c.nowSz ?? 0) > (c.wasSz ?? 0));
-}
 
 function classify(interrupted: StateDiff, clean: StateDiff): Applied {
   if (isEmptyDiff(interrupted)) return "none";

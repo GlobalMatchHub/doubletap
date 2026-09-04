@@ -42,7 +42,10 @@ const LAUNCHERS = [
 
 /** Writes the shim directory and returns its path. */
 function writeShims(sandbox: Sandbox): string {
-  const dir = join(sandbox.root, "shim-bin");
+  // In control/, which the profile does not grant write access to. A shim
+  // directory the target can write is a shim directory the target can replace
+  // with its own "node".
+  const dir = join(sandbox.control, "shim-bin");
   mkdirSync(dir, { recursive: true });
   for (const name of LAUNCHERS) {
     const p = join(dir, name);
@@ -53,11 +56,16 @@ function writeShims(sandbox: Sandbox): string {
 }
 
 function writeProfile(sandbox: Sandbox, nodeBin: string): string {
-  const roots = new Set<string>([sandbox.root]);
-  try {
-    roots.add(realpathSync(sandbox.root));
-  } catch {}
-  const writable = [...roots].map((r) => `  (subpath ${JSON.stringify(r)})`).join("\n");
+  // Only the working directories, never control/ and never the root itself.
+  // Granting the root let a surviving grandchild rewrite this very profile
+  // between one case and the next; sandbox-exec re-reads it on every spawn,
+  // and it runs unconfined, so the next restart would have had whatever
+  // confinement the target chose to write.
+  const writable = sandbox
+    .writablePaths()
+    .map((r) => `  (subpath ${JSON.stringify(r)})`)
+    .join("\n");
+
   const profile = `(version 1)
 (deny default)
 (allow process-fork)
@@ -66,8 +74,19 @@ function writeProfile(sandbox: Sandbox, nodeBin: string): string {
 (allow mach*)
 (allow ipc-posix-shm)
 (allow file-read*)
+; Credentials and keys are readable by anything on this machine, but a server
+; that reads them can hand them back in a tool result, which the harness then
+; writes to a trace. Denying the obvious stores costs nothing and closes the
+; cheapest version of that.
+(deny file-read* (subpath "${process.env.HOME ?? "/Users"}/.ssh"))
+(deny file-read* (subpath "${process.env.HOME ?? "/Users"}/.aws"))
+(deny file-read* (subpath "${process.env.HOME ?? "/Users"}/.gnupg"))
+(deny file-read* (subpath "${process.env.HOME ?? "/Users"}/.config/gh"))
+(deny file-read* (literal "${process.env.HOME ?? "/Users"}/.claude.json"))
+(deny file-read* (subpath "${process.env.HOME ?? "/Users"}/.claude"))
 (allow file-write*
 ${writable}
+  (literal ${JSON.stringify(join(sandbox.root, "net.jsonl"))})
   (literal "/dev/null")
   (literal "/dev/urandom"))
 ; Only the node binary may be executed. A server that shells out to a browser,
@@ -75,7 +94,9 @@ ${writable}
 (allow process-exec (literal ${JSON.stringify(nodeBin)}))
 (deny network*)
 `;
-  const path = join(sandbox.root, "confine.sb");
+  // The profile itself goes in control/, which the profile does not make
+  // writable, so it cannot be rewritten by what it confines.
+  const path = join(sandbox.control, "confine.sb");
   writeFileSync(path, profile);
   return path;
 }

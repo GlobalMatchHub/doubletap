@@ -3,7 +3,7 @@ import { synthArgs } from "../schema/synth.ts";
 import { synthContext } from "./args.ts";
 import { canonical } from "../trace/writer.ts";
 import { leafDiffPaths } from "../trace/mask.ts";
-import { diffSnapshots, isEmptyDiff, summariseDiff } from "../oracle/types.ts";
+import { diffSnapshots, isEmptyDiff, summariseDiff, isAppendOnlyGrowth } from "../oracle/types.ts";
 import type { Probe, ProbeContext, VerdictDraft } from "./types.ts";
 import type { CallOutcome } from "../session/client.ts";
 
@@ -125,6 +125,19 @@ export const idempotencyProbe: Probe = {
             : "A successful call produced no observable state change, so retry safety cannot be decided by this oracle.",
           confidence: "observed",
           evidence: { ...base, firstCall: describe(r1) },
+        });
+      } else if (!stateStable && isAppendOnlyGrowth(d2)) {
+        // Files that only grew, with nothing created or replaced, is the shape
+        // of a per-call audit log rather than the effect landing twice. A
+        // server that records what it was asked to do has not done it twice.
+        out.push({
+          probe: this.name,
+          tool: tool.name,
+          status: "pass",
+          code: "retry-appended-log",
+          claim: `An identical retry left the state otherwise unchanged and only appended to ${summariseDiff(d2)}, which is the shape of a log rather than a repeated effect.`,
+          confidence: "observed",
+          evidence: { ...base, retryDiff: d2 },
         });
       } else if (!stateStable) {
         out.push({

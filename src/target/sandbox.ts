@@ -13,6 +13,16 @@ import { join, dirname } from "node:path";
 export class Sandbox {
   readonly root: string;
   readonly workspace: string;
+  /**
+   * Harness-owned files the target must never be able to write.
+   *
+   * The confinement profile, the interceptor and the PATH shims all live
+   * here. They used to sit directly in root alongside the workspace, which
+   * the profile grants the target write access to, so the target could
+   * overwrite the very profile that confines it and the very code that
+   * watches it. The next restart would then read the target's version.
+   */
+  readonly control: string;
 
   constructor(label: string) {
     const raw = mkdtempSync(join(tmpdir(), `doubletap-${label}-`));
@@ -27,10 +37,23 @@ export class Sandbox {
     this.root = realpathSync(raw);
     this.workspace = join(this.root, "workspace");
     mkdirSync(this.workspace, { recursive: true });
+    this.control = join(this.root, "control");
+    mkdirSync(this.control, { recursive: true });
     // A cache and a temp directory outside the workspace: state a server puts
     // there is genuinely throwaway and should not read as a side effect.
     mkdirSync(join(this.root, "tmp"), { recursive: true });
     mkdirSync(join(this.root, "cache"), { recursive: true });
+  }
+
+  /**
+   * The only paths the target is allowed to write.
+   *
+   * Deliberately not the whole root: control/ holds the profile and the
+   * interceptor, and granting write to root handed the target the ability to
+   * disable both.
+   */
+  writablePaths(): string[] {
+    return [this.workspace, join(this.root, "pkg"), join(this.root, "tmp"), join(this.root, "cache")];
   }
 
   /** Deterministic starting content, so every run begins from the same state. */

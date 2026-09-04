@@ -1,0 +1,8 @@
+{
+  "name": "doubletap-demo-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A deliberately mixed MCP server: one tool that is genuinely safe to retry, one that is not, and a decoy that looks unsafe and is not.",
+  "bin": { "doubletap-demo-server": "index.js" }
+}

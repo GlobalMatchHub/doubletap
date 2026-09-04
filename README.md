@@ -8,6 +8,7 @@ Doubletap drives someone else's MCP server through the failures that actually ha
 output from scratch, and assumes nothing beyond knowing how to run a command.
 
 ```
+doubletap demo            # a fixture with a known answer, checked against it
 doubletap discover        # which published servers start with no credentials
 doubletap screen          # which of those can be judged at all
 doubletap census          # run the probes, write the report

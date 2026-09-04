@@ -34,6 +34,19 @@ const SERVERS = join(process.cwd(), "servers", "node_modules", "@modelcontextpro
 
 export const TARGETS: TargetConfig[] = [
   {
+    // Ships with the repository so the harness can be shown working without
+    // installing anything, and so its answer is known in advance: one tool
+    // that must pass, one that must be reported as a contract violation, and
+    // one decoy that moves the state on every call and must not be reported.
+    id: "demo",
+    label: "doubletap-demo-server",
+    source: "fixtures/demo-server",
+    cmd: (sb) => ["node", join(process.cwd(), "fixtures", "demo-server", "index.js"), sb.workspace],
+    fixture: { "note.txt": "hello\n" },
+    oracle: "fs",
+    notes: "a fixture with a known answer, used by `doubletap demo`",
+  },
+  {
     id: "filesystem",
     label: "@modelcontextprotocol/server-filesystem",
     source: "npm:@modelcontextprotocol/server-filesystem",

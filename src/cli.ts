@@ -4,6 +4,7 @@ import { runTarget } from "./run/runner.ts";
 import { checkDeterminism } from "./run/determinism.ts";
 import { configureLimits } from "./run/limits.ts";
 import { runSelfTest } from "./run/selftest.ts";
+import { runDemo } from "./run/demo.ts";
 import { probePackage, toTargetConfig, EXCLUDED, DEFAULT_SERVERS_DIR, type AutoProbeResult } from "./target/autoconfig.ts";
 import { screenTarget, type ScreenResult } from "./target/screen.ts";
 import { maskLine, readVolatile, learnVolatile } from "./trace/mask.ts";
@@ -64,6 +65,8 @@ if (cmd === "run") {
   writeFileSync(`${dir}/census.md`, renderMarkdown(census));
   writeFileSync(`${dir}/census.csv`, renderCsv(census));
   console.log(`rewrote ${dir}/census.{html,md,csv} from census.json`);
+} else if (cmd === "demo") {
+  process.exitCode = (await runDemo({ skipSelfTest: arg("fast") !== undefined })) === 0 ? 0 : 1;
 } else if (cmd === "selftest") {
   // The harness checking itself before it reports on anybody else.
   const results = await runSelfTest();
@@ -324,7 +327,7 @@ if (cmd === "run") {
   run     --target <id> [--seed s] [--tool name] [--probe name] [--out dir]
   census  [--auto targets.auto.json] [--probes a,b] [--max-tools n] [--verify t]
   verify  --target <id> [--probe name]  same seed twice, compared line by line
-  render   <run dir>                    rebuild reports from an existing census.json\n  selftest                              check the harness\u0027s own preconditions\n  discover [--limit n] [--out file]     find which installed servers start unaided
+  demo     [--fast]                      run the fixture with a known answer and check it\n  render   <run dir>                    rebuild reports from an existing census.json\n  selftest                              check the harness\u0027s own preconditions\n  discover [--limit n] [--out file]     find which installed servers start unaided
   screen   [--auto file] [--out file]    keep only servers with observable state
   targets
 `);

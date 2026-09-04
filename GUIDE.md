@@ -182,6 +182,23 @@ no supervision while believing you are not. If calls are not really
 overlapping, the concurrency test passes everything and has proven nothing.
 **If either line says FAIL, stop.**
 
+### See it work in one command
+
+```bash
+node --no-warnings src/cli.ts demo
+```
+
+This runs a fixture that ships with the repository and has a known answer. It
+states the answer before running, then checks what actually happened against
+it. Three tools: one genuinely idempotent, one that declares itself idempotent
+and is not, and a decoy that moves its state on every call because it is
+writing an audit log. The decoy is the point. A harness that flags everything
+that moves is not measuring anything, and an earlier version of this one
+reported that decoy as a duplicated effect.
+
+If any of the three stops matching, the demo fails loudly, which makes it the
+regression test for those probes as well.
+
 ### Test one server you already have
 
 `npm run setup` gave you three reference servers to try:

@@ -4,11 +4,17 @@
   "description": "Conformance harness for MCP servers: proves whether a tool's side effect happens once, twice, or half.",
   "type": "module",
   "license": "MIT",
-  "engines": { "node": ">=22.18" },
-  "bin": { "doubletap": "./bin/doubletap.js" },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "bin": {
+    "doubletap": "./bin/doubletap.js"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "dt": "node --no-warnings src/cli.ts"
+    "dt": "node --no-warnings src/cli.ts",
+    "setup": "npm install --prefix servers --ignore-scripts --no-audit --no-fund @modelcontextprotocol/server-filesystem @modelcontextprotocol/server-memory @modelcontextprotocol/server-everything",
+    "setup:census": "npm install --prefix servers --ignore-scripts --no-audit --no-fund --legacy-peer-deps"
   },
   "dependencies": {
     "ajv": "^8.17.1",

@@ -263,7 +263,9 @@ $ doubletap replay runs/census-v5/filesystem-dt-census-1.dt.jsonl --tool write_f
 Node 22.18 or newer, macOS for the confinement. TypeScript sources run directly through Node's type stripping, so there is no build step.
 
 ```bash
-npm install
+npm install       # the harness
+npm run setup     # three reference servers, enough to try it
+
 node scripts/discover.mjs && node scripts/enrich.mjs 500 && node scripts/install.mjs
 
 node --no-warnings src/cli.ts selftest

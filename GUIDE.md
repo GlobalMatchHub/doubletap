@@ -152,10 +152,16 @@ routinely. A tool tested one call at a time can still lose data here.
 You need **Node 22.18 or newer** and, for the sandboxing, **macOS**.
 
 ```bash
-git clone <this repo>
+git clone https://github.com/GlobalMatchHub/doubletap.git
 cd doubletap
-npm install
+npm install       # the harness itself
+npm run setup     # the three reference servers it is tested against
 ```
+
+`npm run setup` fetches three small MCP servers published by the people who
+designed the protocol. They are not bundled: they are somebody else's
+packages, and pinning copies of them into this repository would be both rude
+and stale within a month.
 
 ### Check the harness itself first
 
@@ -176,7 +182,7 @@ overlapping, the concurrency test passes everything and has proven nothing.
 
 ### Test one server you already have
 
-Three reference servers are set up out of the box:
+`npm run setup` gave you three reference servers to try:
 
 ```bash
 node --no-warnings src/cli.ts targets

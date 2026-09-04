@@ -38,6 +38,7 @@ export async function openCase(
     sandbox.preparePackage(target.packageDir, target.nodeModulesDir);
   }
   installInterceptor(sandbox);
+  initNetLog(sandbox);
   const upstream = new UpstreamOracle(netLogPath(sandbox));
 
   const oracle = new FsOracle({
@@ -173,14 +174,29 @@ export function netLogPath(sandbox: Sandbox): string {
  * Copies the interceptor into the sandbox rather than referencing it in place,
  * so the repository's path never reaches the target's environment or a trace.
  */
+/**
+ * Restores the interceptor. Runs before every spawn, so it must not touch the
+ * request log.
+ *
+ * These two used to be one function, and moving it to run on every restart
+ * therefore truncated the log every time a case reconnected. The effect was
+ * silent and expensive: the harness saw the log shrink, its own tamper
+ * detector fired, the cached records were returned instead, and the retry
+ * looked like it had sent nothing at all. 119 servers were reported as
+ * deduplicating a write they had simply not been observed making.
+ */
 function installInterceptor(sandbox: Sandbox): string {
   // control/, not root: the target must not be able to rewrite the code that
   // watches it. NODE_OPTIONS re-reads this file on every restart, so a single
   // overwrite during the first case would have been enough.
   const dest = join(sandbox.control, "interceptor.mjs");
   copyFileSync(new URL("../net/interceptor.mjs", import.meta.url), dest);
-  writeFileSync(netLogPath(sandbox), "");
   return dest;
+}
+
+/** Starts the request log empty. Once per case, never on a reconnect. */
+function initNetLog(sandbox: Sandbox): void {
+  writeFileSync(netLogPath(sandbox), "");
 }
 
 function interceptorEnv(sandbox: Sandbox, target: TargetConfig): Record<string, string> {

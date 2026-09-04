@@ -210,10 +210,10 @@ filesystem: 14 tools, 14 under test
        reported failure, which tells a retrying client the operation did not happen.
 
 @modelcontextprotocol/server-filesystem
-  violations 0  fails 2  passes 14  skips 0  errors 0
+  violations 0  fails 2  passes 24  skips 0  errors 0
 ```
 
-Two real findings, in about thirty seconds, against a server written by the
+Two real findings, in about thirteen seconds, against a server written by the
 people who designed the protocol. Neither tool is broken exactly: both do the
 work correctly the first time. What they get wrong is what they say to a
 caller that tries again after losing the answer, which is that the operation

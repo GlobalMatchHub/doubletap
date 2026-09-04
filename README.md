@@ -255,7 +255,7 @@ Every verdict carries the command that reproduces it. Replay reads the trace bac
 ```
 $ doubletap replay runs/census-v5/filesystem-dt-census-1.dt.jsonl --tool write_file
 ...
-336 records, 231 frames, 61/61 snapshot digests recomputed and matched
+434 records, 309 frames, 73/73 snapshot digests recomputed and matched
 ```
 
 ## Install and run
@@ -327,6 +327,34 @@ re-argued.
   interceptor never sees it. Faking those means writing a protocol-specific
   stub per database. No amount of placeholder credentials reaches an OAuth
   exchange or an account that has to already exist either.
+
+## If your server is named here
+
+Every finding carries the command that reproduces it, and the argument values
+are synthesized rather than realistic, so a claim may name a tool you know
+takes different input in practice. That does not change what was measured: the
+question was never whether the arguments were sensible, it was what the server
+did when the same call arrived twice.
+
+Three things are worth saying plainly to anyone who finds their package in the
+table.
+
+**A finding is not an accusation of incompetence.** Most of them are the same
+shape: a tool that works perfectly the first time and has no way to recognise
+the second attempt. That is the default behaviour of every HTTP client ever
+written, and avoiding it takes deliberate work that nothing in the MCP
+specification asks for.
+
+**Some findings are ambiguous and say so.** `upstream-write-repeated` reads
+"either the retry duplicates a write, or the call is a query and the
+annotation a gateway would use to know that is missing". Both are true
+statements about the same observation, and picking the more dramatic one would
+be dishonest.
+
+**Corrections are welcome and will be published.** This harness has produced
+more false findings than real ones, all four listed above with their causes. If
+a verdict about your server is wrong, the trace is the evidence and the seed
+reproduces it. Open an issue.
 
 ## Who wrote this
 

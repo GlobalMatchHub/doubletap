@@ -491,6 +491,15 @@ No, and it will not accept real ones. It reads each package's source to find
 which environment variables it expects and fills in obviously fake values,
 which is enough to get past a startup check and never enough to authenticate.
 
+**How do I know the findings are right?**
+Run `doubletap audit`. It samples published findings, re-derives each one by
+driving the server directly with no probe involved, and prints DISAGREES where
+its own conclusion differs from what was published. When this was first run
+against an earlier census it disagreed with three findings out of seven, all
+three of which turned out to be wrong. Agreement proves less than disagreement
+does, because both sides share some machinery, but disagreement is exactly the
+signal worth having.
+
 **Can a server lie to it?**
 Yes, if it is trying. The part that watches HTTP requests runs inside the
 server's own process, and nothing inside a process can keep a secret from it.

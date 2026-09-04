@@ -5,6 +5,7 @@ import { checkDeterminism } from "./run/determinism.ts";
 import { configureLimits } from "./run/limits.ts";
 import { runSelfTest } from "./run/selftest.ts";
 import { runDemo } from "./run/demo.ts";
+import { auditCensus } from "./run/audit.ts";
 import { probePackage, toTargetConfig, EXCLUDED, DEFAULT_SERVERS_DIR, type AutoProbeResult } from "./target/autoconfig.ts";
 import { screenTarget, type ScreenResult } from "./target/screen.ts";
 import { maskLine, readVolatile, learnVolatile } from "./trace/mask.ts";
@@ -65,6 +66,14 @@ if (cmd === "run") {
   writeFileSync(`${dir}/census.md`, renderMarkdown(census));
   writeFileSync(`${dir}/census.csv`, renderCsv(census));
   console.log(`rewrote ${dir}/census.{html,md,csv} from census.json`);
+} else if (cmd === "audit") {
+  // Re-derives a sample of published findings without the probe that made them.
+  const dir = arg("census") ?? "runs/census-v9";
+  const n = Number(arg("sample") ?? "8");
+  const rows = await auditCensus(`${dir}/census.json`, n);
+  const wrong = rows.filter((r) => !r.agrees).length;
+  console.log(`\n${rows.length - wrong} of ${rows.length} sampled findings re-derived independently; ${wrong} did not.`);
+  if (wrong > 0) process.exitCode = 1;
 } else if (cmd === "demo") {
   process.exitCode = (await runDemo({ skipSelfTest: arg("fast") !== undefined })) === 0 ? 0 : 1;
 } else if (cmd === "selftest") {
@@ -329,7 +338,7 @@ if (cmd === "run") {
   run     --target <id> [--seed s] [--tool name] [--probe name] [--out dir]
   census  [--auto targets.auto.json] [--probes a,b] [--max-tools n] [--verify t]
   verify  --target <id> [--probe name]  same seed twice, compared line by line
-  demo     [--fast]                      run the fixture with a known answer and check it\n  render   <run dir>                    rebuild reports from an existing census.json\n  selftest                              check the harness\u0027s own preconditions\n  discover [--limit n] [--out file]     find which installed servers start unaided
+  audit    [--census dir] [--sample n]   re-check published findings independently\n  demo     [--fast]                      run the fixture with a known answer and check it\n  render   <run dir>                    rebuild reports from an existing census.json\n  selftest                              check the harness\u0027s own preconditions\n  discover [--limit n] [--out file]     find which installed servers start unaided
   screen   [--auto file] [--out file]    keep only servers with observable state
   targets
 `);

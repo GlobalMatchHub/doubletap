@@ -25,7 +25,12 @@ export class Sandbox {
   readonly control: string;
 
   constructor(label: string) {
-    const raw = mkdtempSync(join(tmpdir(), `doubletap-${label}-`));
+    // The label reaches a path, and callers pass things like scoped package
+    // names, so anything that is not path-safe is flattened here rather than
+    // at each call site. A slash in a label used to throw ENOENT from
+    // mkdtemp, which reads as the sandbox being unavailable.
+    const safe = label.replace(/[^A-Za-z0-9._-]+/g, "-").slice(0, 60);
+    const raw = mkdtempSync(join(tmpdir(), `doubletap-${safe}-`));
     // macOS's tmpdir() is a symlink (/var -> /private/var). A tool that
     // canonicalises its own allowed root with realpath and then compares an
     // unresolved incoming path against it rejects every path this harness

@@ -217,6 +217,33 @@ Two layers now, because either alone has a hole:
 
 A short list of servers is excluded outright, each with a stated reason, in `src/target/confine.ts` and `src/target/autoconfig.ts`. Blocking the network is not only a safety measure: it is what makes the census free, and it is why 43 servers report that nothing could be run against them. That is a real limitation, stated rather than papered over.
 
+## Auditing the findings
+
+Every false finding this project has published was caught by a person looking
+at output. That is not a method, so it is now a command:
+
+```
+$ doubletap audit --census runs/census-v9 --sample 8
+agrees     @notionhq/notion-mcp-server :: API-create-a-comment
+           published upstream-write-repeated / observed upstream-write-repeated  writes 1/1, identical 1, key no
+DISAGREES  @currents/mcp :: currents-cancel-run-github-ci
+           published upstream-write-repeated / observed upstream-write-again    writes 1/1, identical 0, key no
+```
+
+It takes a sample of published findings, drives those servers directly with no
+probe involved, counts the requests itself, and compares its own conclusion
+against the verdict on file.
+
+Agreement is weak evidence: both sides share the interceptor and the argument
+generator, so a fault in either would agree with itself. **Disagreement is
+strong evidence**, and that is what this is for. Run against the census that
+preceded it, it reproduced all three of the wrong findings that had been found
+by hand, which is the only reason to believe it works.
+
+Two in five sampled upstream findings were wrong before the fix that followed.
+That number is the honest error rate of a probe, and it is worth knowing before
+anyone is told about their package rather than after.
+
 ## Threat model: buggy servers, not hostile ones
 
 This distinction decides what the census means, so it is worth being exact

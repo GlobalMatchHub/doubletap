@@ -60,7 +60,7 @@ export async function runSelfTest(): Promise<SelfTestResult[]> {
  * measuring nothing.
  */
 async function concurrencyOverlaps(): Promise<SelfTestResult> {
-  const trace = new TraceWriter(join(tmpdir(), "doubletap-selftest", `${Date.now()}.jsonl`), new VirtualClock());
+  const trace = TraceWriter.discarding(new VirtualClock());
   let c;
   try {
     c = await openCase(findTarget("everything"), "selftest", trace, new VirtualClock());

@@ -148,7 +148,7 @@ export async function probePackage(
     const sandbox = new Sandbox(`probe-${name.replace(/[^a-z0-9]+/gi, "-")}`);
     sandbox.seedFixture(GENERIC_FIXTURE);
     // A throwaway trace: this stage is discovery, not evidence.
-    const trace = new TraceWriter(join(tmpdir(), "doubletap-probe", `${Date.now()}.jsonl`), new VirtualClock());
+    const trace = TraceWriter.discarding(new VirtualClock());
     const argv = argvTemplate;
     // The package is cloned in even during discovery, so a server is judged
     // under exactly the conditions the census will run it in.

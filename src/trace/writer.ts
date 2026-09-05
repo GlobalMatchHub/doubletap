@@ -33,15 +33,32 @@ function sortKeys(v: unknown): unknown {
 const MAX_REDACTIONS = 64;
 
 export class TraceWriter {
-  #stream: WriteStream;
+  #stream: WriteStream | null;
   #seq = 0;
   readonly path: string;
   #clock: VirtualClock;
   #redactions: [string, string][] = [];
 
-  constructor(path: string, clock: VirtualClock) {
-    this.path = path;
+  /**
+   * A writer that keeps nothing.
+   *
+   * Discovery, screening, the self test and the audit all need a writer
+   * because openCase takes one, and none of them ever read the result. Written
+   * to disk under fixed names they accumulated one file per invocation
+   * forever: a census left 40MB under doubletap-probe and 29MB under
+   * doubletap-screen, none of it ever opened again.
+   */
+  static discarding(clock: VirtualClock): TraceWriter {
+    return new TraceWriter(null, clock);
+  }
+
+  constructor(path: string | null, clock: VirtualClock) {
+    this.path = path ?? "<discarded>";
     this.#clock = clock;
+    if (path === null) {
+      this.#stream = null;
+      return;
+    }
     mkdirSync(dirname(path), { recursive: true });
     this.#stream = createWriteStream(path, { flags: "w" });
   }
@@ -91,7 +108,7 @@ export class TraceWriter {
   }
 
   writeHeader(hdr: HeaderRecord): void {
-    this.#stream.write(this.#apply(canonical(hdr)) + "\n");
+    this.#stream?.write(this.#apply(canonical(hdr)) + "\n");
   }
 
   /** Writes a record, filling in seq and virtual time when absent. */
@@ -111,11 +128,13 @@ export class TraceWriter {
         delete (full as unknown as { wire?: string }).wire;
       }
     }
-    this.#stream.write(this.#apply(canonical(full)) + "\n");
+    this.#stream?.write(this.#apply(canonical(full)) + "\n");
     return full;
   }
 
   async close(): Promise<void> {
-    await new Promise<void>((resolve) => this.#stream.end(resolve));
+    const stream = this.#stream;
+    if (!stream) return;
+    await new Promise<void>((resolve) => stream.end(resolve));
   }
 }

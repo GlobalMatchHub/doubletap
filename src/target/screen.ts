@@ -55,7 +55,7 @@ export async function screenTarget(target: TargetConfig, maxTools = 8): Promise<
     upstreamWrites: 0,
     readOnlyOnly: false,
   };
-  const trace = new TraceWriter(join(tmpdir(), "doubletap-screen", `${target.id}-${Date.now()}.jsonl`), new VirtualClock());
+  const trace = TraceWriter.discarding(new VirtualClock());
   let c;
   try {
     c = await openCase(target, `screen-${target.id}`, trace, new VirtualClock());

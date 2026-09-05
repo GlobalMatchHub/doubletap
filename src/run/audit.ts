@@ -77,7 +77,7 @@ async function auditOne(server: string, tool: string, published: string, variant
   const p = await probePackage(DEFAULT_SERVERS_DIR, server);
   if (!p.ok) return { ...base, observed: "would not start", agrees: false, detail: p.reason ?? "" };
 
-  const trace = new TraceWriter(join(tmpdir(), "doubletap-audit", `${Date.now()}.jsonl`), new VirtualClock());
+  const trace = TraceWriter.discarding(new VirtualClock());
   const c = await openCase(toTargetConfig(p, DEFAULT_SERVERS_DIR), `audit-${server}`, trace, new VirtualClock());
   try {
     const def = (await c.session.listTools(10_000)).find((t) => t.name === tool);

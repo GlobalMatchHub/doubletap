@@ -1,35 +1,35 @@
 # Doubletap conformance census
 
-Generated 2026-09-04T14:16:08.912Z with seed `dt-census-1` on v22.23.2 / darwin-x64.
+Generated 2026-09-05T01:10:15.448Z with seed `dt-census-1` on v22.23.2 / darwin-x64.
 
-**44 of 90 servers that could actually be exercised have at least one tool that misbehaves under retry or interruption**, covering 161 of 581 exercised tools. Of those findings, 143 are a retry pushing the same write back out to somebody's API, 1 are a local side effect happening more than once, and 21 are an answer a retrying client cannot match to its first attempt. A further 0 servers started and listed tools but every call failed, almost always for want of credentials or a live external service; they are listed separately and excluded from these totals rather than counted as clean.
+**44 of 90 servers that could actually be exercised have at least one tool that misbehaves under retry or interruption**, covering 161 of 586 exercised tools. Of those findings, 143 are a retry pushing the same write back out to somebody's API, 1 are a local side effect happening more than once, and 21 are an answer a retrying client cannot match to its first attempt. A further 0 servers started and listed tools but every call failed, almost always for want of credentials or a live external service; they are listed separately and excluded from these totals rather than counted as clean.
 
 | Server | Monthly installs | Tools | Exercised | Contract violations | Upstream write repeated | Local effect twice | Answer not reproducible | Clean |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| nexus-agents | 36,481 | 47 | 7 | 1 | 1 | 1 | 0 | 11 |
-| @shortcut/mcp | 65,231 | 56 | 8 | 0 | 3 | 0 | 7 | 12 |
 | brilliant-directories-mcp | 26,452 | 171 | 8 | 0 | 8 | 0 | 0 | 14 |
+| nexus-agents | 36,481 | 47 | 8 | 1 | 1 | 1 | 0 | 11 |
+| @shortcut/mcp | 65,231 | 56 | 8 | 0 | 3 | 0 | 7 | 12 |
 | @google-cloud/observability-mcp | 110,871 | 13 | 8 | 0 | 0 | 0 | 8 | 8 |
 | @serdnaley/metabase-mcp | 243,342 | 128 | 8 | 0 | 8 | 0 | 0 | 16 |
 | @tacticlaunch/mcp-linear | 16,377 | 198 | 8 | 0 | 8 | 0 | 0 | 0 |
 | @doist/todoist-mcp | 15,850 | 45 | 8 | 0 | 7 | 0 | 0 | 2 |
+| @shopify/dev-mcp | 128,473 | 6 | 6 | 0 | 6 | 0 | 1 | 12 |
 | bitbucket-mcp | 19,646 | 47 | 8 | 0 | 7 | 0 | 0 | 17 |
-| @shopify/dev-mcp | 128,473 | 6 | 5 | 0 | 5 | 0 | 1 | 10 |
 | hostinger-api-mcp | 526,419 | 375 | 8 | 0 | 6 | 0 | 0 | 18 |
 | hyperbrowser-mcp | 13,699 | 10 | 8 | 0 | 6 | 0 | 0 | 7 |
 | @browserbasehq/mcp | 19,830 | 6 | 6 | 0 | 5 | 0 | 0 | 1 |
 | @nextscope/mcp | 15,547 | 9 | 6 | 0 | 5 | 0 | 0 | 2 |
-| @runpod/mcp-server | 20,136 | 54 | 8 | 0 | 4 | 0 | 0 | 13 |
 | alibabacloud-devops-mcp-server | 13,656 | 199 | 8 | 0 | 5 | 0 | 0 | 8 |
 | mcp-scraper | 17,978 | 375 | 8 | 0 | 5 | 0 | 0 | 3 |
 | @coinbase/cds-mcp-server | 18,583 | 2 | 2 | 0 | 2 | 0 | 0 | 2 |
-| @currents/mcp | 154,345 | 39 | 8 | 0 | 4 | 0 | 0 | 20 |
 | @delorenj/mcp-server-trello | 13,618 | 57 | 8 | 0 | 4 | 0 | 0 | 14 |
 | @hubspot/mcp-server | 73,968 | 21 | 8 | 0 | 4 | 0 | 0 | 10 |
 | @kolbo/mcp | 19,854 | 170 | 8 | 0 | 4 | 0 | 0 | 17 |
+| @runpod/mcp-server | 20,136 | 54 | 8 | 0 | 4 | 0 | 0 | 13 |
 | airtable-mcp-server | 19,865 | 16 | 8 | 0 | 4 | 0 | 0 | 4 |
 | samarth-gtm-mcp | 20,093 | 184 | 8 | 0 | 4 | 0 | 0 | 8 |
 | @avallon-labs/mcp | 18,230 | 153 | 8 | 0 | 3 | 0 | 0 | 8 |
+| @currents/mcp | 154,345 | 39 | 8 | 0 | 3 | 0 | 0 | 21 |
 | @felores/airtable-mcp-server | 50,799 | 12 | 8 | 0 | 3 | 0 | 0 | 17 |
 | @productbrain/mcp | 43,231 | 13 | 8 | 0 | 3 | 0 | 0 | 2 |
 | ask-experts-mcp | 17,411 | 3 | 3 | 0 | 3 | 0 | 0 | 0 |
@@ -52,7 +52,7 @@ Generated 2026-09-04T14:16:08.912Z with seed `dt-census-1` on v22.23.2 / darwin-
 | next-devtools-mcp | 354,391 | 4 | 4 | 0 | 1 | 0 | 0 | 4 |
 | @amap/amap-maps-mcp-server | 18,534 | 12 | 8 | 0 | 0 | 0 | 0 | 8 |
 | @antv/mcp-server-chart | 27,429 | 27 | 8 | 0 | 0 | 0 | 0 | 8 |
-| @azure-devops/mcp | 389,884 | 40 | 6 | 0 | 0 | 0 | 0 | 0 |
+| @azure-devops/mcp | 389,884 | 40 | 7 | 0 | 0 | 0 | 0 | 0 |
 | @brightdata/mcp | 29,455 | 5 | 5 | 0 | 0 | 0 | 0 | 13 |
 | @delorenj/mcp-server-ticketmaster | 15,836 | 1 | 1 | 0 | 0 | 0 | 0 | 2 |
 | @drawio/mcp | 45,206 | 7 | 7 | 0 | 0 | 0 | 0 | 2 |
@@ -79,7 +79,7 @@ Generated 2026-09-04T14:16:08.912Z with seed `dt-census-1` on v22.23.2 / darwin-
 | @thirdstrandstudio/mcp-figma | 27,873 | 31 | 8 | 0 | 0 | 0 | 0 | 19 |
 | @tiberriver256/mcp-server-azure-devops | 15,269 | 46 | 8 | 0 | 0 | 0 | 0 | 8 |
 | @transcend-io/mcp-server-docs | 65,903 | 2 | 2 | 0 | 0 | 0 | 0 | 3 |
-| @ui5/mcp-server | 419,971 | 10 | 6 | 0 | 0 | 0 | 0 | 5 |
+| @ui5/mcp-server | 419,971 | 10 | 8 | 0 | 0 | 0 | 0 | 9 |
 | @upstash/context7-mcp | 3,992,771 | 2 | 2 | 0 | 0 | 0 | 0 | 6 |
 | @vizejs/musea-mcp-server | 13,031 | 13 | 8 | 0 | 0 | 0 | 0 | 1 |
 | @xeroapi/xero-mcp-server | 21,821 | 51 | 8 | 0 | 0 | 0 | 0 | 16 |
@@ -104,18 +104,18 @@ Determinism: 522 of 528 trace records were identical across two runs of the same
 `npm:@modelcontextprotocol/server-filesystem` &middot; secure-filesystem-server 0.2.0
 
 - **edit_file** (retry-signal) The effect was applied once, but the retry reported failure, which tells a retrying client the operation did not happen.
-  - reproduce: `doubletap replay runs/census-v9/filesystem-dt-census-1.dt.jsonl --probe retry-signal --tool edit_file`
+  - reproduce: `doubletap replay runs/census-v10/filesystem-dt-census-1.dt.jsonl --probe retry-signal --tool edit_file`
 - **move_file** (retry-signal) The effect was applied once, but the retry reported failure, which tells a retrying client the operation did not happen.
-  - reproduce: `doubletap replay runs/census-v9/filesystem-dt-census-1.dt.jsonl --probe retry-signal --tool move_file`
+  - reproduce: `doubletap replay runs/census-v10/filesystem-dt-census-1.dt.jsonl --probe retry-signal --tool move_file`
 
 ## @modelcontextprotocol/server-memory
 
 `npm:@modelcontextprotocol/server-memory` &middot; memory-server 0.6.3
 
 - **create_entities** (retry-signal) A retry left the state unchanged but returned a different answer, so a client cannot tell a duplicate from a fresh success.
-  - reproduce: `doubletap replay runs/census-v9/memory-dt-census-1.dt.jsonl --probe retry-signal --tool create_entities`
+  - reproduce: `doubletap replay runs/census-v10/memory-dt-census-1.dt.jsonl --probe retry-signal --tool create_entities`
 - **create_relations** (retry-signal) A retry left the state unchanged but returned a different answer, so a client cannot tell a duplicate from a fresh success.
-  - reproduce: `doubletap replay runs/census-v9/memory-dt-census-1.dt.jsonl --probe retry-signal --tool create_relations`
+  - reproduce: `doubletap replay runs/census-v10/memory-dt-census-1.dt.jsonl --probe retry-signal --tool create_relations`
 
 ## @modelcontextprotocol/server-everything
 
@@ -134,9 +134,9 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@notionhq/notion-mcp-server@2.5.1` &middot; Notion API 1.0.0
 
 - **API-create-a-comment** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/comments byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/notionhq-notion-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool API-create-a-comment`
+  - reproduce: `doubletap replay runs/census-v10/notionhq-notion-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool API-create-a-comment`
 - **API-create-a-data-source** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/data_sources byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/notionhq-notion-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool API-create-a-data-source`
+  - reproduce: `doubletap replay runs/census-v10/notionhq-notion-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool API-create-a-data-source`
 
 ## n8n-mcp
 
@@ -155,17 +155,17 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:hostinger-api-mcp@1.55.0` &middot; hostinger-api-mcp 1.55.0
 
 - **agency-hosting_buildWebsiteNodeJSAssetsV1** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/agency-hosting/v1/websites/dt-e93659/build-assets byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_buildWebsiteNodeJSAssetsV1`
+  - reproduce: `doubletap replay runs/census-v10/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_buildWebsiteNodeJSAssetsV1`
 - **agency-hosting_changeWordPressVersionV1** (upstream-idempotency, same session and after restart) The retry re-sends PATCH <upstream>/api/agency-hosting/v1/websites/dt-9bc7d3/wordpress/settings/version byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_changeWordPressVersionV1`
-- **agency-hosting_createANewWebsiteV1** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/agency-hosting/v1/orders/8/websites/setups rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_createANewWebsiteV1`
+  - reproduce: `doubletap replay runs/census-v10/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_changeWordPressVersionV1`
+- **agency-hosting_createANewWebsiteV1** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/agency-hosting/v1/orders/5/websites/setups byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_createANewWebsiteV1`
 - **agency-hosting_createWebsiteCronJobV1** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/agency-hosting/v1/websites/dt-e91d84/cron-jobs byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_createWebsiteCronJobV1`
+  - reproduce: `doubletap replay runs/census-v10/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_createWebsiteCronJobV1`
 - **agency-hosting_createWebsiteDatabaseUserV1** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/agency-hosting/v1/websites/dt-edc33f/databases/dt-edc33f/users byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_createWebsiteDatabaseUserV1`
+  - reproduce: `doubletap replay runs/census-v10/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_createWebsiteDatabaseUserV1`
 - **agency-hosting_createWebsiteDatabaseV1** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/agency-hosting/v1/websites/dt-f4c138/databases byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_createWebsiteDatabaseV1`
+  - reproduce: `doubletap replay runs/census-v10/hostinger-api-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool agency-hosting_createWebsiteDatabaseV1`
 
 ## comfyui-mcp
 
@@ -196,28 +196,28 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:next-devtools-mcp@0.4.0` &middot; next-devtools-mcp 0.4.0
 
 - **nextjs_index** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>:3000/_next/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/next-devtools-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextjs_index`
+  - reproduce: `doubletap replay runs/census-v10/next-devtools-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextjs_index`
 
 ## @serdnaley/metabase-mcp
 
 `npm:@serdnaley/metabase-mcp@0.2.0` &middot; metabase-mcp 0.1.0
 
 - **add_group_member** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/permissions/membership byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_group_member`
-- **copy_card** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/card/10/copy rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool copy_card`
-- **copy_dashboard** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/dashboard/3/copy rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool copy_dashboard`
+  - reproduce: `doubletap replay runs/census-v10/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_group_member`
+- **copy_card** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/card/8/copy byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool copy_card`
+- **copy_dashboard** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/dashboard/1/copy byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool copy_dashboard`
 - **create_action** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/action byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_action`
-- **create_action_public_link** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/action/6/public_link rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_action_public_link`
+  - reproduce: `doubletap replay runs/census-v10/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_action`
+- **create_action_public_link** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/action/4/public_link byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_action_public_link`
 - **create_alert** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/alert byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_alert`
-- **create_bookmark** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/bookmark/card/8 rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_bookmark`
+  - reproduce: `doubletap replay runs/census-v10/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_alert`
+- **create_bookmark** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/bookmark/card/4 byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_bookmark`
 - **create_card** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/card byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_card`
+  - reproduce: `doubletap replay runs/census-v10/serdnaley-metabase-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_card`
 
 ## freee-mcp
 
@@ -235,14 +235,12 @@ No retry failures or contract violations among the tools this oracle could decid
 
 `npm:@currents/mcp@2.4.2` &middot; currents 2.4.2
 
-- **currents-cancel-run-github-ci** (upstream-idempotency, same session and after restart) The retry sent a further write to PUT <upstream>/runs/cancel-ci/github rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/currents-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool currents-cancel-run-github-ci`
 - **currents-create-action** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/actions byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/currents-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool currents-create-action`
+  - reproduce: `doubletap replay runs/census-v10/currents-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool currents-create-action`
 - **currents-create-jira-issue** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/projects/dt-0e4749/jira/issues byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/currents-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool currents-create-jira-issue`
+  - reproduce: `doubletap replay runs/census-v10/currents-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool currents-create-jira-issue`
 - **currents-create-webhook** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/webhooks byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/currents-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool currents-create-webhook`
+  - reproduce: `doubletap replay runs/census-v10/currents-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool currents-create-webhook`
 
 ## mcp-hello-world
 
@@ -255,17 +253,19 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@shopify/dev-mcp@1.15.0` &middot; shopify-dev-mcp 1.15.0
 
 - **feedback** (answer-stability) The second call answered differently from the first at content[*].text and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/shopify-dev-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool feedback`
+  - reproduce: `doubletap replay runs/census-v10/shopify-dev-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool feedback`
 - **feedback** (upstream-idempotency, after restart) The retry re-sends POST shopify.dev/mcp/usage byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.
-  - reproduce: `doubletap replay runs/census-v9/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool feedback`
+  - reproduce: `doubletap replay runs/census-v10/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool feedback`
 - **learn_shopify_api** (upstream-idempotency, same session and after restart) The retry sent a further write to POST shopify.dev/mcp/usage rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool learn_shopify_api`
+  - reproduce: `doubletap replay runs/census-v10/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool learn_shopify_api`
 - **search_docs_chunks** (upstream-idempotency, same session and after restart) The retry re-sends POST shopify.dev/assistant/search byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool search_docs_chunks`
+  - reproduce: `doubletap replay runs/census-v10/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool search_docs_chunks`
 - **validate_component_codeblocks** (upstream-idempotency, same session and after restart) The retry sent a further write to POST shopify.dev/mcp/usage rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool validate_component_codeblocks`
+  - reproduce: `doubletap replay runs/census-v10/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool validate_component_codeblocks`
 - **validate_graphql_codeblocks** (upstream-idempotency, same session and after restart) The retry sent a further write to POST shopify.dev/mcp/usage rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool validate_graphql_codeblocks`
+  - reproduce: `doubletap replay runs/census-v10/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool validate_graphql_codeblocks`
+- **validate_theme** (upstream-idempotency, same session and after restart) The retry sent a further write to POST shopify.dev/mcp/usage rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/shopify-dev-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool validate_theme`
 
 ## @mastra/mcp-docs-server
 
@@ -278,21 +278,21 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@google-cloud/observability-mcp@0.2.3` &middot; observability-mcp 0.2.3
 
 - **get_trace** (answer-stability) The second call answered differently from the first at content[*].text and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool get_trace`
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool get_trace`
 - **list_alert_policies** (answer-stability) The second call answered differently from the first at content[*].text and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_alert_policies`
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_alert_policies`
 - **list_alerts** (answer-stability) The second call answered differently from the first at content[*].text and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_alerts`
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_alerts`
 - **list_buckets** (answer-stability) The second call answered differently from the first at content[*].text and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_buckets`
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_buckets`
 - **list_group_stats** (answer-stability) The second call answered differently from the first at content[*].text and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_group_stats`
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_group_stats`
 - **list_log_entries** (answer-stability) The second call answered differently from the first at content[*].text and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_log_entries`
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_log_entries`
 - **list_log_names** (answer-stability) The second call answered differently from the first at content[*].text and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_log_names`
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_log_names`
 - **list_log_scopes** (answer-stability) The second call answered differently from the first at content[*].text and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_log_scopes`
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-observability-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool list_log_scopes`
 
 ## @taazkareem/clickup-mcp-server
 
@@ -310,21 +310,21 @@ No retry failures or contract violations among the tools this oracle could decid
 
 `npm:@hubspot/mcp-server@0.4.0` &middot; hubspot-mcp-server 0.4.0
 
-- **hubspot-batch-create-associations** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/crm/v4/associations/dt-62ea3f/dt-62ea3f/batch/create rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hubspot-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool hubspot-batch-create-associations`
+- **hubspot-batch-create-associations** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/crm/v4/associations/dt-62ea3f/dt-62ea3f/batch/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/hubspot-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool hubspot-batch-create-associations`
 - **hubspot-batch-create-objects** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/crm/v3/objects/dt-496413/batch/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hubspot-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool hubspot-batch-create-objects`
+  - reproduce: `doubletap replay runs/census-v10/hubspot-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool hubspot-batch-create-objects`
 - **hubspot-batch-update-objects** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/crm/v3/objects/dt-5cbe01/batch/update byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hubspot-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool hubspot-batch-update-objects`
+  - reproduce: `doubletap replay runs/census-v10/hubspot-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool hubspot-batch-update-objects`
 - **hubspot-create-property** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/crm/v3/properties/dt-d5de8c byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hubspot-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool hubspot-create-property`
+  - reproduce: `doubletap replay runs/census-v10/hubspot-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool hubspot-create-property`
 
 ## @bitbonsai/mcpvault
 
 `npm:@bitbonsai/mcpvault@0.16.0` &middot; mcpvault 0.16.0
 
 - **delete_note** (retry-signal) The effect was applied once, but the retry reported failure, which tells a retrying client the operation did not happen.
-  - reproduce: `doubletap replay runs/census-v9/bitbonsai-mcpvault-dt-census-1.dt.jsonl --probe retry-signal --tool delete_note`
+  - reproduce: `doubletap replay runs/census-v10/bitbonsai-mcpvault-dt-census-1.dt.jsonl --probe retry-signal --tool delete_note`
 
 ## @transcend-io/mcp-server-docs
 
@@ -337,45 +337,45 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@shortcut/mcp@0.25.0` &middot; @shortcut/mcp 0.25.0
 
 - **documents-create** (answer-stability) The second call answered differently from the first at content[] and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-create`
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-create`
 - **documents-create** (upstream-idempotency, same session and after restart) The retry re-sends POST api.app.shortcut.com/api/v3/documents byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool documents-create`
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool documents-create`
 - **documents-get-by-id** (answer-stability, declares idempotentHint) The second call answered differently from the first at content[] and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-get-by-id`
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-get-by-id`
 - **documents-list** (answer-stability, declares idempotentHint) The second call answered differently from the first at content[] and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-list`
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-list`
 - **documents-search** (answer-stability, declares idempotentHint) The second call answered differently from the first at content[] and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-search`
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-search`
 - **documents-update** (answer-stability) The second call answered differently from the first at content[] and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-update`
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool documents-update`
 - **epics-create** (answer-stability) The second call answered differently from the first at content[] and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool epics-create`
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool epics-create`
 - **epics-create** (upstream-idempotency, same session and after restart) The retry re-sends POST api.app.shortcut.com/api/v3/epics byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool epics-create`
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool epics-create`
 - **epics-create-comment** (answer-stability) The second call answered differently from the first at content[] and the third agreed with the second, so the server changed its response after the first call and a retrying client is told something the original caller was not.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool epics-create-comment`
-- **epics-create-comment** (upstream-idempotency, same session and after restart) The retry sent a further write to POST api.app.shortcut.com/api/v3/epics/9/comments rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/shortcut-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool epics-create-comment`
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe answer-stability --tool epics-create-comment`
+- **epics-create-comment** (upstream-idempotency, same session and after restart) The retry re-sends POST api.app.shortcut.com/api/v3/epics/9/comments byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/shortcut-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool epics-create-comment`
 
 ## @google-cloud/storage-mcp
 
 `npm:@google-cloud/storage-mcp@0.6.0` &middot; storage-mcp-server 0.6.0
 
-- **copy_object_safe** (upstream-idempotency, same session and after restart) The retry re-sends POST storage.googleapis.com/storage/v1/b/dt-2ce213/o/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-X2ZgjT%2Fworkspace%2Fnote.txt/rewriteTo/b/dt-2ce213/o/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-X2ZgjT%2Fworkspace%2Fdt-2ce213.txt byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-storage-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool copy_object_safe`
+- **copy_object_safe** (upstream-idempotency, same session and after restart) The retry re-sends POST storage.googleapis.com/storage/v1/b/dt-2ce213/o/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-C7bzbq%2Fworkspace%2Fnote.txt/rewriteTo/b/dt-2ce213/o/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-google-cloud-storage-mcp-upstream-same-copy_object_safe-C7bzbq%2Fworkspace%2Fdt-2ce213.txt byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-storage-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool copy_object_safe`
 - **create_bucket** (upstream-idempotency, same session and after restart) The retry re-sends POST storage.googleapis.com/storage/v1/b byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/google-cloud-storage-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_bucket`
+  - reproduce: `doubletap replay runs/census-v10/google-cloud-storage-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_bucket`
 
 ## @felores/airtable-mcp-server
 
 `npm:@felores/airtable-mcp-server@0.3.0` &middot; airtable-server 0.2.0
 
 - **create_field** (upstream-idempotency, same session and after restart) The retry re-sends POST api.airtable.com/v0/meta/bases/dt-139d6d/tables/dt-139d6d/fields byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/felores-airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_field`
+  - reproduce: `doubletap replay runs/census-v10/felores-airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_field`
 - **create_record** (upstream-idempotency, same session and after restart) The retry re-sends POST api.airtable.com/v0/dt-a4de2f/dt-a4de2f byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/felores-airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_record`
+  - reproduce: `doubletap replay runs/census-v10/felores-airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_record`
 - **create_table** (upstream-idempotency, same session and after restart) The retry re-sends POST api.airtable.com/v0/meta/bases/dt-fe4c47/tables byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/felores-airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_table`
+  - reproduce: `doubletap replay runs/census-v10/felores-airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_table`
 
 ## @ironbee-ai/devtools
 
@@ -406,11 +406,11 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@productbrain/mcp@0.0.1-beta.5290` &middot; Product Brain 0.7.2
 
 - **collections** (upstream-idempotency, same session and after restart) The retry re-sends POST gateway.productbrain.io/api/aki byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/productbrain-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool collections`
+  - reproduce: `doubletap replay runs/census-v10/productbrain-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool collections`
 - **entries** (upstream-idempotency, same session and after restart) The retry re-sends POST gateway.productbrain.io/api/aki byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/productbrain-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool entries`
+  - reproduce: `doubletap replay runs/census-v10/productbrain-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool entries`
 - **orient** (upstream-idempotency, same session and after restart) The retry re-sends POST gateway.productbrain.io/api/aki byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/productbrain-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool orient`
+  - reproduce: `doubletap replay runs/census-v10/productbrain-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool orient`
 
 ## fetcher-mcp
 
@@ -428,10 +428,10 @@ No retry failures or contract violations among the tools this oracle could decid
 
 `npm:nexus-agents@7.0.0` &middot; nexus-agents 7.0.0
 
-- **delegate_to_model** (idempotency, declares idempotentHint) Declares idempotentHint: true, but an identical retry changed the state again (+.nexus-agents/runs/delegate-233e226e/, +.nexus-agents/runs/delegate-233e226e/index.md, +.nexus-agents/runs/delegate-233e226e/trace.jsonl).
-  - reproduce: `doubletap replay runs/census-v9/nexus-agents-dt-census-1.dt.jsonl --probe idempotency --tool delegate_to_model`
+- **delegate_to_model** (idempotency, declares idempotentHint) Declares idempotentHint: true, but an identical retry changed the state again (+.nexus-agents/runs/delegate-932bcf91/, +.nexus-agents/runs/delegate-932bcf91/index.md, +.nexus-agents/runs/delegate-932bcf91/trace.jsonl).
+  - reproduce: `doubletap replay runs/census-v10/nexus-agents-dt-census-1.dt.jsonl --probe idempotency --tool delegate_to_model`
 - **consensus_vote** (upstream-idempotency, same session and after restart) The retry re-sends POST api.anthropic.com/v1/messages byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/nexus-agents-dt-census-1.dt.jsonl --probe upstream-idempotency --tool consensus_vote`
+  - reproduce: `doubletap replay runs/census-v10/nexus-agents-dt-census-1.dt.jsonl --probe upstream-idempotency --tool consensus_vote`
 
 ## document-mcp
 
@@ -444,7 +444,7 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@growthbook/mcp@2.1.0` &middot; GrowthBook MCP Thin 2.1.0
 
 - **growthbook_api_write** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream><sandbox>/workspace/dt-b9f57e.txt byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/growthbook-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool growthbook_api_write`
+  - reproduce: `doubletap replay runs/census-v10/growthbook-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool growthbook_api_write`
 
 ## @mui/mcp
 
@@ -481,7 +481,7 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@pinecone-database/mcp@0.3.0` &middot; pinecone-mcp 0.3.0
 
 - **create-index-for-model** (upstream-idempotency, same session and after restart) The retry re-sends POST api.pinecone.io/indexes/create-for-model byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/pinecone-database-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-index-for-model`
+  - reproduce: `doubletap replay runs/census-v10/pinecone-database-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-index-for-model`
 
 ## @mastergo/magic-mcp
 
@@ -506,34 +506,38 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:serper-search-scrape-mcp-server@0.1.2` &middot; Serper MCP Server 0.1.0
 
 - **google_search** (upstream-idempotency, same session and after restart) The retry re-sends POST google.serper.dev/search byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serper-search-scrape-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool google_search`
+  - reproduce: `doubletap replay runs/census-v10/serper-search-scrape-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool google_search`
 - **scrape** (upstream-idempotency, same session and after restart) The retry re-sends POST scrape.serper.dev/ byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/serper-search-scrape-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool scrape`
+  - reproduce: `doubletap replay runs/census-v10/serper-search-scrape-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool scrape`
 
 ## brilliant-directories-mcp
 
 `npm:brilliant-directories-mcp@6.58.608` &middot; brilliant-directories-mcp 6.58.608
 
 - **createCategoryTree** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v2/list_professions/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createCategoryTree`
-- **createClick** (upstream-idempotency, same session) The retry sent a further write to POST <upstream>/api/v2/users_clicks/create rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createClick`
-- **createClick** (upstream-idempotency, after restart) The retry re-sends POST <upstream>/api/v2/users_clicks/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createClick`
-- **createDataType** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v2/data_types/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createDataType`
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createCategoryTree`
+- **createClick** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v2/users_clicks/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createClick`
+- **createDataType** (upstream-idempotency, same session) The retry re-sends POST <upstream>/api/v2/data_types/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createDataType`
+- **createDataType** (upstream-idempotency, after restart) The retry sent a further write to POST <upstream>/api/v2/data_types/create rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first.
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createDataType`
 - **createEmailTemplate** (upstream-idempotency, same session) The retry re-sends POST <upstream>/api/v2/email_templates/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createEmailTemplate`
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createEmailTemplate`
 - **createEmailTemplate** (upstream-idempotency, after restart) The retry sent a further write to POST <upstream>/api/v2/email_templates/create rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createEmailTemplate`
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createEmailTemplate`
 - **createForm** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v2/form/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createForm`
-- **createFormField** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/v2/form_fields/create rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createFormField`
-- **createLead** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/v2/leads/create rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createLead`
-- **createLeadMatch** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/v2/lead_matches/create rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createLeadMatch`
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createForm`
+- **createFormField** (upstream-idempotency, same session) The retry re-sends POST <upstream>/api/v2/form_fields/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createFormField`
+- **createFormField** (upstream-idempotency, after restart) The retry sent a further write to POST <upstream>/api/v2/form_fields/create rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first.
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createFormField`
+- **createLead** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v2/leads/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createLead`
+- **createLeadMatch** (upstream-idempotency, same session) The retry re-sends POST <upstream>/api/v2/lead_matches/create byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createLeadMatch`
+- **createLeadMatch** (upstream-idempotency, after restart) The retry sent a further write to POST <upstream>/api/v2/lead_matches/create rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first.
+  - reproduce: `doubletap replay runs/census-v10/brilliant-directories-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createLeadMatch`
 
 ## @ehrocks/fe-mcp-server
 
@@ -552,9 +556,9 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@masonator/coolify-mcp@2.19.4` &middot; coolify 2.19.4
 
 - **control** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v1/applications/dt-d47c19/start byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/masonator-coolify-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool control`
+  - reproduce: `doubletap replay runs/census-v10/masonator-coolify-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool control`
 - **deploy** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v1/deploy byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/masonator-coolify-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool deploy`
+  - reproduce: `doubletap replay runs/census-v10/masonator-coolify-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool deploy`
 
 ## @esaio/esa-mcp-server
 
@@ -585,101 +589,99 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@runpod/mcp-server@3.3.0` &middot; Runpod API Server 3.3.0 [RUNPOD_REST_VERSION unset (default v2)]
 
 - **create-container-registry-auth** (upstream-idempotency, same session and after restart) The retry re-sends POST api.runpod.io/v2/registries byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/runpod-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-container-registry-auth`
-- **create-network-volume** (upstream-idempotency, same session) The retry sent a further write to POST api.runpod.io/v2/network-volumes rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first.
-  - reproduce: `doubletap replay runs/census-v9/runpod-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-network-volume`
-- **create-network-volume** (upstream-idempotency, after restart) The retry re-sends POST api.runpod.io/v2/network-volumes byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.
-  - reproduce: `doubletap replay runs/census-v9/runpod-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-network-volume`
+  - reproduce: `doubletap replay runs/census-v10/runpod-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-container-registry-auth`
+- **create-network-volume** (upstream-idempotency, same session and after restart) The retry re-sends POST api.runpod.io/v2/network-volumes byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/runpod-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-network-volume`
 - **create-registry-delegation** (upstream-idempotency, same session and after restart) The retry re-sends POST api.runpod.io/v2/registries/delegations byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/runpod-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-registry-delegation`
+  - reproduce: `doubletap replay runs/census-v10/runpod-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-registry-delegation`
 - **create-template** (upstream-idempotency, same session and after restart) The retry re-sends POST api.runpod.io/v2/templates byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/runpod-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-template`
+  - reproduce: `doubletap replay runs/census-v10/runpod-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create-template`
 
 ## samarth-gtm-mcp
 
 `npm:samarth-gtm-mcp@1.483.0` &middot; samarth-gtm-mcp 1.0.0
 
 - **accounts_get** (upstream-idempotency, same session and after restart) The retry re-sends POST oauth2.googleapis.com/token byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/samarth-gtm-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool accounts_get`
+  - reproduce: `doubletap replay runs/census-v10/samarth-gtm-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool accounts_get`
 - **accounts_list** (upstream-idempotency, same session and after restart) The retry re-sends POST oauth2.googleapis.com/token byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/samarth-gtm-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool accounts_list`
+  - reproduce: `doubletap replay runs/census-v10/samarth-gtm-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool accounts_list`
 - **audit_container** (upstream-idempotency, same session and after restart) The retry re-sends POST oauth2.googleapis.com/token byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/samarth-gtm-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool audit_container`
+  - reproduce: `doubletap replay runs/census-v10/samarth-gtm-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool audit_container`
 - **built_in_variables_list** (upstream-idempotency, same session and after restart) The retry re-sends POST oauth2.googleapis.com/token byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/samarth-gtm-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool built_in_variables_list`
+  - reproduce: `doubletap replay runs/census-v10/samarth-gtm-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool built_in_variables_list`
 
 ## airtable-mcp-server
 
 `npm:airtable-mcp-server@1.14.0` &middot; airtable-mcp-server 1.14.0
 
 - **create_comment** (upstream-idempotency, same session and after restart) The retry re-sends POST api.airtable.com/v0/dt-a6602e/dt-a6602e/dt-a6602e/comments byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_comment`
+  - reproduce: `doubletap replay runs/census-v10/airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_comment`
 - **create_field** (upstream-idempotency, same session and after restart) The retry re-sends POST api.airtable.com/v0/meta/bases/dt-ffbf5a/tables/dt-ffbf5a/fields byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_field`
+  - reproduce: `doubletap replay runs/census-v10/airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_field`
 - **create_record** (upstream-idempotency, same session and after restart) The retry re-sends POST api.airtable.com/v0/dt-4b5198/dt-4b5198 byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_record`
+  - reproduce: `doubletap replay runs/census-v10/airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_record`
 - **create_table** (upstream-idempotency, same session and after restart) The retry re-sends POST api.airtable.com/v0/meta/bases/dt-55029a/tables byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_table`
+  - reproduce: `doubletap replay runs/census-v10/airtable-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_table`
 
 ## @kolbo/mcp
 
 `npm:@kolbo/mcp@1.86.0` &middot; kolbo 1.0.0
 
 - **acquire_clean_music_track** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/music-library/clean/dt-05988c byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/kolbo-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool acquire_clean_music_track`
+  - reproduce: `doubletap replay runs/census-v10/kolbo-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool acquire_clean_music_track`
 - **activate_color_palette** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/color-palettes/dt-eb1e15/activate byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/kolbo-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool activate_color_palette`
-- **add_media_to_folder** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/media/folders/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-kolbo-mcp-upstream-same-add_media_to_folder-AcMms9%2Fworkspace%2Fdt-3e5c9c-dir/items byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/kolbo-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_media_to_folder`
+  - reproduce: `doubletap replay runs/census-v10/kolbo-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool activate_color_palette`
+- **add_media_to_folder** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/media/folders/%2Fprivate%2Fvar%2Ffolders%2Fsk%2F2dc6gxhx2sx95bx90x1hbg7h0000gn%2FT%2Fdoubletap-kolbo-mcp-upstream-same-add_media_to_folder-yJK4vU%2Fworkspace%2Fdt-3e5c9c-dir/items byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/kolbo-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_media_to_folder`
 - **add_review_version** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/review/assets/dt-ee2874/versions byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/kolbo-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_review_version`
+  - reproduce: `doubletap replay runs/census-v10/kolbo-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_review_version`
 
 ## @browserbasehq/mcp
 
 `npm:@browserbasehq/mcp@3.0.0` &middot; Browserbase MCP Server 3.0.0
 
 - **act** (upstream-idempotency, same session and after restart) The retry re-sends POST api.stagehand.browserbase.com/v1/sessions/start byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool act`
+  - reproduce: `doubletap replay runs/census-v10/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool act`
 - **extract** (upstream-idempotency, same session and after restart) The retry re-sends POST api.stagehand.browserbase.com/v1/sessions/start byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool extract`
+  - reproduce: `doubletap replay runs/census-v10/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool extract`
 - **navigate** (upstream-idempotency, same session and after restart) The retry re-sends POST api.stagehand.browserbase.com/v1/sessions/start byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool navigate`
+  - reproduce: `doubletap replay runs/census-v10/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool navigate`
 - **observe** (upstream-idempotency, same session and after restart) The retry re-sends POST api.stagehand.browserbase.com/v1/sessions/start byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool observe`
+  - reproduce: `doubletap replay runs/census-v10/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool observe`
 - **start** (upstream-idempotency, same session and after restart) The retry re-sends POST api.stagehand.browserbase.com/v1/sessions/start byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool start`
+  - reproduce: `doubletap replay runs/census-v10/browserbasehq-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool start`
 
 ## bitbucket-mcp
 
 `npm:bitbucket-mcp@5.0.6` &middot; bitbucket-mcp-server 1.0.0
 
 - **addPendingPullRequestComment** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/repositories/dt-404930/dt-404930/pullrequests/dt-404930/comments byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool addPendingPullRequestComment`
+  - reproduce: `doubletap replay runs/census-v10/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool addPendingPullRequestComment`
 - **addPullRequestComment** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/repositories/dt-530957/dt-530957/pullrequests/dt-530957/comments byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool addPullRequestComment`
+  - reproduce: `doubletap replay runs/census-v10/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool addPullRequestComment`
 - **approvePullRequest** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/repositories/dt-352960/dt-352960/pullrequests/dt-352960/approve byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool approvePullRequest`
+  - reproduce: `doubletap replay runs/census-v10/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool approvePullRequest`
 - **createDraftPullRequest** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/repositories/dt-4007f6/dt-4007f6/pullrequests byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createDraftPullRequest`
+  - reproduce: `doubletap replay runs/census-v10/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createDraftPullRequest`
 - **createPullRequest** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/repositories/dt-7f7aa5/dt-7f7aa5/pullrequests byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createPullRequest`
+  - reproduce: `doubletap replay runs/census-v10/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createPullRequest`
 - **createPullRequestTask** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/repositories/dt-2d3bd4/dt-2d3bd4/pullrequests/dt-2d3bd4/tasks byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createPullRequestTask`
+  - reproduce: `doubletap replay runs/census-v10/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createPullRequestTask`
 - **declinePullRequest** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/repositories/dt-1e7f16/dt-1e7f16/pullrequests/dt-1e7f16/decline byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool declinePullRequest`
+  - reproduce: `doubletap replay runs/census-v10/bitbucket-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool declinePullRequest`
 
 ## @coinbase/cds-mcp-server
 
 `npm:@coinbase/cds-mcp-server@9.25.0` &middot; cds 9.25.0
 
 - **get-cds-doc** (upstream-idempotency, same session) The retry re-sends POST api.developer.coinbase.com/analytics byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.
-  - reproduce: `doubletap replay runs/census-v9/coinbase-cds-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool get-cds-doc`
+  - reproduce: `doubletap replay runs/census-v10/coinbase-cds-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool get-cds-doc`
 - **get-cds-doc** (upstream-idempotency, after restart) The retry sent a further write to POST api.developer.coinbase.com/analytics rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first.
-  - reproduce: `doubletap replay runs/census-v9/coinbase-cds-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool get-cds-doc`
+  - reproduce: `doubletap replay runs/census-v10/coinbase-cds-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool get-cds-doc`
 - **list-cds-routes** (upstream-idempotency, same session) The retry re-sends POST api.developer.coinbase.com/analytics byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing.
-  - reproduce: `doubletap replay runs/census-v9/coinbase-cds-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool list-cds-routes`
+  - reproduce: `doubletap replay runs/census-v10/coinbase-cds-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool list-cds-routes`
 - **list-cds-routes** (upstream-idempotency, after restart) The retry sent a further write to POST api.developer.coinbase.com/analytics rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first.
-  - reproduce: `doubletap replay runs/census-v9/coinbase-cds-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool list-cds-routes`
+  - reproduce: `doubletap replay runs/census-v10/coinbase-cds-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool list-cds-routes`
 
 ## @amap/amap-maps-mcp-server
 
@@ -692,44 +694,44 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@avallon-labs/mcp@43.1.0` &middot; avallonAPIServer 1.0.0
 
 - **createAgentWebhook** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/voice-agents/dt-9be602/webhooks byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/avallon-labs-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createAgentWebhook`
+  - reproduce: `doubletap replay runs/census-v10/avallon-labs-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createAgentWebhook`
 - **createApiKey** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/platform/api-keys byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/avallon-labs-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createApiKey`
+  - reproduce: `doubletap replay runs/census-v10/avallon-labs-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createApiKey`
 - **createArtifact** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/artifacts byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/avallon-labs-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createArtifact`
+  - reproduce: `doubletap replay runs/census-v10/avallon-labs-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool createArtifact`
 
 ## mcp-scraper
 
 `npm:mcp-scraper@0.88.2` &middot; mcp-scraper 0.88.2
 
 - **access-accept-share** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-accept-share`
+  - reproduce: `doubletap replay runs/census-v10/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-accept-share`
 - **access-approve-sender** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-approve-sender`
+  - reproduce: `doubletap replay runs/census-v10/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-approve-sender`
 - **access-decline-share** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-decline-share`
+  - reproduce: `doubletap replay runs/census-v10/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-decline-share`
 - **access-inbox-settings** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-inbox-settings`
+  - reproduce: `doubletap replay runs/census-v10/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-inbox-settings`
 - **access-invite-account** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-invite-account`
+  - reproduce: `doubletap replay runs/census-v10/mcp-scraper-dt-census-1.dt.jsonl --probe upstream-idempotency --tool access-invite-account`
 
 ## @letoribo/mcp-graphql-enhanced
 
 `npm:@letoribo/mcp-graphql-enhanced@4.15.3` &middot; mcp-graphql-enhanced 4.15.3
 
 - **introspect-schema** (upstream-idempotency, same session and after restart) The retry re-sends POST mcp-discord.vercel.app/api/graphiql byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/letoribo-mcp-graphql-enhanced-dt-census-1.dt.jsonl --probe upstream-idempotency --tool introspect-schema`
+  - reproduce: `doubletap replay runs/census-v10/letoribo-mcp-graphql-enhanced-dt-census-1.dt.jsonl --probe upstream-idempotency --tool introspect-schema`
 
 ## ask-experts-mcp
 
 `npm:ask-experts-mcp@0.2.0` &middot; ask-experts 0.1.0
 
 - **ask_doubao** (upstream-idempotency, same session and after restart) The retry re-sends POST ark.cn-beijing.volces.com/api/v3/chat/completions byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/ask-experts-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ask_doubao`
+  - reproduce: `doubletap replay runs/census-v10/ask-experts-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ask_doubao`
 - **ask_hunyuan** (upstream-idempotency, same session and after restart) The retry re-sends POST api.hunyuan.cloud.tencent.com/v1/chat/completions byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/ask-experts-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ask_hunyuan`
+  - reproduce: `doubletap replay runs/census-v10/ask-experts-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ask_hunyuan`
 - **ask_qwen** (upstream-idempotency, same session and after restart) The retry re-sends POST dashscope.aliyuncs.com/compatible-mode/v1/chat/completions byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/ask-experts-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ask_qwen`
+  - reproduce: `doubletap replay runs/census-v10/ask-experts-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ask_qwen`
 
 ## @jpisnice/shadcn-ui-mcp-server
 
@@ -742,39 +744,39 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@siemens/ix-mcp-react@5.2.1-v.1.11.3` &middot; @siemens/ix-mcp-react 1.0.0
 
 - **ix-icon-search** (upstream-idempotency, same session and after restart) The retry re-sends POST api.siemens.com/llm/v1/embeddings byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/siemens-ix-mcp-react-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ix-icon-search`
+  - reproduce: `doubletap replay runs/census-v10/siemens-ix-mcp-react-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ix-icon-search`
 - **ix-search** (upstream-idempotency, same session and after restart) The retry re-sends POST api.siemens.com/llm/v1/embeddings byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/siemens-ix-mcp-react-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ix-search`
+  - reproduce: `doubletap replay runs/census-v10/siemens-ix-mcp-react-dt-census-1.dt.jsonl --probe upstream-idempotency --tool ix-search`
 
 ## @tacticlaunch/mcp-linear
 
 `npm:@tacticlaunch/mcp-linear@1.4.3` &middot; linear 1.4.3
 
 - **linear_addAttachment** (upstream-idempotency, same session and after restart) The retry re-sends POST api.linear.app/graphql byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addAttachment`
+  - reproduce: `doubletap replay runs/census-v10/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addAttachment`
 - **linear_addIssueLabel** (upstream-idempotency, same session and after restart) The retry re-sends POST api.linear.app/graphql byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addIssueLabel`
+  - reproduce: `doubletap replay runs/census-v10/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addIssueLabel`
 - **linear_addIssueToCycle** (upstream-idempotency, same session and after restart) The retry re-sends POST api.linear.app/graphql byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addIssueToCycle`
+  - reproduce: `doubletap replay runs/census-v10/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addIssueToCycle`
 - **linear_addIssueToProject** (upstream-idempotency, same session and after restart) The retry re-sends POST api.linear.app/graphql byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addIssueToProject`
+  - reproduce: `doubletap replay runs/census-v10/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addIssueToProject`
 - **linear_addIssueToRelease** (upstream-idempotency, same session and after restart) The retry re-sends POST api.linear.app/graphql byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addIssueToRelease`
+  - reproduce: `doubletap replay runs/census-v10/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addIssueToRelease`
 - **linear_addProjectMember** (upstream-idempotency, same session and after restart) The retry re-sends POST api.linear.app/graphql byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addProjectMember`
+  - reproduce: `doubletap replay runs/census-v10/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addProjectMember`
 - **linear_addProjectToInitiative** (upstream-idempotency, same session and after restart) The retry re-sends POST api.linear.app/graphql byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addProjectToInitiative`
+  - reproduce: `doubletap replay runs/census-v10/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addProjectToInitiative`
 - **linear_addToFavorites** (upstream-idempotency, same session and after restart) The retry re-sends POST api.linear.app/graphql byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addToFavorites`
+  - reproduce: `doubletap replay runs/census-v10/tacticlaunch-mcp-linear-dt-census-1.dt.jsonl --probe upstream-idempotency --tool linear_addToFavorites`
 
 ## agentphone-mcp
 
 `npm:agentphone-mcp@0.7.0` &middot; agentphone 0.7.0
 
 - **attach_number** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/agents/dt-2e143c/numbers byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/agentphone-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool attach_number`
+  - reproduce: `doubletap replay runs/census-v10/agentphone-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool attach_number`
 - **create_agent** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/v1/agents byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/agentphone-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_agent`
+  - reproduce: `doubletap replay runs/census-v10/agentphone-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_agent`
 
 ## flightradar-mcp-server
 
@@ -787,19 +789,19 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@doist/todoist-mcp@11.0.0` &middot; todoist-mcp-server 11.0.0
 
 - **add-filters** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/v1/sync rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-filters`
+  - reproduce: `doubletap replay runs/census-v10/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-filters`
 - **add-labels** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v1/labels byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-labels`
+  - reproduce: `doubletap replay runs/census-v10/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-labels`
 - **add-projects** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v1/projects byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-projects`
-- **add-reminders** (upstream-idempotency, same session and after restart) The retry sent a further write to POST <upstream>/api/v1/reminders rather than the identical one, so the two requests differ in their body and the far end has no way to recognise the second as a duplicate of the first, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-reminders`
+  - reproduce: `doubletap replay runs/census-v10/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-projects`
+- **add-reminders** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v1/reminders byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
+  - reproduce: `doubletap replay runs/census-v10/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-reminders`
 - **add-sections** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v1/sections byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-sections`
+  - reproduce: `doubletap replay runs/census-v10/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-sections`
 - **add-tasks** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v1/tasks byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-tasks`
+  - reproduce: `doubletap replay runs/census-v10/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-tasks`
 - **analyze-project-health** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/api/v1/projects/dt-7a970e/insights/health/analyze byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool analyze-project-health`
+  - reproduce: `doubletap replay runs/census-v10/doist-todoist-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool analyze-project-health`
 
 ## @delorenj/mcp-server-ticketmaster
 
@@ -812,31 +814,31 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@variflight-ai/variflight-mcp@1.0.3` &middot; variflight-mcp 1.0.3
 
 - **getRealtimeLocationByAnum** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/ byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/variflight-ai-variflight-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool getRealtimeLocationByAnum`
+  - reproduce: `doubletap replay runs/census-v10/variflight-ai-variflight-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool getRealtimeLocationByAnum`
 
 ## @nextscope/mcp
 
 `npm:@nextscope/mcp@0.3.0` &middot; nextscope 0.1.0
 
 - **nextscope_export_trace** (upstream-idempotency, same session and after restart) The retry re-sends POST localhost:3000/_nextscope/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_export_trace`
+  - reproduce: `doubletap replay runs/census-v10/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_export_trace`
 - **nextscope_get_spans** (upstream-idempotency, same session and after restart) The retry re-sends POST localhost:3000/_nextscope/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_get_spans`
+  - reproduce: `doubletap replay runs/census-v10/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_get_spans`
 - **nextscope_get_trace** (upstream-idempotency, same session and after restart) The retry re-sends POST localhost:3000/_nextscope/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_get_trace`
+  - reproduce: `doubletap replay runs/census-v10/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_get_trace`
 - **nextscope_list_servers** (upstream-idempotency, same session and after restart) The retry re-sends POST localhost:3000/_nextscope/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_list_servers`
+  - reproduce: `doubletap replay runs/census-v10/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_list_servers`
 - **nextscope_list_spans** (upstream-idempotency, same session and after restart) The retry re-sends POST localhost:3000/_nextscope/mcp byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_list_spans`
+  - reproduce: `doubletap replay runs/census-v10/nextscope-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool nextscope_list_spans`
 
 ## @atlassian-dc-mcp/jira
 
 `npm:@atlassian-dc-mcp/jira@0.34.0` &middot; atlassian-jira-mcp 0.34.0
 
 - **jira_createIssue** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream><placeholder>/api/2/issue byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/atlassian-dc-mcp-jira-dt-census-1.dt.jsonl --probe upstream-idempotency --tool jira_createIssue`
+  - reproduce: `doubletap replay runs/census-v10/atlassian-dc-mcp-jira-dt-census-1.dt.jsonl --probe upstream-idempotency --tool jira_createIssue`
 - **jira_linkIssues** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream><placeholder>/api/2/issueLink byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/atlassian-dc-mcp-jira-dt-census-1.dt.jsonl --probe upstream-idempotency --tool jira_linkIssues`
+  - reproduce: `doubletap replay runs/census-v10/atlassian-dc-mcp-jira-dt-census-1.dt.jsonl --probe upstream-idempotency --tool jira_linkIssues`
 
 ## @tiberriver256/mcp-server-azure-devops
 
@@ -855,7 +857,7 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@skanda-yutori/mcp-send-email@1.0.0` &middot; email-sending-service 1.0.0
 
 - **send-email** (upstream-idempotency, same session and after restart) The retry re-sends POST api.resend.com/emails byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/skanda-yutori-mcp-send-email-dt-census-1.dt.jsonl --probe upstream-idempotency --tool send-email`
+  - reproduce: `doubletap replay runs/census-v10/skanda-yutori-mcp-send-email-dt-census-1.dt.jsonl --probe upstream-idempotency --tool send-email`
 
 ## @rebasepro/mcp
 
@@ -874,45 +876,45 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:hyperbrowser-mcp@1.0.25` &middot; hyperbrowser 1.0.24
 
 - **browser_use_agent** (upstream-idempotency, same session and after restart) The retry re-sends POST app.hyperbrowser.ai/api/task/browser-use byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool browser_use_agent`
+  - reproduce: `doubletap replay runs/census-v10/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool browser_use_agent`
 - **claude_computer_use_agent** (upstream-idempotency, same session and after restart) The retry re-sends POST app.hyperbrowser.ai/api/task/claude-computer-use byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool claude_computer_use_agent`
+  - reproduce: `doubletap replay runs/census-v10/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool claude_computer_use_agent`
 - **crawl_webpages** (upstream-idempotency, same session and after restart) The retry re-sends POST app.hyperbrowser.ai/api/crawl byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool crawl_webpages`
+  - reproduce: `doubletap replay runs/census-v10/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool crawl_webpages`
 - **create_profile** (upstream-idempotency, same session and after restart) The retry re-sends POST app.hyperbrowser.ai/api/profile byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_profile`
+  - reproduce: `doubletap replay runs/census-v10/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_profile`
 - **extract_structured_data** (upstream-idempotency, same session and after restart) The retry re-sends POST app.hyperbrowser.ai/api/extract byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool extract_structured_data`
+  - reproduce: `doubletap replay runs/census-v10/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool extract_structured_data`
 - **openai_computer_use_agent** (upstream-idempotency, same session and after restart) The retry re-sends POST app.hyperbrowser.ai/api/task/cua byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool openai_computer_use_agent`
+  - reproduce: `doubletap replay runs/census-v10/hyperbrowser-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool openai_computer_use_agent`
 
 ## alibabacloud-devops-mcp-server
 
 `npm:alibabacloud-devops-mcp-server@0.3.61` &middot; alibabacloud-devops-mcp-server 0.3.61
 
 - **cancel_app_release_stage_execution** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/oapi/v1/appstack/apps/dt-1b5b45/releaseWorkflows/dt-1b5b45/releaseStages/dt-1b5b45/executions/dt-1b5b45:cancel byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool cancel_app_release_stage_execution`
+  - reproduce: `doubletap replay runs/census-v10/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool cancel_app_release_stage_execution`
 - **cancel_appstack_change_request** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/oapi/v1/appstack/apps/dt-5c6efb/changeRequests/dt-5c6efb:cancel byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool cancel_appstack_change_request`
+  - reproduce: `doubletap replay runs/census-v10/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool cancel_appstack_change_request`
 - **close_appstack_change_request** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/oapi/v1/appstack/apps/dt-895667/changeRequests/dt-895667:finish byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool close_appstack_change_request`
+  - reproduce: `doubletap replay runs/census-v10/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool close_appstack_change_request`
 - **create_app_orchestration** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/oapi/v1/appstack/apps/dt-d2f444/orchestrations byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_app_orchestration`
+  - reproduce: `doubletap replay runs/census-v10/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_app_orchestration`
 - **create_app_tag** (upstream-idempotency, same session and after restart) The retry re-sends POST <upstream>/oapi/v1/appstack/appTags byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_app_tag`
+  - reproduce: `doubletap replay runs/census-v10/alibabacloud-devops-mcp-server-dt-census-1.dt.jsonl --probe upstream-idempotency --tool create_app_tag`
 
 ## @delorenj/mcp-server-trello
 
 `npm:@delorenj/mcp-server-trello@1.8.1` &middot; trello-server 1.8.1
 
 - **add_card_to_list** (upstream-idempotency, same session and after restart) The retry re-sends POST api.trello.com/1/cards byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/delorenj-mcp-server-trello-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_card_to_list`
+  - reproduce: `doubletap replay runs/census-v10/delorenj-mcp-server-trello-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_card_to_list`
 - **add_cards_to_list** (upstream-idempotency, same session and after restart) The retry re-sends POST api.trello.com/1/cards byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/delorenj-mcp-server-trello-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_cards_to_list`
+  - reproduce: `doubletap replay runs/census-v10/delorenj-mcp-server-trello-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_cards_to_list`
 - **add_comment** (upstream-idempotency, same session and after restart) The retry re-sends POST api.trello.com/1/cards/dt-b6a984/actions/comments byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/delorenj-mcp-server-trello-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_comment`
+  - reproduce: `doubletap replay runs/census-v10/delorenj-mcp-server-trello-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add_comment`
 - **assign_member_to_card** (upstream-idempotency, same session and after restart) The retry re-sends POST api.trello.com/1/cards/dt-a611d0/idMembers byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/delorenj-mcp-server-trello-dt-census-1.dt.jsonl --probe upstream-idempotency --tool assign_member_to_card`
+  - reproduce: `doubletap replay runs/census-v10/delorenj-mcp-server-trello-dt-census-1.dt.jsonl --probe upstream-idempotency --tool assign_member_to_card`
 
 ## @roychri/mcp-server-asana
 
@@ -925,9 +927,9 @@ No retry failures or contract violations among the tools this oracle could decid
 `npm:@arizeai/phoenix-mcp@4.3.7` &middot; phoenix-mcp-server 1.1.0
 
 - **add-dataset-examples** (upstream-idempotency, same session and after restart) The retry re-sends POST localhost:6006/v1/datasets/upload byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/arizeai-phoenix-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-dataset-examples`
+  - reproduce: `doubletap replay runs/census-v10/arizeai-phoenix-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-dataset-examples`
 - **add-prompt-version-tag** (upstream-idempotency, same session and after restart) The retry re-sends POST localhost:6006/v1/prompt_versions/dt-5f616e/tags byte for byte with no idempotency header, and the tool declares no readOnlyHint. Either the retry duplicates a write, or the call is a query and the annotation a gateway would use to know that is missing, both on the live connection and after a reconnect.
-  - reproduce: `doubletap replay runs/census-v9/arizeai-phoenix-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-prompt-version-tag`
+  - reproduce: `doubletap replay runs/census-v10/arizeai-phoenix-mcp-dt-census-1.dt.jsonl --probe upstream-idempotency --tool add-prompt-version-tag`
 
 ## @vizejs/musea-mcp-server
 

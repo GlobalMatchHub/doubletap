@@ -83,10 +83,16 @@ async function auditOne(server: string, tool: string, published: string, variant
     const def = (await c.session.listTools(10_000)).find((t) => t.name === tool);
     if (!def) return { ...base, observed: "tool gone", agrees: false, detail: "not in tools/list any more" };
 
-    const rng = new Rng(`audit:${server}:${tool}`);
+    // Seeded once, not forked per call. Forking advances the stream, so the
+    // two calls drew different numbers and the checker saw a difference it had
+    // created itself. That is exactly the bug it exists to catch, and it had
+    // it too: it disagreed with a correct verdict about hubspot until this was
+    // fixed. A checker that reproduces the fault it checks for is worse than
+    // no checker.
+    const argSeed = `audit:${server}:${tool}:args`;
     const args = () =>
       synthArgs(def.inputSchema, {
-        rng: rng.fork("a"),
+        rng: new Rng(argSeed),
         workspace: c.sandbox.workspace,
         toolName: tool,
         existingFiles: ["note.txt"],

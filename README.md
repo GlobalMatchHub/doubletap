@@ -56,38 +56,42 @@ plausible-looking placeholder is filled in, enough to clear the guard and reach
 the code that issues the request, never enough to authenticate against anything
 real.
 
-### 90 servers, 581 tools
+### 90 servers, 586 tools
 
-Full tables in [`runs/census-v9/census.md`](runs/census-v9/census.md), one row
+Full tables in [`runs/census-v10/census.md`](runs/census-v10/census.md), one row
 per verdict in `census.csv`.
 
 **44 of 90 servers have at least one tool a retrying client cannot use
-safely**, covering 161 of 581 exercised tools: 127 are a retry re-sending the
-same write byte for byte, 21 are a retry sending a further write the far end
-cannot recognise as a duplicate, 16 are an answer that changes after the first
+safely**, covering 161 of 586 exercised tools: 138 are a retry re-sending the
+same write byte for byte, 11 are a retry sending a further write the far end
+cannot recognise as a duplicate, 21 are an answer that changes after the first
 call, and 1 is a tool that declares itself idempotent and is not.
 
-**A sample of 22 of those findings, one per server, was independently
+**A sample of 20 of those findings, one per server, was independently
 re-derived** by `doubletap audit`, which drives each server directly with no
-probe involved and reaches its own conclusion. All 22 agreed. Run against the
-census that preceded the last fix, the same command disagreed with three of
-seven.
+probe involved and reaches its own conclusion. All 20 agreed. Run against the
+census that preceded the last correctness fix, the same command disagreed with
+three of seven, so it is capable of finding disagreements it did not find here.
 
 | Server | Monthly installs | Exercised | Contract violation | Upstream write repeated | Answer changes after first call |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `nexus-agents` | 36,481 | 7 | 1 | 1 | 0 |
+| `nexus-agents` | 36,481 | 8 | 1 | 1 | 0 |
 | `@shortcut/mcp` | 65,231 | 8 | 0 | 3 | 7 |
 | `@serdnaley/metabase-mcp` | 243,342 | 8 | 0 | 8 | 0 |
 | `@google-cloud/observability-mcp` | 110,871 | 8 | 0 | 0 | 8 |
 | `brilliant-directories-mcp` | 26,452 | 8 | 0 | 8 | 0 |
 | `@tacticlaunch/mcp-linear` | 16,377 | 8 | 0 | 8 | 0 |
+| `@shopify/dev-mcp` | 128,473 | 6 | 0 | 6 | 1 |
 | `bitbucket-mcp` | 19,646 | 8 | 0 | 7 | 0 |
-| `@doist/todoist-mcp` | 15,850 | 8 | 0 | 7 | 0 |
 | ... 36 more | | | | | |
 
 Counts are of tools, not of verdict records. Three probes report a doubled
 effect independently, so counting records printed a number roughly three times
 larger than the number of things actually wrong.
+
+Two of these were reported to their maintainers before this was published:
+[nexus-substrate/nexus-agents#5504](https://github.com/nexus-substrate/nexus-agents/issues/5504)
+and [hostinger/api-mcp-server#68](https://github.com/hostinger/api-mcp-server/issues/68).
 
 The single strongest finding, reproduced independently three times and still
 present on the current release:
@@ -104,8 +108,8 @@ whether retrying is safe. Nothing anywhere checks whether it is true.
 
 Others worth naming:
 
-- **`hostinger-api-mcp`** (526,000 monthly installs) retries `POST` to create
-  cron jobs, databases and websites with no idempotency header at all.
+- **`hostinger-api-mcp`** (526,000 monthly installs) resends `POST` to create
+  websites, cron jobs and databases byte for byte with no idempotency header.
 - **`@shopify/dev-mcp` `feedback`** deduplicates a retry within one session and
   stops doing so after a reconnect, because the memory it deduplicates from
   does not survive the restart. That is the exact case the probe exists for.
@@ -142,6 +146,7 @@ unless it is harder on itself than on them.
 | 16 retry duplications | The same log files, under the retry probe. |
 | 1 concurrency failure against `@shopify/dev-mcp` | Overlapping calls were held to the same per-call timeout as sequential ones. The server queues rather than parallelises, answered all four within ten seconds, and was reported as dropping three. |
 | 1 lost update against `nexus-agents` | The snapshot raced the server's own writes. It answers and then flushes, so sampling the instant a call resolved saw one run directory where four had been created. |
+| **10 findings called a different write rather than a repeat** | The probes rebuilt the arguments for each attempt, and building them advanced the random stream, so a retry of a tool with a numeric field asked for order 7 and then order 3. The harness was not testing a retry at all for those tools, and the difference in the request body was its own. Caught while checking that the reproduction commands in two issue drafts did what the drafts claimed. |
 | **119 servers credited with deduplicating a retry** | Restoring the interceptor before every spawn, a security fix, also truncated the request log, because installing the interceptor and starting the log empty were one function. The harness saw the log shrink, the tamper detector fired on its own action, and the retry appeared to have sent nothing. Checking one by hand: Notion re-sends `POST /v1/comments` after a reconnect, the opposite of what was published. |
 
 The last one is the instructive one. It was introduced *by* a fix, it was
@@ -319,7 +324,7 @@ Every run writes a `.dt.jsonl` trace: one record per line, append-only, greppabl
 Every verdict carries the command that reproduces it. Replay reads the trace back and recomputes each snapshot's merkle root from its recorded entries rather than trusting the stored digest, so an edited or truncated trace is detected instead of believed:
 
 ```
-$ doubletap replay runs/census-v9/filesystem-dt-census-1.dt.jsonl --tool write_file
+$ doubletap replay runs/census-v10/filesystem-dt-census-1.dt.jsonl --tool write_file
 ...
 429 records, 304 frames, 76/76 snapshot digests recomputed and matched
 ```

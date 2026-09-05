@@ -28,6 +28,10 @@ function sortKeys(v: unknown): unknown {
   return v;
 }
 
+/** Enough that any sandbox still capable of appearing in a record is covered,
+ *  small enough that scanning every line against all of them stays cheap. */
+const MAX_REDACTIONS = 64;
+
 export class TraceWriter {
   #stream: WriteStream;
   #seq = 0;
@@ -50,26 +54,30 @@ export class TraceWriter {
    * temp directory into a published trace.
    */
   /**
-   * Registers a literal string to be rewritten on the way into the trace, and
-   * returns a function that stops doing so.
+   * Registers a literal string to be rewritten on the way into the trace.
    *
    * Every case registers its own sandbox path, one writer serves a whole
    * target, and a target runs on the order of a thousand cases. Left to
    * accumulate, each written line was scanned once per case that had ever
    * existed, and snapshot records are routinely over 100KB, so the last tools
-   * of a target cost orders of magnitude more wall clock than the first. A
-   * disposed sandbox's path can never appear again, so it is dropped.
+   * of a target cost far more wall clock than the first.
+   *
+   * Dropping a case's entry when its sandbox is disposed seemed obvious and
+   * was wrong: a probe disposes its cases in a finally, and the verdict it
+   * returns is written by the runner afterwards, so the evidence went into the
+   * trace with the sandbox path unmasked. That is a leak of the developer's
+   * paths and it broke the determinism check, since those paths differ per
+   * run.
+   *
+   * So entries stay, and the list is bounded instead. The most recent few are
+   * the only ones that can still appear, because a disposed sandbox is gone.
    */
-  redact(from: string, to: string): () => void {
-    if (!from) return () => {};
-    const entry: [string, string] = [from, to];
-    this.#redactions.push(entry);
+  redact(from: string, to: string): void {
+    if (!from) return;
+    this.#redactions.push([from, to]);
+    if (this.#redactions.length > MAX_REDACTIONS) this.#redactions.splice(0, this.#redactions.length - MAX_REDACTIONS);
     // Longest first, so a root is replaced before any path built on top of it.
     this.#redactions.sort((a, b) => b[0].length - a[0].length);
-    return () => {
-      const i = this.#redactions.indexOf(entry);
-      if (i !== -1) this.#redactions.splice(i, 1);
-    };
   }
 
   #apply(line: string): string {

@@ -35,7 +35,7 @@ export async function openCase(
   // Sandbox.root is already a realpath (see sandbox.ts), so this is the only
   // spelling of the path that can appear anywhere -- in argv, in a server's
   // own error messages, or in the frames it sends back.
-  const stopRedacting = trace.redact(sandbox.root, `<sandbox:${label}>`);
+  trace.redact(sandbox.root, `<sandbox:${label}>`);
 
   try {
     sandbox.seedFixture(target.fixture);
@@ -53,9 +53,8 @@ export async function openCase(
       extraRoots: target.packageDir ? [{ label: "pkg", path: join(sandbox.root, "pkg") }] : [],
     });
 
-    return await buildHandle(target, sandbox, oracle, upstream, label, trace, clock, stopRedacting);
+    return await buildHandle(target, sandbox, oracle, upstream, label, trace, clock);
   } catch (e) {
-    stopRedacting();
     // Nothing downstream holds this sandbox yet, so it would otherwise stay on
     // disk for the rest of the run and beyond it.
     sandbox.dispose();
@@ -72,7 +71,6 @@ async function buildHandle(
   label: string,
   trace: TraceWriter,
   clock: VirtualClock,
-  stopRedacting: () => void,
 ): Promise<CaseHandle> {
   let session = await connect(target, sandbox, trace, clock);
 
@@ -127,7 +125,6 @@ async function buildHandle(
       try {
         await session.close();
       } finally {
-        stopRedacting();
         sandbox.dispose();
         untrackSandbox(sandbox);
       }

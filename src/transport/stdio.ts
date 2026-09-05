@@ -1,5 +1,10 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import type { SendFault, Transport } from "./types.ts";
+import { trackKiller } from "../run/lifecycle.ts";
+
+/** One JSON-RPC frame should never approach this. Beyond it, the sender is
+ *  not framing at all and the bytes are dropped rather than accumulated. */
+const MAX_LINE_BYTES = 16 * 1024 * 1024;
 
 export interface StdioOptions {
   cmd: string[];
@@ -25,6 +30,7 @@ export class StdioTransport implements Transport {
   #onMsg: ((msg: unknown, raw: string) => void) | null = null;
   #onClose: ((i: { code: number | null; signal: string | null }) => void) | null = null;
   #alive = false;
+  #untrack: (() => void) | null = null;
   #opts: StdioOptions;
 
   constructor(opts: StdioOptions) {
@@ -49,6 +55,11 @@ export class StdioTransport implements Transport {
         ...this.#opts.env,
       },
       stdio: ["pipe", "pipe", "pipe"],
+      // Its own process group, so anything it spawns can be killed with it.
+      // The confinement profile permits fork and permits executing node, so a
+      // server can leave children behind, and signalling one pid left them
+      // reparented to init for the rest of the run.
+      detached: true,
     }) as ChildProcessWithoutNullStreams;
     this.#proc = proc;
     this.#alive = true;
@@ -63,8 +74,12 @@ export class StdioTransport implements Transport {
     proc.stdin.on("error", () => {});
     proc.on("exit", (code, signal) => {
       this.#alive = false;
+      this.#untrack?.();
       this.#onClose?.({ code, signal });
     });
+
+    // So a signal or a crash on the way out takes the server with it.
+    this.#untrack = trackKiller(() => killGroup(proc.pid));
 
     await new Promise<void>((resolve, reject) => {
       const ok = () => {
@@ -83,6 +98,14 @@ export class StdioTransport implements Transport {
   /** Newline-delimited JSON, per the MCP stdio transport. */
   #ingest(chunk: string): void {
     this.#buf += chunk;
+    // stderr has always been capped; stdout was not. A server that writes
+    // hundreds of megabytes with no newline, deliberately or by dumping a
+    // binary, grew this string until the harness died rather than the server.
+    if (this.#buf.length > MAX_LINE_BYTES) {
+      this.#onMsg?.({ __overlong: true, bytes: this.#buf.length }, `<${this.#buf.length} bytes with no newline, discarded>`);
+      this.#buf = "";
+      return;
+    }
     let nl: number;
     while ((nl = this.#buf.indexOf("\n")) !== -1) {
       const line = this.#buf.slice(0, nl);
@@ -121,7 +144,7 @@ export class StdioTransport implements Transport {
     if (fault?.killAfter) {
       const after = fault.killAfterMs ?? 0;
       if (after > 0) await new Promise((r) => setTimeout(r, after));
-      proc.kill("SIGKILL");
+      killGroup(proc.pid);
     }
 
     return { wrote: slice.byteLength, of, wire };
@@ -140,11 +163,35 @@ export class StdioTransport implements Transport {
   async close(): Promise<void> {
     const proc = this.#proc;
     if (!proc || !this.#alive) return;
+    this.#untrack?.();
     proc.stdin.end();
+
     const exited = new Promise<void>((r) => proc.once("exit", () => r()));
-    const timer = setTimeout(() => proc.kill("SIGKILL"), 1500);
-    await exited;
+    const timer = setTimeout(() => killGroup(proc.pid), 1500);
+    // Bounded. Awaiting the exit alone could never settle for a child stuck in
+    // uninterruptible I/O, and an await that cannot settle takes the whole run
+    // with it.
+    await Promise.race([exited, new Promise<void>((r) => setTimeout(r, 5000))]);
     clearTimeout(timer);
+    killGroup(proc.pid);
     this.#alive = false;
+  }
+}
+
+/**
+ * Kills a server and everything it started.
+ *
+ * A negative pid signals the whole process group, which is why the child is
+ * spawned detached. Failures are ignored on purpose: by the time this runs the
+ * group is usually already gone, and that is the outcome it wanted.
+ */
+function killGroup(pid: number | undefined): void {
+  if (pid === undefined) return;
+  try {
+    process.kill(-pid, "SIGKILL");
+  } catch {
+    try {
+      process.kill(pid, "SIGKILL");
+    } catch {}
   }
 }

@@ -45,9 +45,13 @@ export class McpSession {
   #pending = new Map<number | string, (msg: JsonRpcIn) => void>();
   #closed = false;
   #closeInfo: { code: number | null; signal: string | null } | null = null;
+  /** Beyond this, a chatty server is dropping its oldest held frames. */
+  static readonly MAX_HELD = 2000;
+
   /** Frames that arrived with no matching pending request. */
   readonly unsolicited: unknown[] = [];
   #quarantine: { msg: unknown; raw: string }[] = [];
+  #timers = new Map<number | string, ReturnType<typeof setTimeout>>();
   serverInfo: unknown = null;
   capabilities: Record<string, unknown> = {};
 
@@ -79,6 +83,11 @@ export class McpSession {
         this.#recordIn(msg, raw);
         const resolve = this.#pending.get(id)!;
         this.#pending.delete(id);
+        const timer = this.#timers.get(id);
+        if (timer !== undefined) {
+          clearTimeout(timer);
+          this.#timers.delete(id);
+        }
         resolve(msg as JsonRpcIn);
         return;
       }
@@ -89,7 +98,12 @@ export class McpSession {
       // it is held and flushed at the next point we act. The frame is not
       // lost, only attributed to a deterministic position.
       this.#quarantine.push({ msg, raw });
+      // Bounded. A server emitting progress notifications in a loop grew both
+      // of these for the lifetime of the case, and every held frame is also
+      // written to the trace when it drains.
+      if (this.#quarantine.length > McpSession.MAX_HELD) this.#quarantine.shift();
       this.unsolicited.push(msg);
+      if (this.unsolicited.length > McpSession.MAX_HELD) this.unsolicited.shift();
     });
     this.#transport.onClose((info) => {
       this.#closed = true;
@@ -97,6 +111,11 @@ export class McpSession {
       // Anything still waiting will never be answered.
       for (const [id, resolve] of this.#pending) {
         this.#pending.delete(id);
+        const t = this.#timers.get(id);
+        if (t !== undefined) {
+          clearTimeout(t);
+          this.#timers.delete(id);
+        }
         resolve({ __serverDied: true, id } as unknown as JsonRpcIn);
       }
     });

@@ -83,6 +83,10 @@ export class FsOracle implements Oracle {
     try {
       names = await readdir(dir);
     } catch {
+      // A directory that cannot be listed is not an empty directory. Recording
+      // it keeps a permission error from reading as "the tool changed
+      // nothing", which is a false pass rather than a lost log line.
+      out.push({ p: prefix + relative(root, dir).split(sep).join("/") + "/", kind: "dir", h: "unreadable" });
       return;
     }
     for (const name of names.sort()) {
@@ -94,6 +98,7 @@ export class FsOracle implements Oracle {
       try {
         st = await lstat(abs);
       } catch {
+        out.push({ p: rel, kind: "file", h: "unreadable" });
         continue;
       }
       if (st.isSymbolicLink()) {
@@ -116,10 +121,20 @@ export class FsOracle implements Oracle {
           h:
             st.size > this.#opts.maxFileBytes
               ? hashString(`oversize:${st.size}`)
-              : hashBuffer(await readFile(abs)),
+              : await hashFileOrMark(abs),
         });
       }
     }
+  }
+}
+
+/** An unreadable file is recorded as unreadable rather than skipped, so it
+ *  cannot silently look like no change. */
+async function hashFileOrMark(abs: string): Promise<string> {
+  try {
+    return hashBuffer(await readFile(abs));
+  } catch {
+    return "unreadable";
   }
 }
 

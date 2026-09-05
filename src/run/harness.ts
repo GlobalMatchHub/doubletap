@@ -7,6 +7,7 @@ import { UpstreamOracle } from "../oracle/upstream.ts";
 import { join } from "node:path";
 import { sandboxEnv, type TargetConfig } from "../target/registry.ts";
 import { confine } from "../target/confine.ts";
+import { trackSandbox, untrackSandbox } from "./lifecycle.ts";
 import type { TraceWriter } from "../trace/writer.ts";
 import type { VirtualClock } from "../det/clock.ts";
 import type { CaseHandle } from "../probe/types.ts";
@@ -26,26 +27,53 @@ export async function openCase(
   clock: VirtualClock,
 ): Promise<CaseHandle> {
   const sandbox = new Sandbox(`${target.id}-${label}`);
-  sandbox.seedFixture(target.fixture);
+  // Registered before anything else can throw. Everything between here and
+  // the caller receiving the handle can fail, and a failed initialize is the
+  // normal case for a large fraction of unaudited packages, so this is the
+  // routine path rather than the exceptional one.
+  trackSandbox(sandbox);
   // Sandbox.root is already a realpath (see sandbox.ts), so this is the only
   // spelling of the path that can appear anywhere -- in argv, in a server's
   // own error messages, or in the frames it sends back.
-  const placeholder = `<sandbox:${label}>`;
-  trace.redact(sandbox.root, placeholder);
-  // Clone the server's own package in, so state it writes beside its code is
-  // observable and thrown away with the sandbox.
-  if (target.packageDir && target.nodeModulesDir) {
-    sandbox.preparePackage(target.packageDir, target.nodeModulesDir);
+  const stopRedacting = trace.redact(sandbox.root, `<sandbox:${label}>`);
+
+  try {
+    sandbox.seedFixture(target.fixture);
+    // Clone the server's own package in, so state it writes beside its code is
+    // observable and thrown away with the sandbox.
+    if (target.packageDir && target.nodeModulesDir) {
+      sandbox.preparePackage(target.packageDir, target.nodeModulesDir);
+    }
+    installInterceptor(sandbox);
+    initNetLog(sandbox);
+    const upstream = new UpstreamOracle(netLogPath(sandbox));
+
+    const oracle = new FsOracle({
+      root: sandbox.workspace,
+      extraRoots: target.packageDir ? [{ label: "pkg", path: join(sandbox.root, "pkg") }] : [],
+    });
+
+    return await buildHandle(target, sandbox, oracle, upstream, label, trace, clock, stopRedacting);
+  } catch (e) {
+    stopRedacting();
+    // Nothing downstream holds this sandbox yet, so it would otherwise stay on
+    // disk for the rest of the run and beyond it.
+    sandbox.dispose();
+    untrackSandbox(sandbox);
+    throw e;
   }
-  installInterceptor(sandbox);
-  initNetLog(sandbox);
-  const upstream = new UpstreamOracle(netLogPath(sandbox));
+}
 
-  const oracle = new FsOracle({
-    root: sandbox.workspace,
-    extraRoots: target.packageDir ? [{ label: "pkg", path: join(sandbox.root, "pkg") }] : [],
-  });
-
+async function buildHandle(
+  target: TargetConfig,
+  sandbox: Sandbox,
+  oracle: FsOracle,
+  upstream: UpstreamOracle,
+  label: string,
+  trace: TraceWriter,
+  clock: VirtualClock,
+  stopRedacting: () => void,
+): Promise<CaseHandle> {
   let session = await connect(target, sandbox, trace, clock);
 
   const handle: CaseHandle = {
@@ -94,8 +122,15 @@ export async function openCase(
       session = await connect(target, sandbox, trace, clock);
     },
     async dispose() {
-      await session.close();
-      sandbox.dispose();
+      // The sandbox goes regardless of how closing the session went. A server
+      // that refuses to die must not also cost a directory.
+      try {
+        await session.close();
+      } finally {
+        stopRedacting();
+        sandbox.dispose();
+        untrackSandbox(sandbox);
+      }
     },
   } as CaseHandle;
 

@@ -32,7 +32,6 @@ export class TraceWriter {
   #stream: WriteStream;
   #seq = 0;
   readonly path: string;
-  readonly records: TraceRecord[] = [];
   #clock: VirtualClock;
   #redactions: [string, string][] = [];
 
@@ -50,11 +49,27 @@ export class TraceWriter {
    * two runs of the same seed differ everywhere and would leak the developer's
    * temp directory into a published trace.
    */
-  redact(from: string, to: string): void {
-    if (!from) return;
-    this.#redactions.push([from, to]);
+  /**
+   * Registers a literal string to be rewritten on the way into the trace, and
+   * returns a function that stops doing so.
+   *
+   * Every case registers its own sandbox path, one writer serves a whole
+   * target, and a target runs on the order of a thousand cases. Left to
+   * accumulate, each written line was scanned once per case that had ever
+   * existed, and snapshot records are routinely over 100KB, so the last tools
+   * of a target cost orders of magnitude more wall clock than the first. A
+   * disposed sandbox's path can never appear again, so it is dropped.
+   */
+  redact(from: string, to: string): () => void {
+    if (!from) return () => {};
+    const entry: [string, string] = [from, to];
+    this.#redactions.push(entry);
     // Longest first, so a root is replaced before any path built on top of it.
     this.#redactions.sort((a, b) => b[0].length - a[0].length);
+    return () => {
+      const i = this.#redactions.indexOf(entry);
+      if (i !== -1) this.#redactions.splice(i, 1);
+    };
   }
 
   #apply(line: string): string {
@@ -68,7 +83,6 @@ export class TraceWriter {
   }
 
   writeHeader(hdr: HeaderRecord): void {
-    this.records.push(hdr);
     this.#stream.write(this.#apply(canonical(hdr)) + "\n");
   }
 
@@ -89,7 +103,6 @@ export class TraceWriter {
         delete (full as unknown as { wire?: string }).wire;
       }
     }
-    this.records.push(full);
     this.#stream.write(this.#apply(canonical(full)) + "\n");
     return full;
   }

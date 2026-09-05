@@ -35,12 +35,27 @@ export interface RunResult {
 }
 
 export async function runTarget(opts: RunOptions): Promise<RunResult> {
+  // The writer holds an open file descriptor and buffered records. A target
+  // that throws used to leave both, so across a 90-target census the tail of
+  // every failed target's trace was lost and the descriptors accumulated.
+  return await runTargetInner(opts);
+}
+
+async function runTargetInner(opts: RunOptions): Promise<RunResult> {
   const started = Date.now();
   const runId = randomUUID();
   const clock = new VirtualClock();
   const tracePath = join(opts.outDir, `${opts.target.id}-${opts.seed}.dt.jsonl`);
   const trace = new TraceWriter(tracePath, clock);
   const startedAt = new Date().toISOString();
+  let closed = false;
+  const closeOnce = async () => {
+    if (closed) return;
+    closed = true;
+    await trace.close().catch(() => {});
+  };
+
+  try {
 
   const header: HeaderRecord = {
     k: "hdr",
@@ -65,11 +80,17 @@ export async function runTarget(opts: RunOptions): Promise<RunResult> {
   };
   trace.writeHeader(header);
 
-  // One throwaway case just to enumerate the surface.
+  // One throwaway case just to enumerate the surface. Disposed even when
+  // listing throws, which otherwise left a server and a sandbox per target.
   const intro = await openCase(opts.target, "discover", trace, clock);
-  const allTools = await intro.session.listTools();
-  const serverInfo = intro.session.serverInfo;
-  await intro.dispose();
+  let allTools;
+  let serverInfo;
+  try {
+    allTools = await intro.session.listTools();
+    serverInfo = intro.session.serverInfo;
+  } finally {
+    await intro.dispose().catch(() => {});
+  }
 
   const excluded = new Set(opts.target.excludeTools ?? []);
   // Sorted before any cap is applied, so limiting a server to N tools takes
@@ -96,6 +117,14 @@ export async function runTarget(opts: RunOptions): Promise<RunResult> {
       continue;
     }
     for (const probe of opts.probes) {
+      // Checked between probes too, not only between tools. kill-window alone
+      // is 54 cases, each with a spawn, a package clone and a reconnect, so a
+      // single tool against a slow server could spend five times the budget
+      // before the outer loop got a say.
+      if (Date.now() > deadline) {
+        abandoned++;
+        break;
+      }
       const ctx: ProbeContext = {
         targetId: opts.target.id,
         tool,
@@ -143,7 +172,7 @@ export async function runTarget(opts: RunOptions): Promise<RunResult> {
     opts.onProgress?.(`  budget spent, ${abandoned} tools left untested`);
   }
 
-  await trace.close();
+  await closeOnce();
   return {
     runId,
     seed: opts.seed,
@@ -158,4 +187,7 @@ export async function runTarget(opts: RunOptions): Promise<RunResult> {
     startedAt,
     durationMs: Date.now() - started,
   };
+  } finally {
+    await closeOnce();
+  }
 }

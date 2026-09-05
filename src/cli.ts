@@ -23,6 +23,14 @@ import type { Probe } from "./probe/types.ts";
 
 const ALL_PROBES: Probe[] = [idempotencyProbe, partialFailureProbe, upstreamProbe, concurrencyProbe, killWindowProbe];
 
+/** Writes all four report files. Used per target as a checkpoint and again at the end. */
+function writeCensus(outDir: string, census: Census): void {
+  writeFileSync(`${outDir}/census.json`, JSON.stringify(census, null, 2));
+  writeFileSync(`${outDir}/census.html`, renderHtml(census));
+  writeFileSync(`${outDir}/census.md`, renderMarkdown(census));
+  writeFileSync(`${outDir}/census.csv`, renderCsv(census));
+}
+
 function arg(name: string, fallback?: string): string | undefined {
   const i = process.argv.indexOf(`--${name}`);
   return i === -1 ? fallback : process.argv[i + 1];
@@ -251,14 +259,31 @@ if (cmd === "run") {
         onProgress: (l) => console.log(l),
       });
       targets.push(buildTargetReport(r, { monthlyDownloads: downloads.get(target.label) ?? null }));
+      // Checkpointed after every target. The traces were always written
+      // incrementally, but the verdicts lived only in memory until the very
+      // end, so a crash or a Ctrl-C at target 89 of 90 threw away two hours
+      // and left nothing that `render` could rebuild from.
+      writeCensus(outDir, {
+        generatedAt: new Date().toISOString(),
+        seed,
+        node: process.version,
+        platform: `${process.platform}-${process.arch}`,
+        determinism: null,
+        targets,
+      });
     } catch (e) {
       console.log(`  target failed to run: ${String(e instanceof Error ? e.message : e)} (${Date.now() - started}ms)`);
     }
   }
 
   const verifyId = arg("verify");
+  // Guarded: an unknown id used to throw here, after the whole loop, and
+  // destroy a finished census at the finish line over a typo.
   const determinism = verifyId
-    ? await checkDeterminism(findTarget(verifyId), ALL_PROBES, `${seed}-verify`, `${outDir}/determinism`)
+    ? await checkDeterminism(findTarget(verifyId), ALL_PROBES, `${seed}-verify`, `${outDir}/determinism`).catch((e) => {
+        console.log(`determinism check failed (census is still written): ${String(e).slice(0, 160)}`);
+        return null;
+      })
     : null;
   if (determinism)
     console.log(
@@ -273,10 +298,7 @@ if (cmd === "run") {
     determinism,
     targets,
   };
-  writeFileSync(`${outDir}/census.json`, JSON.stringify(census, null, 2));
-  writeFileSync(`${outDir}/census.html`, renderHtml(census));
-  writeFileSync(`${outDir}/census.md`, renderMarkdown(census));
-  writeFileSync(`${outDir}/census.csv`, renderCsv(census));
+  writeCensus(outDir, census);
 
   const tot = totals(census);
   console.log(
